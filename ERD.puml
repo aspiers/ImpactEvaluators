@@ -1,0 +1,71 @@
+@startuml "Impact Evaluator ERD"
+title "Impact Evaluator ERD"
+
+'skinparam linetype ortho
+
+package "IE Governance (meta)" as IEGovernance {
+    class EvaluationDesigner {}
+    class MeasurementDesigner {}
+    class Treasury {}
+}
+
+package Impact {
+
+    class ImpactOrganization {}
+
+    class ImpactProject {}
+
+    class ImpactScope {}
+
+    class ImpactClaim {}
+
+    class ImpactContributor {}
+
+    ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
+    ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
+    ImpactScope "1" -d-> "*" ImpactClaim : contains
+    ImpactClaim "1" -d-> "*" ImpactContributor : claimed by
+}
+
+package Measure {
+    class Measurement {
+        timeWindow
+    }
+    class Measurer {}
+
+    Measurement "*" -l-> "1" ImpactClaim : measured by
+    Measurer "1" --> "*" Measurement : takes
+}
+
+package Evaluate {
+    class Evaluation {
+        timestamp
+    }
+    class Evaluator {}
+
+    Evaluator "1" -d-> "*" Evaluation : performs
+    Evaluation "1" -l-> "*" Measurement : evaluates
+    Evaluation --> Evaluation : "\n> depends on"
+}
+
+package Reward {
+    class RewardCalculator {}
+    class RewardAllocation {}
+
+    RewardCalculator "1" --> "*" RewardAllocation : calculates
+}
+
+Impact -r[hidden]--> Measure
+Evaluate -r[hidden]--> Reward
+Measurement -r[hidden]--> Evaluation
+Evaluation -r[hidden]--> RewardCalculator
+
+Treasury -r--> RewardAllocation : funds
+MeasurementDesigner --> Measurer : designs
+EvaluationDesigner --> Evaluator : designs
+Evaluation "1" -r-> "*" RewardCalculator : steers >
+RewardAllocation "1" --[norank]-> "*" ImpactContributor : rewards
+
+FundingSource "*" -d-> "1" Treasury : funds
+
+@enduml

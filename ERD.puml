@@ -58,8 +58,8 @@ package Impact {
 package Measure {
     class Measurement {
         indicator
-        entity
         timeInterval
+        entity
     }
     class Measurer {
         identity

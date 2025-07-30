@@ -24,17 +24,17 @@ package "IE Governance (meta)" as IEGovernance {
 }
 
 package Impact {
-    class ImpactOrganization {
+    entity ImpactOrganization {
         identity
     }
-    class ImpactProject {
+    entity ImpactProject {
         organization
     }
-    class ImpactScope {
+    dataclass ImpactScope {
         project
         epoch or timeInterval
     }
-    class ImpactClaim {
+    dataclass ImpactClaim {
         scope
         timeInterval
         extra data
@@ -44,7 +44,7 @@ package Impact {
         entities to communicate
         outcomes to Measurers
     end note
-    class ImpactContributor {
+    entity ImpactContributor {
         identity
     }
 
@@ -56,12 +56,12 @@ package Impact {
 }
 
 package Measure {
-    class Measurement {
+    dataclass Measurement {
         indicator
         timeInterval
         entity
     }
-    class Measurer {
+    entity Measurer {
         identity
     }
 
@@ -73,10 +73,10 @@ package Measure {
 }
 
 package Evaluate {
-    class EvaluationResult {
+    dataclass EvaluationResult {
         timestamp
     }
-    class Evaluator {
+    entity Evaluator {
         identity
     }
 
@@ -86,13 +86,13 @@ package Evaluate {
 }
 
 package Reward {
-    class RewardCalculator {}
-    class RewardAllocation {
+    entity RewardCalculator {}
+    dataclass RewardAllocation {
         amount
         recipient
         impactClaimId
     }
-    class PayoutProcessor {
+    entity PayoutProcessor {
         identity
     }
 
@@ -110,12 +110,12 @@ MeasurementDesigner "1" --> "*" Measurer : designs
 EvaluationDesigner "1" --> "*" Evaluator : designs
 RewardDesigner "1" --> "*" RewardCalculator : designs
 
+entity FundingSource
+FundingSource "*" --> "1" Treasury : funds
 Treasury --> PayoutProcessor : funds
 
 EvaluationResult "1" --> "*" RewardCalculator : steers >
 PayoutProcessor "1" -d-> "*" ImpactContributor : pays
-
-FundingSource "*" --> "1" Treasury : funds
 
 'ExternalMarkets -d[norank]-> RewardAllocation : values
 

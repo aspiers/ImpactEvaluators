@@ -65,8 +65,7 @@ package Measure {
         identity
     }
 
-    ' This screws up the layout for some reason:
-    'ImpactClaim --> Measurer : submitted to
+    ImpactClaim --> Measurer : submitted to
 
     Measurer "1" --> "*" Measurement : takes
     Measurement "*" -l-> "1" ImpactClaim : measures

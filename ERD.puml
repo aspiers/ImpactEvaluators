@@ -24,7 +24,7 @@ package Impact {
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
     ImpactScope "1" -d-> "*" ImpactClaim : contains
-    ImpactClaim "1" -d-> "*" ImpactContributor : claimed by
+    ImpactContributor "1" -u-> "*" ImpactClaim : claims
 }
 
 package Measure {

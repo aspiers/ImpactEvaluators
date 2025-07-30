@@ -19,6 +19,7 @@ package Impact {
     class ImpactProject {}
     class ImpactScope {}
     class ImpactClaim {}
+    note left of ImpactClaim : Vehicle for ImpactContributor\nentities to communicate\noutcomes to Measurers
     class ImpactContributor {}
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
@@ -32,6 +33,9 @@ package Measure {
         timeWindow
     }
     class Measurer {}
+
+    ' This screws up the layout for some reason:
+    'ImpactClaim --> Measurer : submitted to
 
     Measurement "*" -l-> "1" ImpactClaim : measured by
     Measurer "1" --> "*" Measurement : takes

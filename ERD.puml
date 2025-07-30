@@ -15,15 +15,10 @@ package "IE Governance (meta)" as IEGovernance {
 }
 
 package Impact {
-
     class ImpactOrganization {}
-
     class ImpactProject {}
-
     class ImpactScope {}
-
     class ImpactClaim {}
-
     class ImpactContributor {}
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates

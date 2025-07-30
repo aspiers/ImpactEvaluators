@@ -4,23 +4,49 @@ title "Impact Evaluator ERD"
 'skinparam linetype ortho
 
 package "IE Governance (meta)" as IEGovernance {
+    class ObjectivesDesigner {}
     class ScopesDesigner {}
     class MeasurementDesigner {}
     class EvaluationDesigner {}
+    class RewardDesigner {}
     class Treasury {}
 
-    'ScopesDesigner -d[hidden]-> MeasurementDesigner
+    ObjectivesDesigner -d[hidden]-> ScopesDesigner
+    ScopesDesigner -r[hidden]-> MeasurementDesigner
     MeasurementDesigner -r[hidden]-> EvaluationDesigner
-    EvaluationDesigner -r[hidden]-> Treasury
+    EvaluationDesigner -r[hidden]-> RewardDesigner
+    RewardDesigner -r[hidden]-> Treasury
+
+    ObjectivesDesigner --> ScopesDesigner : orients
+    ObjectivesDesigner --> MeasurementDesigner : orients
+    ObjectivesDesigner --> EvaluationDesigner : orients
+    ObjectivesDesigner --> RewardDesigner : orients
 }
 
 package Impact {
-    class ImpactOrganization {}
-    class ImpactProject {}
-    class ImpactScope {}
-    class ImpactClaim {}
-    note left of ImpactClaim : Vehicle for ImpactContributor\nentities to communicate\noutcomes to Measurers
-    class ImpactContributor {}
+    class ImpactOrganization {
+        identity
+    }
+    class ImpactProject {
+        organization
+    }
+    class ImpactScope {
+        project
+        epoch or timeInterval
+    }
+    class ImpactClaim {
+        scope
+        timeInterval
+        extra data
+    }
+    note left of ImpactClaim
+        Vehicle for ImpactContributor
+        entities to communicate
+        outcomes to Measurers
+    end note
+    class ImpactContributor {
+        identity
+    }
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
@@ -30,22 +56,29 @@ package Impact {
 
 package Measure {
     class Measurement {
-        timeWindow
+        indicator
+        entity
+        timeInterval
     }
-    class Measurer {}
+    class Measurer {
+        identity
+    }
 
     ' This screws up the layout for some reason:
     'ImpactClaim --> Measurer : submitted to
 
-    Measurement "*" -l-> "1" ImpactClaim : measured by
     Measurer "1" --> "*" Measurement : takes
+    Measurement "*" -l-> "1" ImpactClaim : measured by
+    Measurement::entity "1" --> "1" ImpactContributor : credits
 }
 
 package Evaluate {
     class Evaluation {
         timestamp
     }
-    class Evaluator {}
+    class Evaluator {
+        identity
+    }
 
     Evaluator "1" -d-> "*" Evaluation : performs
     Evaluation "1" -l-> "*" Measurement : evaluates
@@ -65,9 +98,12 @@ Measurement -r[hidden]--> Evaluation
 Evaluation -r[hidden]--> RewardCalculator
 
 ScopesDesigner "1" --> "*" ImpactScope : designs
+MeasurementDesigner "1" --> "*" Measurer : designs
+EvaluationDesigner "1" --> "*" Evaluator : designs
+RewardDesigner "1" --> "*" RewardCalculator : designs
+
 Treasury -r--> RewardAllocation : funds
-MeasurementDesigner --> Measurer : designs
-EvaluationDesigner --> Evaluator : designs
+
 Evaluation "1" -r-> "*" RewardCalculator : steers >
 RewardAllocation "1" --[norank]-> "*" ImpactContributor : rewards
 

@@ -69,7 +69,7 @@ package Measure {
     'ImpactClaim --> Measurer : submitted to
 
     Measurer "1" --> "*" Measurement : takes
-    Measurement "*" -l-> "1" ImpactClaim : measured by
+    Measurement "*" -l-> "1" ImpactClaim : measures
     Measurement::entity "1" --> "1" ImpactContributor : credits
 }
 

@@ -16,10 +16,10 @@ package "IE Governance (meta)" as IEGovernance {
     EvaluationDesigner -r[hidden]-> RewardDesigner
     RewardDesigner -r[hidden]-> Treasury
 
-    ObjectivesDesigner --> ScopesDesigner : orients
-    ObjectivesDesigner --> MeasurementDesigner : orients
-    ObjectivesDesigner --> EvaluationDesigner : orients
-    ObjectivesDesigner --> RewardDesigner : orients
+    ObjectivesDesigner "1" --> "1" ScopesDesigner : orients
+    ObjectivesDesigner "1" --> "1" MeasurementDesigner : orients
+    ObjectivesDesigner "1" --> "1" EvaluationDesigner : orients
+    ObjectivesDesigner "1" --> "1" RewardDesigner : orients
 }
 
 package Impact {
@@ -64,7 +64,7 @@ package Measure {
         identity
     }
 
-    ImpactClaim --> Measurer : submitted to
+    ImpactClaim "*" --> "*" Measurer : "submitted to\n(or discovered by)    "
 
     Measurer "1" --> "*" Measurement : takes
     Measurement "*" -l-> "1" ImpactClaim : measures
@@ -79,9 +79,9 @@ package Evaluate {
         identity
     }
 
-    Evaluator "1" -d-> "*" EvaluationResult : performs
     EvaluationResult "1" -l-> "*" Measurement : evaluates
-    EvaluationResult --> EvaluationResult : "\n> depends on"
+    Evaluator "1" -d-> "*" EvaluationResult : "calculates    "
+    EvaluationResult "*" -u-> "*" Evaluator : "cascaded\nto"
 }
 
 package Reward {
@@ -96,7 +96,7 @@ package Reward {
     }
 
     RewardCalculator "1" -d-> "*" RewardAllocation : calculates
-    RewardAllocation "1" -r-> "*" PayoutProcessor : authorizes
+    RewardAllocation "*" -r-> "1" PayoutProcessor : authorizes
 }
 
 Impact -r[hidden]--> Measure
@@ -106,13 +106,14 @@ Evaluate -r[hidden]--> Reward
 ScopesDesigner "1" --> "*" ImpactScope : designs
 MeasurementDesigner "1" --> "*" Measurer : designs
 EvaluationDesigner "1" --> "*" Evaluator : designs
-RewardDesigner "1" --> "*" RewardCalculator : designs
+RewardDesigner "1" --> "1" RewardCalculator : designs
 
 entity FundingSource
 FundingSource "*" --> "1" Treasury : funds
-Treasury --> PayoutProcessor : funds
+Treasury "1" --> "1" PayoutProcessor : funds
 
-EvaluationResult "1" --> "*" RewardCalculator : steers >
+Measurement "*" --> "*" Evaluator : "ingested     \nby     "
+EvaluationResult "1" --> "1" RewardCalculator : steers >
 PayoutProcessor "1" -d-> "*" ImpactContributor : pays
 
 'ExternalMarkets -d[norank]-> RewardAllocation : values

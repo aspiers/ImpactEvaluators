@@ -52,6 +52,7 @@ package Impact {
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
     ImpactScope "1" -d-> "*" ImpactClaim : contains
     ImpactContributor "1" -u-> "*" ImpactClaim : claims
+    ImpactContributor "1" -u-> "1" ImpactOrganization : belongs to
 }
 
 package Measure {
@@ -87,9 +88,17 @@ package Evaluate {
 
 package Reward {
     class RewardCalculator {}
-    class RewardAllocation {}
+    class RewardAllocation {
+        amount
+        recipient
+        impactClaimId
+    }
+    class PayoutProcessor {
+        identity
+    }
 
-    RewardCalculator "1" --> "*" RewardAllocation : calculates
+    RewardCalculator "1" -r-> "*" RewardAllocation : calculates
+    RewardAllocation "1" -d-> "*" PayoutProcessor : authorizes
 }
 
 Impact -r[hidden]--> Measure
@@ -102,11 +111,13 @@ MeasurementDesigner "1" --> "*" Measurer : designs
 EvaluationDesigner "1" --> "*" Evaluator : designs
 RewardDesigner "1" --> "*" RewardCalculator : designs
 
-Treasury -r--> RewardAllocation : funds
+Treasury --> PayoutProcessor : funds
 
-Evaluation "1" -r-> "*" RewardCalculator : steers >
-RewardAllocation "1" --[norank]-> "*" ImpactContributor : rewards
+Evaluation "1" --> "*" RewardCalculator : steers >
+PayoutProcessor "1" -d-> "*" ImpactContributor : pays
 
-FundingSource "*" -d-> "1" Treasury : funds
+FundingSource "*" --> "1" Treasury : funds
+
+'ExternalMarkets -d[norank]-> RewardAllocation : values
 
 @enduml

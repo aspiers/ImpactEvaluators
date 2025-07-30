@@ -101,9 +101,8 @@ package Reward {
 }
 
 Impact -r[hidden]--> Measure
+Measure -r[hidden]--> Evaluate
 Evaluate -r[hidden]--> Reward
-Measurement -r[hidden]--> Evaluation
-Evaluation -r[hidden]--> RewardCalculator
 
 ScopesDesigner "1" --> "*" ImpactScope : designs
 MeasurementDesigner "1" --> "*" Measurer : designs

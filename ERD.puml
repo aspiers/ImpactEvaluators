@@ -74,16 +74,16 @@ package Measure {
 }
 
 package Evaluate {
-    class Evaluation {
+    class EvaluationResult {
         timestamp
     }
     class Evaluator {
         identity
     }
 
-    Evaluator "1" -d-> "*" Evaluation : performs
-    Evaluation "1" -l-> "*" Measurement : evaluates
-    Evaluation --> Evaluation : "\n> depends on"
+    Evaluator "1" -d-> "*" EvaluationResult : performs
+    EvaluationResult "1" -l-> "*" Measurement : evaluates
+    EvaluationResult --> EvaluationResult : "\n> depends on"
 }
 
 package Reward {
@@ -113,7 +113,7 @@ RewardDesigner "1" --> "*" RewardCalculator : designs
 
 Treasury --> PayoutProcessor : funds
 
-Evaluation "1" --> "*" RewardCalculator : steers >
+EvaluationResult "1" --> "*" RewardCalculator : steers >
 PayoutProcessor "1" -d-> "*" ImpactContributor : pays
 
 FundingSource "*" --> "1" Treasury : funds

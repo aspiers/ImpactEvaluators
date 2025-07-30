@@ -4,12 +4,12 @@ title "Impact Evaluator ERD"
 'skinparam linetype ortho
 
 package "IE Governance (meta)" as IEGovernance {
-    class ObjectivesDesigner {}
-    class ScopesDesigner {}
-    class MeasurementDesigner {}
-    class EvaluationDesigner {}
-    class RewardDesigner {}
-    class Treasury {}
+    entity ObjectivesDesigner
+    entity ScopesDesigner
+    entity MeasurementDesigner
+    entity EvaluationDesigner
+    entity RewardDesigner
+    entity Treasury
 
     ObjectivesDesigner -d[hidden]-> ScopesDesigner
     ScopesDesigner -r[hidden]-> MeasurementDesigner

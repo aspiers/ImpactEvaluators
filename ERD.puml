@@ -96,8 +96,8 @@ package Reward {
         identity
     }
 
-    RewardCalculator "1" -r-> "*" RewardAllocation : calculates
-    RewardAllocation "1" -d-> "*" PayoutProcessor : authorizes
+    RewardCalculator "1" -d-> "*" RewardAllocation : calculates
+    RewardAllocation "1" -r-> "*" PayoutProcessor : authorizes
 }
 
 Impact -r[hidden]--> Measure

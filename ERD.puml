@@ -23,12 +23,11 @@ package "IE Governance (meta)" as IEGovernance {
 }
 
 package Impact {
-    entity ImpactOrganization {
-        identity
-    }
+    entity ImpactOrganization
     entity ImpactProject {
         organization
     }
+    entity ImpactWork
     dataclass ImpactScope {
         project
         epoch or timeInterval
@@ -43,15 +42,17 @@ package Impact {
         entities to communicate
         outcomes to Measurers
     end note
-    entity ImpactContributor {
-        identity
-    }
+    entity ImpactContributor
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
     ImpactScope "1" -d-> "*" ImpactClaim : contains
-    ImpactContributor "1" -u-> "*" ImpactClaim : claims
-    ImpactContributor "1" -u-> "1" ImpactOrganization : belongs to
+    ImpactContributor "*" -u-> "*" ImpactClaim : claims
+    ImpactContributor "*" --> "*" ImpactWork : > contributes
+    ImpactContributor "1" --> "1" ImpactWorkPolicy : decides
+    ImpactWorkPolicy "1" -u-> "*" ImpactWork : > influences
+    ImpactClaim "*" --> "*" ImpactWork : > represents
+    ImpactContributor "1" -u-> "1" ImpactOrganization : > belongs to
 }
 
 package Measure {
@@ -60,9 +61,7 @@ package Measure {
         timeInterval
         entity
     }
-    entity Measurer {
-        identity
-    }
+    entity Measurer
 
     ImpactClaim "*" --> "*" Measurer : "submitted to\n(or discovered by)    "
 
@@ -75,9 +74,7 @@ package Evaluate {
     dataclass EvaluationResult {
         timestamp
     }
-    entity Evaluator {
-        identity
-    }
+    entity Evaluator
 
     EvaluationResult "1" -l-> "*" Measurement : evaluates
     Evaluator "1" -d-> "*" EvaluationResult : "calculates    "
@@ -85,18 +82,16 @@ package Evaluate {
 }
 
 package Reward {
-    entity RewardCalculator {}
+    entity RewardCalculator
     dataclass RewardAllocation {
         amount
         recipient
         impactClaimId
     }
-    entity PayoutProcessor {
-        identity
-    }
+    entity RewardDistributor
 
     RewardCalculator "1" -d-> "*" RewardAllocation : calculates
-    RewardAllocation "*" -r-> "1" PayoutProcessor : authorizes
+    RewardAllocation "*" -r-> "1" RewardDistributor : authorizes
 }
 
 Impact -r[hidden]--> Measure
@@ -110,12 +105,13 @@ RewardDesigner "1" --> "1" RewardCalculator : designs
 
 entity FundingSource
 FundingSource "*" --> "1" Treasury : funds
-Treasury "1" --> "1" PayoutProcessor : funds
+Treasury "1" --> "1" RewardDistributor : funds
 
 Measurement "*" --> "*" Evaluator : "ingested     \nby     "
 EvaluationResult "1" --> "1" RewardCalculator : steers >
-PayoutProcessor "1" -d-> "*" ImpactContributor : pays
+RewardDistributor "1" -d-> "*" ImpactContributor : > rewards
+RewardDistributor "1" -d-> "*" ImpactWorkPolicy : > influences
 
-'ExternalMarkets -d[norank]-> RewardAllocation : values
+ExternalMarket "1" -u-> RewardAllocation : values
 
 @enduml

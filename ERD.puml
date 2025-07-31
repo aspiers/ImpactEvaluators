@@ -112,6 +112,6 @@ EvaluationResult "1" --> "1" RewardCalculator : steers >
 RewardDistributor "1" -d-> "*" ImpactContributor : > rewards
 RewardDistributor "1" -d-> "*" ImpactWorkPolicy : > influences
 
-ExternalMarket "1" -u-> RewardAllocation : values
+ExternalMarket "1" -u-> "*" RewardAllocation : values
 
 @enduml

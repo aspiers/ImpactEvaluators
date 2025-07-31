@@ -52,7 +52,7 @@ package Impact {
     ImpactContributor "1" --> "1" ImpactWorkPolicy : decides
     ImpactWorkPolicy "1" -u-> "*" ImpactWork : > influences
     ImpactClaim "*" --> "*" ImpactWork : > represents
-    ImpactContributor "1" -u-> "1" ImpactOrganization : > belongs to
+    ImpactContributor "1" -up-> "1" ImpactOrganization : > belongs to
 }
 
 package Measure {

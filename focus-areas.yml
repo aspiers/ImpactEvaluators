@@ -1,15 +1,5 @@
 -
-  name: Carl
-  label: foo
-  color: lightblue
-  url: https://example.com
-  areas:
-    - Evaluator
-    - EvaluationResult
-
--
   name: Carlos
-  label: foo
   color: pink
   areas:
     - Measurer
@@ -18,9 +8,16 @@
     - EvaluationResult
 
 -
+  name: Carl
+  color: lightblue
+  url: https://cnn.com
+  areas:
+    - Evaluator
+    - EvaluationResult
+
+-
   name: Luca
-  label: bar
-  color: lightgreen
+  color: lemonchiffon
   areas:
     - ExternalWorld
-    - Treasury
+    - RewardAllocation

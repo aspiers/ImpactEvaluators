@@ -19,9 +19,6 @@ export class FocusAreaParser {
         if (!area.name || typeof area.name !== 'string') {
           throw new Error(`Focus area at index ${i} must have a "name" field`);
         }
-        if (!area.label || typeof area.label !== 'string') {
-          throw new Error(`Focus area "${area.name}" must have a "label" field`);
-        }
         if (!area.color || typeof area.color !== 'string') {
           throw new Error(`Focus area "${area.name}" must have a "color" field (got: ${JSON.stringify(area.color)})`);
         }

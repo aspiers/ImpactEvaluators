@@ -32,7 +32,8 @@ make help   # Show available commands
 
 ### ERD Hull Calculator
 
-A TypeScript CLI tool for calculating concave hulls around entity groups in the ERD diagrams:
+A mostly vibe-coded TypeScript CLI tool for calculating concave hulls
+around entity groups in the ERD diagrams:
 
 ```bash
 # Install dependencies

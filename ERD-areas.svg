@@ -1,10 +1,124 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" data-diagram-type="CLASS" height="864px" preserveAspectRatio="none" style="width:1492px;height:864px;background:#FFFFFF;" version="1.1" viewBox="0 0 1492 864" width="1492px" zoomAndPan="magnify">
-<!-- Smooth spline hull for Carlos (background) -->
-<path d="M533.349,395.929C533.349,395.929,536.445,397.837,537.268,401.041C541.499,417.515,514.611,520.077,511.607,569.44C509.273,607.798,496.163,653.662,514.657,672.251C535.032,692.73,589.147,677.696,639.42,676.589C716.482,674.893,899.522,687.73,931.832,653.505C947.358,637.058,935.177,613.699,933.269,585.786C930.128,539.841,902.187,424.363,904.445,404.552C904.905,400.519,908.687,399.567,907.3,397.501C897.58,383.013,533.349,395.929,533.349,395.929" fill="#FFC0CB" fill-opacity="1.0" stroke="none" data-hull-entity="Carlos" data-curve-type="catmull-rom"/>
-<!-- Smooth spline hull for Carl (background) -->
-<a href="https://cnn.com" xlink:href="https://cnn.com"><path d="M797.79,391.063C797.79,391.063,801.086,392.767,802.027,395.962C807.249,413.694,776.361,545.148,774.125,593.52C772.836,621.405,763.421,646.555,777.3,659.748C798.061,679.479,904.81,679.204,925.629,659.323C939.591,645.99,930.399,620.611,928.895,592.692C926.313,544.743,895.659,418.669,898.213,398.332C898.709,394.382,902.328,393.314,901.148,391.513C896.745,384.792,797.79,391.063,797.79,391.063" fill="#ADD8E6" fill-opacity="1.0" stroke="none" data-hull-entity="Carl" data-curve-type="catmull-rom"/></a>
-<!-- Smooth spline hull for Luca (background) -->
-<path d="M1439.416,552.245C1439.416,552.245,1306.078,529.341,1280.927,553.395C1260.129,573.287,1274.032,621.389,1275.316,661.633C1276.945,712.688,1265.419,808.045,1295.436,834.905C1321.303,858.05,1398.87,858.447,1424.965,835.511C1455.336,808.817,1445.186,712.758,1446.667,661.403C1447.837,620.851,1439.416,552.245,1439.416,552.245" fill="#FFFACD" fill-opacity="1.0" stroke="none" data-hull-entity="Luca" data-curve-type="catmull-rom"/>
+<defs><filter id="watercolor-Carlos-1" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.008"
+        numOctaves="3"
+        result="noise"
+      />
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="2"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="displaced"
+      />
+      <feGaussianBlur
+        in="displaced"
+        stdDeviation="2.1603775631473185"
+        result="blur"
+      />
+      <feColorMatrix
+        in="noise"
+        values="0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0 0 0 1 0"
+        result="contrastTexture"
+      />
+      <feComposite
+        in="contrastTexture"
+        in2="blur"
+        operator="in"
+        result="maskedTexture"
+      />
+      <feBlend
+        in="blur"
+        in2="maskedTexture"
+        mode="overlay"
+        result="texturedShape"
+      />
+    </filter>
+<filter id="watercolor-Carl-2" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.008"
+        numOctaves="3"
+        result="noise"
+      />
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="2"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="displaced"
+      />
+      <feGaussianBlur
+        in="displaced"
+        stdDeviation="1.8754384292078388"
+        result="blur"
+      />
+      <feColorMatrix
+        in="noise"
+        values="0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0 0 0 1 0"
+        result="contrastTexture"
+      />
+      <feComposite
+        in="contrastTexture"
+        in2="blur"
+        operator="in"
+        result="maskedTexture"
+      />
+      <feBlend
+        in="blur"
+        in2="maskedTexture"
+        mode="overlay"
+        result="texturedShape"
+      />
+    </filter>
+<filter id="watercolor-Luca-3" x="-50%" y="-50%" width="200%" height="200%">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.008"
+        numOctaves="3"
+        result="noise"
+      />
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="2"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="displaced"
+      />
+      <feGaussianBlur
+        in="displaced"
+        stdDeviation="1.9197954340915901"
+        result="blur"
+      />
+      <feColorMatrix
+        in="noise"
+        values="0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0.3 0.3 0.3 0 0.4, 0 0 0 1 0"
+        result="contrastTexture"
+      />
+      <feComposite
+        in="contrastTexture"
+        in2="blur"
+        operator="in"
+        result="maskedTexture"
+      />
+      <feBlend
+        in="blur"
+        in2="maskedTexture"
+        mode="overlay"
+        result="texturedShape"
+      />
+    </filter></defs>
+<!-- Watercolor spline hull for Carlos (with SVG filters) -->
+<path d="M533.349,395.929C533.349,395.929,536.445,397.837,537.268,401.041C541.499,417.515,514.611,520.077,511.607,569.44C509.273,607.798,496.163,653.662,514.657,672.251C535.032,692.73,589.147,677.696,639.42,676.589C716.482,674.893,899.522,687.73,931.832,653.505C947.358,637.058,935.177,613.699,933.269,585.786C930.128,539.841,902.187,424.363,904.445,404.552C904.905,400.519,908.687,399.567,907.3,397.501C897.58,383.013,533.349,395.929,533.349,395.929" fill="#FFC0CB" fill-opacity="0.9" stroke="none" filter="url(#watercolor-Carlos-1)" style="mix-blend-mode: multiply;" data-hull-entity="Carlos" data-curve-type="catmull-rom"/>
+<!-- Watercolor spline hull for Carl (with SVG filters) -->
+<a href="https://cnn.com" xlink:href="https://cnn.com"><path d="M797.79,391.063C797.79,391.063,801.086,392.767,802.027,395.962C807.249,413.694,776.361,545.148,774.125,593.52C772.836,621.405,763.421,646.555,777.3,659.748C798.061,679.479,904.81,679.204,925.629,659.323C939.591,645.99,930.399,620.611,928.895,592.692C926.313,544.743,895.659,418.669,898.213,398.332C898.709,394.382,902.328,393.314,901.148,391.513C896.745,384.792,797.79,391.063,797.79,391.063" fill="#ADD8E6" fill-opacity="0.9" stroke="none" filter="url(#watercolor-Carl-2)" style="mix-blend-mode: multiply;" data-hull-entity="Carl" data-curve-type="catmull-rom"/></a>
+<!-- Watercolor spline hull for Luca (with SVG filters) -->
+<path d="M1439.416,552.245C1439.416,552.245,1306.078,529.341,1280.927,553.395C1260.129,573.287,1274.032,621.389,1275.316,661.633C1276.945,712.688,1265.419,808.045,1295.436,834.905C1321.303,858.05,1398.87,858.447,1424.965,835.511C1455.336,808.817,1445.186,712.758,1446.667,661.403C1447.837,620.851,1439.416,552.245,1439.416,552.245" fill="#FFFACD" fill-opacity="0.9" stroke="none" filter="url(#watercolor-Luca-3)" style="mix-blend-mode: multiply;" data-hull-entity="Luca" data-curve-type="catmull-rom"/>
 <!-- Text label for Carlos -->
 <text x="694.65" y="515.25" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="Carlos">Carlos</text>
 <!-- Text label for Carl -->

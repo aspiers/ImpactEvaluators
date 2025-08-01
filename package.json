@@ -20,6 +20,7 @@
   "author": "Adam Spiers",
   "license": "MIT",
   "devDependencies": {
+    "@types/concaveman": "^1.1.6",
     "@types/d3-shape": "^3.1.0",
     "@types/node": "^20.0.0",
     "tsx": "^4.20.3",

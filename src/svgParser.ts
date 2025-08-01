@@ -328,4 +328,51 @@ export class SVGParser {
       }
     };
   }
+
+  /**
+   * Get all text elements from the SVG
+   */
+  getAllTextElements(): SVGElement[] {
+    const textElements: SVGElement[] = [];
+    const allTexts = this.svgElement.querySelectorAll('text');
+
+    for (const textElement of allTexts) {
+      const bbox = this.getElementBoundingBox(textElement);
+      if (bbox) {
+        textElements.push({
+          tagName: textElement.tagName.toLowerCase(),
+          attributes: this.getElementAttributes(textElement),
+          bbox
+        });
+      }
+    }
+
+    return textElements;
+  }
+
+  /**
+   * Get all elements from the SVG (for collision detection)
+   */
+  getAllElements(): SVGElement[] {
+    const elements: SVGElement[] = [];
+    const allElements = this.svgElement.querySelectorAll('*');
+
+    for (const element of allElements) {
+      // Skip the root SVG element and group containers
+      if (element.tagName.toLowerCase() === 'svg' || element.tagName.toLowerCase() === 'g') {
+        continue;
+      }
+
+      const bbox = this.getElementBoundingBox(element);
+      if (bbox) {
+        elements.push({
+          tagName: element.tagName.toLowerCase(),
+          attributes: this.getElementAttributes(element),
+          bbox
+        });
+      }
+    }
+
+    return elements;
+  }
 }

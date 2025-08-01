@@ -10,7 +10,8 @@ import { HullPadding } from './hullPadding.js';
 import { GeometryUtils } from './geometryUtils.js';
 import { FocusAreaParser } from './focusAreaParser.js';
 import { WatercolorFilters } from './watercolorFilters.js';
-import { Point, CurveType, SplineConfig, FocusArea } from './types.js';
+import { TextCollisionDetector } from './textCollisionDetector.js';
+import { Point, CurveType, SplineConfig, FocusArea, BoundingBox } from './types.js';
 
 class ERDHullCLI {
   private program: Command;
@@ -76,9 +77,9 @@ FOCUS AREAS:
 The tool outputs SVG with smooth spline curve overlay.`);
   }
 
-  private createTextElement(name: string, centroid: Point): string {
+  private createTextElement(name: string, position: Point): string {
     const style = ERDHullCLI.TEXT_STYLE;
-    return `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="${style.textAnchor}" dominant-baseline="${style.dominantBaseline}" font-family="${style.fontFamily}" font-size="${style.fontSize}" fill-opacity="${style.fillOpacity}" font-weight="${style.fontWeight}" fill="${style.fill}" data-label-for="${name}">${name}</text>`;
+    return `<text x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="${style.textAnchor}" dominant-baseline="${style.dominantBaseline}" font-family="${style.fontFamily}" font-size="${style.fontSize}" fill-opacity="${style.fillOpacity}" font-weight="${style.fontWeight}" fill="${style.fill}" data-label-for="${name}">${name}</text>`;
   }
 
   private generateSVGOutput(
@@ -91,7 +92,8 @@ The tool outputs SVG with smooth spline curve overlay.`);
       url?: string;
     }>,
     splineConfig: SplineConfig,
-    svgContent?: string
+    svgContent?: string,
+    parser?: SVGParser
   ): string {
     if (!svgContent) {
       // Return standalone SVG elements with watercolor filters
@@ -101,11 +103,16 @@ The tool outputs SVG with smooth spline curve overlay.`);
 
       // Generate filter configurations for each result
       const pathElements: string[] = [];
-      for (const result of results) {
+      const existingBoxes: BoundingBox[] = [];
+
+      // Sort results by area (largest first) to give priority to bigger hulls
+      const sortedResults = [...results].sort((a, b) => b.area - a.area);
+
+      for (const result of sortedResults) {
         const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
         const fillColor = result.color || '#E5F3FF';
         const area = WatercolorFilters.calculateHullArea(result.points);
-        
+
         // Create unique filter ID and configuration
         const filterId = WatercolorFilters.generateFilterId(result.name);
         const filterConfig = WatercolorFilters.createDefaultConfig(area, true);
@@ -113,16 +120,36 @@ The tool outputs SVG with smooth spline curve overlay.`);
 
         // Create single path with watercolor filter, transparency, and blend mode
         const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.9" stroke="none" filter="url(#${filterId})" style="mix-blend-mode: multiply;" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
-        
+
         if (result.url) {
           pathElements.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
         } else {
           pathElements.push(pathElement);
         }
 
-        // Add text label
+        // Add text label with collision avoidance
         const centroid = GeometryUtils.calculateCentroid(result.points);
-        const textElement = this.createTextElement(result.name, centroid);
+        const fontSize = parseInt(ERDHullCLI.TEXT_STYLE.fontSize);
+        const fontFamily = ERDHullCLI.TEXT_STYLE.fontFamily;
+
+        const position = GeometryUtils.findNearestNonCollidingPosition(
+          result.name,
+          fontSize,
+          fontFamily,
+          centroid,
+          existingBoxes
+        );
+
+        // Add this text's bounding box to existing boxes for future collision checks
+        const textDimensions = GeometryUtils.calculateBoundingBox(result.name, fontSize, fontFamily);
+        existingBoxes.push({
+          x: position.x - (textDimensions.width / 2) - 5,
+          y: position.y - (textDimensions.height / 2) - 5,
+          width: textDimensions.width + 10,
+          height: textDimensions.height + 10
+        });
+
+        const textElement = this.createTextElement(result.name, position);
         pathElements.push(textElement);
       }
 
@@ -151,12 +178,24 @@ The tool outputs SVG with smooth spline curve overlay.`);
     const splinePaths: string[] = [];
     const textLabels: string[] = [];
 
+    // Initialize collision detection if parser is provided
+    let collisionDetector: TextCollisionDetector | null = null;
+    let existingBoxes: BoundingBox[] = [];
+
+    if (parser) {
+      collisionDetector = new TextCollisionDetector(parser);
+      existingBoxes = collisionDetector.extractExistingSvgElements();
+    }
+
+    // Sort results by area (largest first) to give priority to bigger hulls
+    const sortedResults = [...results].sort((a, b) => b.area - a.area);
+
     // Generate filters and paths for each result
-    for (const result of results) {
+    for (const result of sortedResults) {
       const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
       const fillColor = result.color || '#E5F3FF';
       const area = WatercolorFilters.calculateHullArea(result.points);
-      
+
       // Create unique filter ID and configuration
       const filterId = WatercolorFilters.generateFilterId(result.name);
       const filterConfig = WatercolorFilters.createDefaultConfig(area, true);
@@ -166,16 +205,51 @@ The tool outputs SVG with smooth spline curve overlay.`);
 
       // Create single path with watercolor filter, transparency, and blend mode
       const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.9" stroke="none" filter="url(#${filterId})" style="mix-blend-mode: multiply;" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
-      
+
       if (result.url) {
         splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
       } else {
         splinePaths.push(pathElement);
       }
 
-      // Calculate centroid for text label positioning
+      // Calculate position for text label with collision avoidance
       const centroid = GeometryUtils.calculateCentroid(result.points);
-      const textElement = this.createTextElement(result.name, centroid);
+      let position = centroid;
+
+      if (collisionDetector) {
+        const fontSize = parseInt(ERDHullCLI.TEXT_STYLE.fontSize);
+        const fontFamily = ERDHullCLI.TEXT_STYLE.fontFamily;
+
+        position = collisionDetector.findNearestNonCollidingPosition(
+          result.name,
+          fontSize,
+          fontFamily,
+          centroid
+        );
+      } else {
+        // Fallback to GeometryUtils if no parser provided
+        const fontSize = parseInt(ERDHullCLI.TEXT_STYLE.fontSize);
+        const fontFamily = ERDHullCLI.TEXT_STYLE.fontFamily;
+
+        position = GeometryUtils.findNearestNonCollidingPosition(
+          result.name,
+          fontSize,
+          fontFamily,
+          centroid,
+          existingBoxes
+        );
+
+        // Add this text's bounding box to existing boxes for future collision checks
+        const textDimensions = GeometryUtils.calculateBoundingBox(result.name, fontSize, fontFamily);
+        existingBoxes.push({
+          x: position.x - (textDimensions.width / 2) - 5,
+          y: position.y - (textDimensions.height / 2) - 5,
+          width: textDimensions.width + 10,
+          height: textDimensions.height + 10
+        });
+      }
+
+      const textElement = this.createTextElement(result.name, position);
       textLabels.push(`<!-- Text label for ${result.name} -->`);
       textLabels.push(textElement);
     }
@@ -348,7 +422,8 @@ The tool outputs SVG with smooth spline curve overlay.`);
           const output = this.generateSVGOutput(
             results,
             splineConfig,
-            svgContent
+            svgContent,
+            parser
           );
 
           console.log(output);

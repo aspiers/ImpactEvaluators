@@ -50,3 +50,9 @@ export interface SplineResult {
   originalPoints: Point[];
   smoothedPoints?: Point[];
 }
+
+export interface TextBoundingBox extends BoundingBox {
+  text: string;
+  fontSize: number;
+  fontFamily: string;
+}

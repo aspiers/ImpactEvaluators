@@ -74,7 +74,7 @@ package Impact {
     ImpactContributor "*" --> "*" ImpactWork : > contributes
     ImpactContributor::workDecisionPolicy "1" -l-> "*" ImpactWork : > gates
     ImpactClaim "*" --> "*" ImpactWork : > represents
-    ImpactContributor "1" -up-> "1" ImpactOrganization : > belongs to
+    ImpactContributor "*" -up--> "*" ImpactOrganization : > belongs to
 }
 
 package Measure {

@@ -6,6 +6,7 @@ import { Command } from 'commander';
 import { SVGParser } from './svgParser.js';
 import { HullCalculator } from './hullCalculator.js';
 import { SplineGenerator } from './splineGenerator.js';
+import { HullPadding } from './hullPadding.js';
 import { Point, CurveType, SplineConfig } from './types.js';
 
 class ERDHullCLI {
@@ -29,6 +30,7 @@ class ERDHullCLI {
       .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')
       .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.5)
       .option('--curve-alpha <number>', 'Alpha for Catmull-Rom curves (0.0-1.0)', parseFloat, 0.5)
+      .option('-p, --padding <number>', 'Padding around hull in SVG units', parseFloat, 10)
       .option('-v, --verbose', 'Verbose output', false)
       .addHelpText('after', `
 EXAMPLES:
@@ -197,6 +199,13 @@ ${afterPath}`;
             console.error(`Area: ${result.area.toFixed(2)}, Perimeter: ${result.perimeter.toFixed(2)}`);
           }
 
+          // Add padding to hull points
+          const paddedPoints = HullPadding.addPadding(result.points, options.padding);
+          
+          if (options.verbose && options.padding > 0) {
+            console.error(`Applied padding: ${options.padding} SVG units`);
+          }
+
           // Read SVG content if needed for SVG output format
           const svgContent = options.output === 'svg' ? readFileSync(svgPath, 'utf-8') : undefined;
 
@@ -207,10 +216,10 @@ ${afterPath}`;
             alpha: options.curveAlpha
           };
 
-          // Output result
+          // Output result (use padded points for display)
           const output = this.formatOutput(
             entityName,
-            result.points,
+            paddedPoints,
             result.area,
             result.perimeter,
             options.output,

@@ -31,7 +31,7 @@ class ERDHullCLI {
       .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')
       .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.2)
       .option('--curve-alpha <number>', 'Alpha for Catmull-Rom curves (0.0-1.0)', parseFloat, 0.5)
-      .option('-p, --padding <number>', 'Padding around hull in SVG units', parseFloat, 10)
+      .option('-p, --padding <number>', 'Padding around hull in SVG units', parseFloat, 15)
       .option('--areas <file>', 'YAML file containing focus area definitions')
       .option('-v, --verbose', 'Verbose output', false)
       .addHelpText('after', `

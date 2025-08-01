@@ -234,6 +234,67 @@ export class SVGParser {
   }
 
   /**
+   * Extract all corner points from elements in multiple entity groups
+   */
+  extractPointsFromEntityGroups(entityNames: string[]): Point[] {
+    const allPoints: Point[] = [];
+    const foundEntities: string[] = [];
+    const notFoundEntities: string[] = [];
+
+    for (const entityName of entityNames) {
+      // Support wildcard patterns
+      if (entityName.includes('*')) {
+        const matchingEntities = this.findEntitiesMatchingPattern(entityName);
+        if (matchingEntities.length === 0) {
+          notFoundEntities.push(entityName);
+        } else {
+          for (const matchedEntity of matchingEntities) {
+            const points = this.extractPointsFromEntityGroup(matchedEntity);
+            allPoints.push(...points);
+            foundEntities.push(matchedEntity);
+          }
+        }
+      } else {
+        try {
+          const points = this.extractPointsFromEntityGroup(entityName);
+          allPoints.push(...points);
+          foundEntities.push(entityName);
+        } catch (error) {
+          notFoundEntities.push(entityName);
+        }
+      }
+    }
+
+    if (notFoundEntities.length > 0) {
+      throw new Error(`Entity groups not found: ${notFoundEntities.join(', ')}`);
+    }
+
+    if (allPoints.length === 0) {
+      throw new Error('No points found in any of the specified entity groups');
+    }
+
+    return allPoints;
+  }
+
+  /**
+   * Find entities matching a wildcard pattern
+   */
+  private findEntitiesMatchingPattern(pattern: string): string[] {
+    const regex = new RegExp('^' + pattern.replace(/\*/g, '.*') + '$', 'i');
+    const allGroups = this.svgElement.querySelectorAll('g[data-entity]');
+    const matchingEntities: string[] = [];
+
+    for (const group of allGroups) {
+      const entityName = group.getAttribute('data-entity');
+      if (entityName && regex.test(entityName)) {
+        matchingEntities.push(entityName);
+      }
+    }
+
+    return matchingEntities;
+  }
+
+  /**
    * Get entity group information
    */
   getEntityGroupInfo(entityName: string): EntityGroup {

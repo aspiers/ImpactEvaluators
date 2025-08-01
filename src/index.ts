@@ -22,7 +22,7 @@ class ERDHullCLI {
       .name('erd-hull')
       .description('Calculate smooth spline curves around entity groups in SVG files')
       .version('1.0.0')
-      .argument('<entity-name>', 'Name of the entity to calculate hull for (e.g., "ImpactContributor")')
+      .argument('<entity-names...>', 'Name(s) of the entities to calculate hull for (e.g., "ImpactContributor" or "Treasury FundingSource")')
       .option('-s, --svg <file>', 'SVG file path', 'ERD.svg')
       .option('-c, --concavity <number>', 'Concavity parameter (lower = more concave)', parseFloat, 2)
       .option('-l, --length-threshold <number>', 'Length threshold for edge filtering', parseFloat, 0)
@@ -38,6 +38,8 @@ EXAMPLES:
   erd-hull ImpactContributor --curve-type cardinal --curve-tension 0.8
   erd-hull ObjectivesDesigner --output text --verbose
   erd-hull Treasury --output svg --curve-type catmull-rom > treasury-spline.svg
+  erd-hull Treasury FundingSource --padding 20 --output svg > multi-entity.svg
+  erd-hull "Impact*"  # Multiple entities with pattern matching
 
 CURVE TYPES:
   linear       - Linear segments (no smoothing)
@@ -151,7 +153,7 @@ ${afterPath}`;
 
   async run(): Promise<void> {
     this.program
-      .action(async (entityName: string, options) => {
+      .action(async (entityNames: string[], options) => {
         try {
           // Validate output format
           if (!['json', 'text', 'svg'].includes(options.output)) {
@@ -173,14 +175,14 @@ ${afterPath}`;
 
           if (options.verbose) {
             console.error(`Loading SVG file: ${svgPath}`);
-            console.error(`Searching for entity: ${entityName}`);
+            console.error(`Searching for entities: ${entityNames.join(', ')}`);
             console.error(`Concavity: ${options.concavity}`);
             console.error(`Length threshold: ${options.lengthThreshold}`);
           }
 
-          // Parse SVG and extract points
+          // Parse SVG and extract points from all entities
           const parser = new SVGParser(svgPath);
-          const points = parser.extractPointsFromEntityGroup(entityName);
+          const points = parser.extractPointsFromEntityGroups(entityNames);
 
           if (options.verbose) {
             console.error(`Found ${points.length} points in entity group`);
@@ -217,6 +219,7 @@ ${afterPath}`;
           };
 
           // Output result (use padded points for display)
+          const entityName = entityNames.length === 1 ? entityNames[0] : entityNames.join('+');
           const output = this.formatOutput(
             entityName,
             paddedPoints,

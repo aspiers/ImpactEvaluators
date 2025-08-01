@@ -2,6 +2,25 @@
 title "MERIter Entity Relationship Diagram (ERD)"
 ' !pragma layout smetana
 
+<style>
+classDiagram {
+    class, arrow, entity, note {
+        ' LineColor white
+        ' BackgroundColor white
+        ' BorderColor white
+        ' FontColor white
+    }
+}
+spot {
+    spotEntity, spotDataClass {
+        ' LineColor white
+        ' BackgroundColor white
+        ' BorderColor white
+        ' FontColor white
+    }
+}
+</style>
+
 'skinparam linetype ortho
 
 package "IE Governance (meta)" as IEGovernance {

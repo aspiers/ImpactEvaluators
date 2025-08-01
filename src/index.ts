@@ -14,6 +14,17 @@ import { Point, CurveType, SplineConfig, FocusArea } from './types.js';
 class ERDHullCLI {
   private program: Command;
 
+  // Text label styling constants
+  private static readonly TEXT_STYLE = {
+    fontFamily: 'Arial, sans-serif',
+    fontSize: '36',
+    fillOpacity: '0.3',
+    fontWeight: 'bold',
+    fill: '#333',
+    textAnchor: 'middle',
+    dominantBaseline: 'middle'
+  } as const;
+
   constructor() {
     this.program = new Command();
     this.setupProgram();
@@ -64,6 +75,10 @@ FOCUS AREAS:
 The tool outputs SVG with smooth spline curve overlay.`);
   }
 
+  private createTextElement(name: string, centroid: Point): string {
+    const style = ERDHullCLI.TEXT_STYLE;
+    return `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="${style.textAnchor}" dominant-baseline="${style.dominantBaseline}" font-family="${style.fontFamily}" font-size="${style.fontSize}" fill-opacity="${style.fillOpacity}" font-weight="${style.fontWeight}" fill="${style.fill}" data-label-for="${name}">${name}</text>`;
+  }
 
   private generateSVGOutput(
     results: Array<{
@@ -95,7 +110,7 @@ The tool outputs SVG with smooth spline curve overlay.`);
 
         // Add text label
         const centroid = GeometryUtils.calculateCentroid(result.points);
-        const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+        const textElement = this.createTextElement(result.name, centroid);
         elements.push(textElement);
       }
 
@@ -132,7 +147,7 @@ The tool outputs SVG with smooth spline curve overlay.`);
 
       // Calculate centroid for text label positioning
       const centroid = GeometryUtils.calculateCentroid(result.points);
-      const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+      const textElement = this.createTextElement(result.name, centroid);
       textLabels.push(`<!-- Text label for ${result.name} -->`);
       textLabels.push(textElement);
     }

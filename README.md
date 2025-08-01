@@ -1,22 +1,29 @@
 # Impact Evaluator (IE) Research
 
-Research on Generalized Impact Evaluator systems, building on the [Protocol Labs research framework](https://research.protocol.ai/publications/generalized-impact-evaluators/).
+Research on Generalized Impact Evaluator systems, building on the [Protocol
+Labs research framework](https://research.protocol.ai/publications/generalized-impact-evaluators/).
 
 ## Overview
 
-This research explores modular systems for coordinating work by measuring, evaluating, and retrospectively rewarding impact achieved towards specified valuable objectives.
+This research explores modular systems for coordinating work by measuring,
+evaluating, and retrospectively rewarding impact achieved towards specified
+valuable objectives.
 
-Currently includes Entity Relationship Diagram modeling for core system architecture design.
+Currently includes Entity Relationship Diagram modeling for core system
+architecture design.
 
 **📊 [View ERD Diagram](ERD.png)**
 
 ### Key Components
 
-- **Governance**: ObjectivesDesigner, ScopesDesigner, MeasurementDesigner, EvaluationDesigner, Treasury
-- **Impact Tracking**: ImpactOrganization → ImpactProject → ImpactScope → ImpactClaim + ImpactContributor
+- **Governance**: ObjectivesDesigner, ScopesDesigner, MeasurementDesigner,
+  EvaluationDesigner, Treasury
+- **Impact Tracking**: ImpactOrganization → ImpactProject → ImpactScope →
+  ImpactClaim + ImpactContributor
 - **Measurement**: Measurer taking Measurements of ImpactClaims
 - **Evaluation**: Evaluator performing Evaluations of Measurements
-- **Rewards**: RewardCalculator → RewardAllocation → PayoutProcessor → ImpactContributor
+- **Rewards**: RewardCalculator → RewardAllocation → PayoutProcessor →
+  ImpactContributor
 
 ## Current Research Phase
 
@@ -50,14 +57,19 @@ npx tsx src/index.ts ObjectivesDesigner --output svg > entity-hull.svg
 ```
 
 **Features:**
-- **Concave Hull Calculation**: Uses the `concaveman` library for precise hull generation
-- **Multiple Output Formats**: JSON data, text summary, or complete SVG with hull overlay
-- **Flexible Parameters**: Adjustable concavity and length threshold for hull shape control
-- **Direct TypeScript Execution**: Uses `tsx` for runtime execution without compilation
+- **Concave Hull Calculation**: Uses the `concaveman` library for precise hull
+  generation
+- **Multiple Output Formats**: JSON data, text summary, or complete SVG with
+  hull overlay
+- **Flexible Parameters**: Adjustable concavity and length threshold for hull
+  shape control
+- **Direct TypeScript Execution**: Uses `tsx` for runtime execution without
+  compilation
 
 **Options:**
 - `--svg, -s <file>`: SVG file path (default: "ERD.svg")
-- `--concavity, -c <number>`: Concavity parameter (default: 2, lower = more concave)
+- `--concavity, -c <number>`: Concavity parameter (default: 20, lower = more
+  concave)
 - `--output, -o <format>`: Output format: json, text, svg (default: json)
 - `--verbose, -v`: Verbose output with debugging information
 
@@ -77,4 +89,5 @@ IE/
 └── ERD.png      # Generated research model diagram
 ```
 
-*Note: Additional research components and analysis will be added as the research develops.*
+*Note: Additional research components and analysis will be added as the
+research develops.*

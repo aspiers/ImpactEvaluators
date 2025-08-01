@@ -9,6 +9,7 @@ import { SplineGenerator } from './splineGenerator.js';
 import { HullPadding } from './hullPadding.js';
 import { GeometryUtils } from './geometryUtils.js';
 import { FocusAreaParser } from './focusAreaParser.js';
+import { WatercolorEffect } from './watercolorEffect.js';
 import { Point, CurveType, SplineConfig, FocusArea } from './types.js';
 
 class ERDHullCLI {
@@ -100,13 +101,20 @@ The tool outputs SVG with smooth spline curve overlay.`);
       for (const result of results) {
         const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
         const fillColor = result.color || '#E5F3FF'; // Default light blue
-        const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
 
-        if (result.url) {
-          elements.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
-        } else {
+        // Generate watercolor layers
+        const watercolorLayers = WatercolorEffect.generateWatercolorLayers(splineResult.pathData, fillColor, 6);
+
+        // Create group for watercolor effect
+        elements.push(`<g data-watercolor-group="${result.name}">`);
+
+        // Add each watercolor layer
+        for (const layer of watercolorLayers) {
+          const pathElement = `<path d="${layer.pathData}" fill="${layer.color}" fill-opacity="${layer.opacity}" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
           elements.push(pathElement);
         }
+
+        elements.push('</g>');
 
         // Add text label
         const centroid = GeometryUtils.calculateCentroid(result.points);
@@ -136,13 +144,35 @@ The tool outputs SVG with smooth spline curve overlay.`);
     for (const result of results) {
       const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
       const fillColor = result.color || '#E5F3FF'; // Default light blue
-      const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
 
-      splinePaths.push(`<!-- Smooth spline hull for ${result.name} (background) -->`);
+      // Generate watercolor layers
+      const watercolorLayers = WatercolorEffect.generateWatercolorLayers(splineResult.pathData, fillColor, 6);
+
+      splinePaths.push(`<!-- Watercolor spline hull for ${result.name} (background) -->`);
+
+      // Handle URL wrapping for the entire watercolor group
       if (result.url) {
-        splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+        splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">`);
+        splinePaths.push(`<g data-watercolor-group="${result.name}">`);
+
+        // Add each watercolor layer
+        for (const layer of watercolorLayers) {
+          const pathElement = `<path d="${layer.pathData}" fill="${layer.color}" fill-opacity="${layer.opacity}" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
+          splinePaths.push(pathElement);
+        }
+
+        splinePaths.push('</g>');
+        splinePaths.push('</a>');
       } else {
-        splinePaths.push(pathElement);
+        splinePaths.push(`<g data-watercolor-group="${result.name}">`);
+
+        // Add each watercolor layer
+        for (const layer of watercolorLayers) {
+          const pathElement = `<path d="${layer.pathData}" fill="${layer.color}" fill-opacity="${layer.opacity}" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
+          splinePaths.push(pathElement);
+        }
+
+        splinePaths.push('</g>');
       }
 
       // Calculate centroid for text label positioning

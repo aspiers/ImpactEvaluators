@@ -57,7 +57,7 @@ FOCUS AREAS:
   The YAML file should contain an array of objects with:
     name: Focus area identifier (used as argument)
     label: Human-readable description
-    color: Hex color code for the hull fill
+    color: Color for the hull fill (hex like #FF0000, named like "pink", or RGB)
     areas: Array of entity names to include
 
 OUTPUT FORMATS:

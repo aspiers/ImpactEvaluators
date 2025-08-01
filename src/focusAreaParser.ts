@@ -1,6 +1,7 @@
 import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { FocusArea } from './types.js';
+import { ColorUtils } from './colorUtils.js';
 
 export class FocusAreaParser {
   static parseFocusAreasFile(filePath: string): FocusArea[] {
@@ -23,6 +24,9 @@ export class FocusAreaParser {
         }
         if (!area.color || typeof area.color !== 'string') {
           throw new Error(`Focus area "${area.name}" must have a "color" field (got: ${JSON.stringify(area.color)})`);
+        }
+        if (!ColorUtils.isValidColor(area.color)) {
+          throw new Error(`Focus area "${area.name}" has invalid color "${area.color}". Use hex colors (#FF0000), named colors (red, pink, blue), or RGB format (rgb(255,0,0))`);
         }
         if (!Array.isArray(area.areas)) {
           throw new Error(`Focus area "${area.name}" must have an "areas" array`);
@@ -51,7 +55,7 @@ export class FocusAreaParser {
     if (!focusArea) {
       throw new Error(`Focus area "${focusAreaName}" not found`);
     }
-    return focusArea.color;
+    return ColorUtils.toHex(focusArea.color);
   }
 
   static listAvailableFocusAreas(focusAreas: FocusArea[]): string[] {

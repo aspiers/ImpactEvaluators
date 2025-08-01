@@ -1,24 +1,26 @@
 -
   name: Carl
   label: foo
-  color: "#E5F3FF"
+  color: lightblue
   url: https://example.com
   areas:
     - Evaluator
     - EvaluationResult
+
 -
   name: Carlos
   label: foo
-  color: "#FFF5E5"
+  color: pink
   areas:
     - Measurer
     - Measurement
     - Evaluator
     - EvaluationResult
+
 -
   name: Luca
   label: bar
-  color: "#FFF5E5"
+  color: lightgreen
   areas:
     - ExternalWorld
     - Treasury

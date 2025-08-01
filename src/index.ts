@@ -119,24 +119,28 @@ OUTPUT FORMATS:
         const colorIndex = entityName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % pastelColors.length;
         const fillColor = pastelColors[colorIndex];
 
-        const splinePath = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${entityName}" data-curve-type="${splineConfig.type}"/>`;
+        const splinePath = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${entityName}" data-curve-type="${splineConfig.type}"/>`;
 
         if (!svgContent) {
           return splinePath;
         }
 
-        // Insert the spline path just before the closing </svg> tag
-        const closingSvgIndex = svgContent.lastIndexOf('</svg>');
-        if (closingSvgIndex === -1) {
-          throw new Error('Invalid SVG: missing closing </svg> tag');
+        // Insert the spline path right after the opening <svg> tag so it appears behind everything
+        const svgMatch = svgContent.match(/<svg[^>]*>/);
+        if (!svgMatch) {
+          throw new Error('Invalid SVG: missing opening <svg> tag');
         }
 
-        const beforeClosing = svgContent.substring(0, closingSvgIndex);
-        const afterClosing = svgContent.substring(closingSvgIndex);
+        const openingSvgTag = svgMatch[0];
+        const openingSvgIndex = svgMatch.index! + openingSvgTag.length;
 
-        return `${beforeClosing}<!-- Smooth spline hull for ${entityName} -->
+        const beforePath = svgContent.substring(0, openingSvgIndex);
+        const afterPath = svgContent.substring(openingSvgIndex);
+
+        return `${beforePath}
+<!-- Smooth spline hull for ${entityName} (background) -->
 ${splinePath}
-${afterClosing}`;
+${afterPath}`;
 
       default:
         throw new Error(`Unknown output format: ${format}`);

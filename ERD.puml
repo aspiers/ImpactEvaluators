@@ -4,6 +4,9 @@ title "MERIter Entity Relationship Diagram (ERD)"
 
 <style>
 classDiagram {
+    class {
+        BackgroundColor #55555511
+    }
     class, arrow, entity, note {
         ' LineColor white
         ' BackgroundColor white

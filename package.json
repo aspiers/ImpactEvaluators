@@ -20,6 +20,7 @@
   "author": "Adam Spiers",
   "license": "MIT",
   "devDependencies": {
+    "@types/d3-shape": "^3.1.0",
     "@types/node": "^20.0.0",
     "tsx": "^4.20.3",
     "typescript": "^5.0.0"
@@ -27,6 +28,7 @@
   "dependencies": {
     "@types/jsdom": "^21.1.0",
     "concaveman": "^1.2.1",
+    "d3-shape": "^3.2.0",
     "jsdom": "^23.0.0"
   }
 }

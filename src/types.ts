@@ -27,3 +27,18 @@ export interface ConcaveHullResult {
   area: number;
   perimeter: number;
 }
+
+export type CurveType = 'linear' | 'catmull-rom' | 'cardinal' | 'basis' | 'basis-closed';
+
+export interface SplineConfig {
+  type: CurveType;
+  tension?: number;  // For cardinal curves (0.0 to 1.0)
+  alpha?: number;    // For Catmull-Rom curves (0.0 to 1.0)
+}
+
+export interface SplineResult {
+  pathData: string;
+  curveType: CurveType;
+  originalPoints: Point[];
+  smoothedPoints?: Point[];
+}

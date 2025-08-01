@@ -18,10 +18,16 @@ all: $(PNG_FILES) $(SVG_FILES)
 	@echo "Generating $@ from $<"
 	plantuml -tsvg -pipe < $< > $@
 
+# Generate focus area hulls SVG
+areas:
+	@echo "Generating focus area hulls..."
+	@npx tsx src/index.ts --areas focus-areas.yml --output svg > ERD-areas.svg
+	@echo "Generated ERD-areas.svg with all focus area hulls"
+
 # Clean generated files
 clean:
 	@echo "Cleaning generated PNG and SVG files..."
-	@rm -f $(PNG_FILES) $(SVG_FILES)
+	@rm -f $(PNG_FILES) $(SVG_FILES) ERD-areas.svg
 
 # Watch for changes and regenerate (requires inotify-tools)
 watch:
@@ -34,8 +40,9 @@ watch:
 help:
 	@echo "Available targets:"
 	@echo "  all    - Generate all PNG and SVG files from PUML files"
+	@echo "  areas  - Generate ERD with focus area hulls overlay"
 	@echo "  clean  - Remove generated PNG and SVG files"
 	@echo "  watch  - Watch for changes and auto-regenerate"
 	@echo "  help   - Show this help message"
 
-.PHONY: all erd clean watch help
+.PHONY: all areas clean watch help

@@ -1,0 +1,24 @@
+-
+  name: Carl
+  label: foo
+  color: "#E5F3FF"
+  url: https://example.com
+  areas:
+    - Evaluator
+    - EvaluationResult
+-
+  name: Carlos
+  label: foo
+  color: "#FFF5E5"
+  areas:
+    - Measurer
+    - Measurement
+    - Evaluator
+    - EvaluationResult
+-
+  name: Luca
+  label: bar
+  color: "#FFF5E5"
+  areas:
+    - ExternalWorld
+    - Treasury

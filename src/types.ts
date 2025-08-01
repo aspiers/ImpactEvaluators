@@ -22,6 +22,13 @@ export interface EntityGroup {
   boundingBox: BoundingBox;
 }
 
+export interface FocusArea {
+  name: string;
+  label: string;
+  color: string;
+  areas: string[];
+}
+
 export interface ConcaveHullResult {
   points: Point[];
   area: number;

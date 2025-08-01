@@ -62,15 +62,17 @@ package Impact {
         entities to communicate
         outcomes to Measurers
     end note
-    entity ImpactContributor
+
+    entity ImpactContributor {
+        workDecisionPolicy
+    }
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
     ImpactScope "1" -d-> "*" ImpactClaim : contains
     ImpactContributor "*" -u-> "*" ImpactClaim : claims
     ImpactContributor "*" --> "*" ImpactWork : > contributes
-    ImpactContributor "1" --> "1" ImpactWorkPolicy : decides
-    ImpactWorkPolicy "1" -u-> "*" ImpactWork : > influences
+    ImpactContributor::workDecisionPolicy "1" -l-> "*" ImpactWork : > gates
     ImpactClaim "*" --> "*" ImpactWork : > represents
     ImpactContributor "1" -up-> "1" ImpactOrganization : > belongs to
 }

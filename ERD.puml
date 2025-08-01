@@ -131,8 +131,8 @@ Treasury "1" --> "1" RewardDistributor : funds
 
 Measurement "*" --> "*" Evaluator : "ingested     \nby     "
 EvaluationResult "1" --> "1" RewardCalculator : steers >
-RewardDistributor "1" -d-> "*" ImpactContributor : > rewards
-RewardDistributor "1" -d-> "*" ImpactWorkPolicy : > influences
+RewardDistributor "1" ---> "*" ImpactContributor : > rewards
+RewardDistributor "1" ---> "*" ImpactContributor::workDecisionPolicy : > influences
 
 entity ExternalWorld
 ExternalWorld "1" -u-> "*" RewardAllocation : values

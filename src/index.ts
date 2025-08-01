@@ -28,7 +28,7 @@ class ERDHullCLI {
       .option('-l, --length-threshold <number>', 'Length threshold for edge filtering', parseFloat, 0)
       .option('-o, --output <format>', 'Output format: json, text, svg', 'json')
       .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')
-      .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.5)
+      .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.2)
       .option('--curve-alpha <number>', 'Alpha for Catmull-Rom curves (0.0-1.0)', parseFloat, 0.5)
       .option('-p, --padding <number>', 'Padding around hull in SVG units', parseFloat, 10)
       .option('-v, --verbose', 'Verbose output', false)

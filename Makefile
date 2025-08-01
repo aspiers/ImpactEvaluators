@@ -4,6 +4,7 @@
 PUML_FILES = $(wildcard *.puml)
 PNG_FILES = $(PUML_FILES:.puml=.png)
 SVG_FILES = $(PUML_FILES:.puml=.svg)
+TS_FILES = $(shell find src -name "*.ts" 2>/dev/null)
 
 # Default target
 all: $(PNG_FILES) $(SVG_FILES)
@@ -19,7 +20,7 @@ all: $(PNG_FILES) $(SVG_FILES)
 	plantuml -tsvg -pipe < $< > $@
 
 # Generate focus area hulls SVG
-areas:
+areas: $(TS_FILES) focus-areas.yml ERD.svg
 	@echo "Generating focus area hulls..."
 	@npx tsx src/index.ts --areas focus-areas.yml --output svg > ERD-areas.svg
 	@echo "Generated ERD-areas.svg with all focus area hulls"
@@ -32,7 +33,7 @@ clean:
 # Watch for changes and regenerate (requires inotify-tools)
 watch:
 	@echo "Watching for changes in *.puml files..."
-	@while inotifywait -e modify *.puml 2>/dev/null; do \
+	@while inotifywait -e modify *.puml $(TS_FILES) 2>/dev/null; do \
 		$(MAKE) all; \
 	done
 

@@ -28,7 +28,6 @@ class ERDHullCLI {
       .option('-s, --svg <file>', 'SVG file path', 'ERD.svg')
       .option('-c, --concavity <number>', 'Concavity parameter (lower = more concave)', parseFloat, 20)
       .option('-l, --length-threshold <number>', 'Length threshold for edge filtering', parseFloat, 0)
-      .option('-o, --output <format>', 'Output format: json, text, svg', 'json')
       .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')
       .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.2)
       .option('--curve-alpha <number>', 'Alpha for Catmull-Rom curves (0.0-1.0)', parseFloat, 0.5)
@@ -39,12 +38,12 @@ class ERDHullCLI {
 EXAMPLES:
   erd-hull ImpactContributor
   erd-hull ImpactContributor --curve-type cardinal --curve-tension 0.8
-  erd-hull ObjectivesDesigner --output text --verbose
-  erd-hull Treasury --output svg --curve-type catmull-rom > treasury-spline.svg
-  erd-hull Treasury FundingSource --padding 20 --output svg > multi-entity.svg
+  erd-hull ObjectivesDesigner --verbose
+  erd-hull Treasury --curve-type catmull-rom > treasury-spline.svg
+  erd-hull Treasury FundingSource --padding 20 > multi-entity.svg
   erd-hull "Impact*"  # Multiple entities with pattern matching
-  erd-hull --areas focus-areas.yml Luca --output svg  # Use focus area definition
-  erd-hull --areas focus-areas.yml --output svg      # Use all focus areas
+  erd-hull --areas focus-areas.yml Luca  # Use focus area definition
+  erd-hull --areas focus-areas.yml      # Use all focus areas
 
 CURVE TYPES:
   linear       - Linear segments (no smoothing)
@@ -62,116 +61,11 @@ FOCUS AREAS:
     areas: Array of entity names to include
     url: Optional URL to hyperlink the focus area (makes hull clickable)
 
-OUTPUT FORMATS:
-  json - JSON object with hull points, area, and perimeter
-  text - Human-readable summary
-  svg  - Complete SVG with smooth spline curve overlay`);
+The tool outputs SVG with smooth spline curve overlay.`);
   }
 
-  private formatOutput(
-    entityName: string,
-    points: Point[],
-    area: number,
-    perimeter: number,
-    format: string,
-    verbose: boolean,
-    splineConfig: SplineConfig,
-    svgContent?: string,
-    customColor?: string
-  ): string {
-    switch (format) {
-      case 'json':
-        return JSON.stringify({
-          entityName,
-          hull: {
-            points,
-            area,
-            perimeter,
-            pointCount: points.length
-          },
-          spline: {
-            curveType: splineConfig.type,
-            tension: splineConfig.tension,
-            alpha: splineConfig.alpha
-          }
-        }, null, 2);
 
-      case 'text':
-        let output = `Smooth Spline Hull for Entity: ${entityName}\n`;
-        output += `==========================================\n`;
-        output += `Points: ${points.length}\n`;
-        output += `Area: ${area.toFixed(2)} square units\n`;
-        output += `Perimeter: ${perimeter.toFixed(2)} units\n`;
-        output += `Curve Type: ${splineConfig.type}\n`;
-        if (splineConfig.tension !== undefined) {
-          output += `Tension: ${splineConfig.tension}\n`;
-        }
-        if (splineConfig.alpha !== undefined) {
-          output += `Alpha: ${splineConfig.alpha}\n`;
-        }
-
-        if (verbose) {
-          output += `\nHull Points:\n`;
-          points.forEach((point, index) => {
-            output += `  ${index + 1}: (${point.x.toFixed(2)}, ${point.y.toFixed(2)})\n`;
-          });
-        }
-        return output;
-
-      case 'svg':
-        // Generate smooth spline path
-        const splineGenerator = new SplineGenerator();
-        const splineResult = splineGenerator.generateSpline(points, splineConfig);
-
-        // Use a semi-transparent pastel color for the fill
-        // You can customize these colors per entity or use a color generator
-        const pastelColors = [
-          '#FFE5E5', // Light pink
-          '#E5F3FF', // Light blue
-          '#E5FFE5', // Light green
-          '#FFF5E5', // Light peach
-          '#F5E5FF', // Light purple
-          '#FFFFE5', // Light yellow
-        ];
-
-        // Use custom color from focus area if available, otherwise generate consistent color
-        let fillColor: string;
-        if (customColor) {
-          fillColor = customColor;
-        } else {
-          const colorIndex = entityName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % pastelColors.length;
-          fillColor = pastelColors[colorIndex];
-        }
-
-        const splinePath = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${entityName}" data-curve-type="${splineConfig.type}"/>`;
-
-        if (!svgContent) {
-          return splinePath;
-        }
-
-        // Insert the spline path right after the opening <svg> tag so it appears behind everything
-        const svgMatch = svgContent.match(/<svg[^>]*>/);
-        if (!svgMatch) {
-          throw new Error('Invalid SVG: missing opening <svg> tag');
-        }
-
-        const openingSvgTag = svgMatch[0];
-        const openingSvgIndex = svgMatch.index! + openingSvgTag.length;
-
-        const beforePath = svgContent.substring(0, openingSvgIndex);
-        const afterPath = svgContent.substring(openingSvgIndex);
-
-        return `${beforePath}
-<!-- Smooth spline hull for ${entityName} (background) -->
-${splinePath}
-${afterPath}`;
-
-      default:
-        throw new Error(`Unknown output format: ${format}`);
-    }
-  }
-
-  private formatMultipleOutput(
+  private generateSVGOutput(
     results: Array<{
       name: string;
       points: Point[];
@@ -180,131 +74,70 @@ ${afterPath}`;
       color?: string;
       url?: string;
     }>,
-    format: string,
-    verbose: boolean,
     splineConfig: SplineConfig,
     svgContent?: string
   ): string {
-    switch (format) {
-      case 'json':
-        return JSON.stringify({
-          focusAreas: results.map(result => ({
-            name: result.name,
-            hull: {
-              points: result.points,
-              area: result.area,
-              perimeter: result.perimeter,
-              pointCount: result.points.length
-            },
-            spline: {
-              curveType: splineConfig.type,
-              tension: splineConfig.tension,
-              alpha: splineConfig.alpha
-            },
-            color: result.color,
-            url: result.url
-          }))
-        }, null, 2);
+    if (!svgContent) {
+      // Return multiple path elements with text labels
+      const splineGenerator = new SplineGenerator();
+      const elements: string[] = [];
 
-      case 'text':
-        let output = `Smooth Spline Hulls for ${results.length} Focus Area(s)\n`;
-        output += `=================================================\n\n`;
+      for (const result of results) {
+        const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
+        const fillColor = result.color || '#E5F3FF'; // Default light blue
+        const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
 
-        for (const result of results) {
-          output += `Focus Area: ${result.name}\n`;
-          output += `Points: ${result.points.length}\n`;
-          output += `Area: ${result.area.toFixed(2)} square units\n`;
-          output += `Perimeter: ${result.perimeter.toFixed(2)} units\n`;
-          if (result.color) {
-            output += `Color: ${result.color}\n`;
-          }
-          if (result.url) {
-            output += `URL: ${result.url}\n`;
-          }
-          output += `Curve Type: ${splineConfig.type}\n`;
-          if (splineConfig.tension !== undefined) {
-            output += `Tension: ${splineConfig.tension}\n`;
-          }
-          if (splineConfig.alpha !== undefined) {
-            output += `Alpha: ${splineConfig.alpha}\n`;
-          }
-
-          if (verbose) {
-            output += `\nHull Points for ${result.name}:\n`;
-            result.points.forEach((point, index) => {
-              output += `  ${index + 1}: (${point.x.toFixed(2)}, ${point.y.toFixed(2)})\n`;
-            });
-          }
-          output += '\n';
-        }
-        return output.trim();
-
-      case 'svg':
-        if (!svgContent) {
-          // Return multiple path elements with text labels
-          const splineGenerator = new SplineGenerator();
-          const elements: string[] = [];
-
-          for (const result of results) {
-            const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
-            const fillColor = result.color || '#E5F3FF'; // Default light blue
-            const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
-
-            if (result.url) {
-              elements.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
-            } else {
-              elements.push(pathElement);
-            }
-
-            // Add text label
-            const centroid = GeometryUtils.calculateCentroid(result.points);
-            const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
-            elements.push(textElement);
-          }
-
-          return elements.join('\n');
+        if (result.url) {
+          elements.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+        } else {
+          elements.push(pathElement);
         }
 
-        // Insert multiple spline paths right after the opening <svg> tag
-        const svgMatch = svgContent.match(/<svg[^>]*>/);
-        if (!svgMatch) {
-          throw new Error('Invalid SVG: missing opening <svg> tag');
-        }
+        // Add text label
+        const centroid = GeometryUtils.calculateCentroid(result.points);
+        const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+        elements.push(textElement);
+      }
 
-        const openingSvgTag = svgMatch[0];
-        const openingSvgIndex = svgMatch.index! + openingSvgTag.length;
-
-        const beforePath = svgContent.substring(0, openingSvgIndex);
-        const afterPath = svgContent.substring(openingSvgIndex);
-
-        const splineGenerator = new SplineGenerator();
-        const splinePaths: string[] = [];
-        const textLabels: string[] = [];
-
-        for (const result of results) {
-          const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
-          const fillColor = result.color || '#E5F3FF'; // Default light blue
-          const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
-
-          splinePaths.push(`<!-- Smooth spline hull for ${result.name} (background) -->`);
-          if (result.url) {
-            splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
-          } else {
-            splinePaths.push(pathElement);
-          }
-
-          // Calculate centroid for text label positioning
-          const centroid = GeometryUtils.calculateCentroid(result.points);
-          const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
-          textLabels.push(`<!-- Text label for ${result.name} -->`);
-          textLabels.push(textElement);
-        }
-
-        return `${beforePath}\n${splinePaths.join('\n')}\n${textLabels.join('\n')}\n${afterPath}`;
-
-      default:
-        throw new Error(`Unknown output format: ${format}`);
+      return elements.join('\n');
     }
+
+    // Insert multiple spline paths right after the opening <svg> tag
+    const svgMatch = svgContent.match(/<svg[^>]*>/);
+    if (!svgMatch) {
+      throw new Error('Invalid SVG: missing opening <svg> tag');
+    }
+
+    const openingSvgTag = svgMatch[0];
+    const openingSvgIndex = svgMatch.index! + openingSvgTag.length;
+
+    const beforePath = svgContent.substring(0, openingSvgIndex);
+    const afterPath = svgContent.substring(openingSvgIndex);
+
+    const splineGenerator = new SplineGenerator();
+    const splinePaths: string[] = [];
+    const textLabels: string[] = [];
+
+    for (const result of results) {
+      const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
+      const fillColor = result.color || '#E5F3FF'; // Default light blue
+      const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
+
+      splinePaths.push(`<!-- Smooth spline hull for ${result.name} (background) -->`);
+      if (result.url) {
+        splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+      } else {
+        splinePaths.push(pathElement);
+      }
+
+      // Calculate centroid for text label positioning
+      const centroid = GeometryUtils.calculateCentroid(result.points);
+      const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+      textLabels.push(`<!-- Text label for ${result.name} -->`);
+      textLabels.push(textElement);
+    }
+
+    return `${beforePath}\n${splinePaths.join('\n')}\n${textLabels.join('\n')}\n${afterPath}`;
   }
 
   async run(): Promise<void> {
@@ -316,10 +149,6 @@ ${afterPath}`;
             throw new Error('Either entity names or --areas file must be provided');
           }
 
-          // Validate output format
-          if (!['json', 'text', 'svg'].includes(options.output)) {
-            throw new Error(`Invalid output format: ${options.output}. Must be one of: json, text, svg`);
-          }
 
           // Validate curve type
           const validCurveTypes: CurveType[] = ['linear', 'catmull-rom', 'cardinal', 'basis', 'basis-closed'];
@@ -459,8 +288,8 @@ ${afterPath}`;
             console.error(`Applied padding: ${options.padding} SVG units`);
           }
 
-          // Read SVG content if needed for SVG output format
-          const svgContent = options.output === 'svg' ? readFileSync(svgPath, 'utf-8') : undefined;
+          // Read SVG content for SVG output
+          const svgContent = readFileSync(svgPath, 'utf-8');
 
           // Create spline configuration
           const splineConfig: SplineConfig = {
@@ -469,11 +298,9 @@ ${afterPath}`;
             alpha: options.curveAlpha
           };
 
-          // Output results
-          const output = this.formatMultipleOutput(
+          // Generate SVG output
+          const output = this.generateSVGOutput(
             results,
-            options.output,
-            options.verbose,
             splineConfig,
             svgContent
           );

@@ -22,7 +22,7 @@ all: $(PNG_FILES) $(SVG_FILES)
 # Generate focus area hulls SVG
 areas: $(TS_FILES) focus-areas.yml ERD.svg
 	@echo "Generating focus area hulls..."
-	@npx tsx src/index.ts --areas focus-areas.yml --output svg > ERD-areas.svg
+	@npx tsx src/index.ts --areas focus-areas.yml > ERD-areas.svg
 	@echo "Generated ERD-areas.svg with all focus area hulls"
 
 # Clean generated files

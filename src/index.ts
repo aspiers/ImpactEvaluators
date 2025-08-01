@@ -7,6 +7,7 @@ import { SVGParser } from './svgParser.js';
 import { HullCalculator } from './hullCalculator.js';
 import { SplineGenerator } from './splineGenerator.js';
 import { HullPadding } from './hullPadding.js';
+import { GeometryUtils } from './geometryUtils.js';
 import { FocusAreaParser } from './focusAreaParser.js';
 import { Point, CurveType, SplineConfig, FocusArea } from './types.js';
 
@@ -240,9 +241,9 @@ ${afterPath}`;
 
       case 'svg':
         if (!svgContent) {
-          // Return multiple path elements
+          // Return multiple path elements with text labels
           const splineGenerator = new SplineGenerator();
-          const paths: string[] = [];
+          const elements: string[] = [];
 
           for (const result of results) {
             const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
@@ -250,13 +251,18 @@ ${afterPath}`;
             const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
 
             if (result.url) {
-              paths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+              elements.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
             } else {
-              paths.push(pathElement);
+              elements.push(pathElement);
             }
+
+            // Add text label
+            const centroid = GeometryUtils.calculateCentroid(result.points);
+            const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+            elements.push(textElement);
           }
 
-          return paths.join('\n');
+          return elements.join('\n');
         }
 
         // Insert multiple spline paths right after the opening <svg> tag
@@ -273,6 +279,7 @@ ${afterPath}`;
 
         const splineGenerator = new SplineGenerator();
         const splinePaths: string[] = [];
+        const textLabels: string[] = [];
 
         for (const result of results) {
           const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
@@ -285,9 +292,15 @@ ${afterPath}`;
           } else {
             splinePaths.push(pathElement);
           }
+
+          // Calculate centroid for text label positioning
+          const centroid = GeometryUtils.calculateCentroid(result.points);
+          const textElement = `<text x="${centroid.x.toFixed(2)}" y="${centroid.y.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="36" fill-opacity="0.3" font-weight="bold" fill="#333" data-label-for="${result.name}">${result.name}</text>`;
+          textLabels.push(`<!-- Text label for ${result.name} -->`);
+          textLabels.push(textElement);
         }
 
-        return `${beforePath}\n${splinePaths.join('\n')}\n${afterPath}`;
+        return `${beforePath}\n${splinePaths.join('\n')}\n${textLabels.join('\n')}\n${afterPath}`;
 
       default:
         throw new Error(`Unknown output format: ${format}`);

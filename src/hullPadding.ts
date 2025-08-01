@@ -1,6 +1,8 @@
 import { Point } from './types.js';
+import { GeometryUtils } from './geometryUtils.js';
 
 export class HullPadding {
+
   /**
    * Add padding to hull points by expanding them outward from the centroid
    * @param points Array of hull points
@@ -13,12 +15,7 @@ export class HullPadding {
     }
 
     // Calculate centroid (center point) of the hull
-    const centroid = points.reduce(
-      (acc, p) => ({ x: acc.x + p.x, y: acc.y + p.y }),
-      { x: 0, y: 0 }
-    );
-    centroid.x /= points.length;
-    centroid.y /= points.length;
+    const centroid = GeometryUtils.calculateCentroid(points);
 
     // Expand each point outward from centroid
     return points.map(point => {

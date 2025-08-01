@@ -24,7 +24,7 @@ class ERDHullCLI {
       .version('1.0.0')
       .argument('<entity-names...>', 'Name(s) of the entities to calculate hull for (e.g., "ImpactContributor" or "Treasury FundingSource")')
       .option('-s, --svg <file>', 'SVG file path', 'ERD.svg')
-      .option('-c, --concavity <number>', 'Concavity parameter (lower = more concave)', parseFloat, 2)
+      .option('-c, --concavity <number>', 'Concavity parameter (lower = more concave)', parseFloat, 20)
       .option('-l, --length-threshold <number>', 'Length threshold for edge filtering', parseFloat, 0)
       .option('-o, --output <format>', 'Output format: json, text, svg', 'json')
       .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')

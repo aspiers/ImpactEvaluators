@@ -1,5 +1,5 @@
-@startuml "Impact Evaluator ERD"
-title "Impact Evaluator ERD"
+@startuml "MERIter ERD"
+title "MERIter Entity Relationship Diagram (ERD)"
 
 'skinparam linetype ortho
 

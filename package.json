@@ -1,0 +1,32 @@
+{
+  "name": "erd-hull-calculator",
+  "version": "1.0.0",
+  "description": "CLI tool to calculate concave hulls for entity groups in ERD SVG files",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "erd-hull": "./src/index.ts"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [
+    "svg",
+    "concave-hull",
+    "erd",
+    "cli"
+  ],
+  "author": "Adam Spiers",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/jsdom": "^21.1.0",
+    "concaveman": "^1.2.1",
+    "jsdom": "^23.0.0"
+  }
+}

@@ -8,7 +8,7 @@ export class FocusAreaParser {
     try {
       const yamlContent = readFileSync(filePath, 'utf-8');
       const focusAreas = yaml.load(yamlContent) as FocusArea[];
-      
+
       if (!Array.isArray(focusAreas)) {
         throw new Error('Focus areas file must contain an array of focus area objects');
       }
@@ -30,6 +30,9 @@ export class FocusAreaParser {
         }
         if (!Array.isArray(area.areas)) {
           throw new Error(`Focus area "${area.name}" must have an "areas" array`);
+        }
+        if (area.url && typeof area.url !== 'string') {
+          throw new Error(`Focus area "${area.name}" url field must be a string if provided`);
         }
       }
 
@@ -56,6 +59,14 @@ export class FocusAreaParser {
       throw new Error(`Focus area "${focusAreaName}" not found`);
     }
     return ColorUtils.toHex(focusArea.color);
+  }
+
+  static getUrlForFocusArea(focusAreas: FocusArea[], focusAreaName: string): string | undefined {
+    const focusArea = focusAreas.find(area => area.name === focusAreaName);
+    if (!focusArea) {
+      throw new Error(`Focus area "${focusAreaName}" not found`);
+    }
+    return focusArea.url;
   }
 
   static listAvailableFocusAreas(focusAreas: FocusArea[]): string[] {

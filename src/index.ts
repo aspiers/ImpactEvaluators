@@ -59,6 +59,7 @@ FOCUS AREAS:
     label: Human-readable description
     color: Color for the hull fill (hex like #FF0000, named like "pink", or RGB)
     areas: Array of entity names to include
+    url: Optional URL to hyperlink the focus area (makes hull clickable)
 
 OUTPUT FORMATS:
   json - JSON object with hull points, area, and perimeter
@@ -176,6 +177,7 @@ ${afterPath}`;
       area: number;
       perimeter: number;
       color?: string;
+      url?: string;
     }>,
     format: string,
     verbose: boolean,
@@ -198,7 +200,8 @@ ${afterPath}`;
               tension: splineConfig.tension,
               alpha: splineConfig.alpha
             },
-            color: result.color
+            color: result.color,
+            url: result.url
           }))
         }, null, 2);
 
@@ -213,6 +216,9 @@ ${afterPath}`;
           output += `Perimeter: ${result.perimeter.toFixed(2)} units\n`;
           if (result.color) {
             output += `Color: ${result.color}\n`;
+          }
+          if (result.url) {
+            output += `URL: ${result.url}\n`;
           }
           output += `Curve Type: ${splineConfig.type}\n`;
           if (splineConfig.tension !== undefined) {
@@ -241,7 +247,13 @@ ${afterPath}`;
           for (const result of results) {
             const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
             const fillColor = result.color || '#E5F3FF'; // Default light blue
-            paths.push(`<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`);
+            const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="0.5" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
+
+            if (result.url) {
+              paths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+            } else {
+              paths.push(pathElement);
+            }
           }
 
           return paths.join('\n');
@@ -265,8 +277,14 @@ ${afterPath}`;
         for (const result of results) {
           const splineResult = splineGenerator.generateSpline(result.points, splineConfig);
           const fillColor = result.color || '#E5F3FF'; // Default light blue
+          const pathElement = `<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`;
+
           splinePaths.push(`<!-- Smooth spline hull for ${result.name} (background) -->`);
-          splinePaths.push(`<path d="${splineResult.pathData}" fill="${fillColor}" fill-opacity="1.0" stroke="none" data-hull-entity="${result.name}" data-curve-type="${splineConfig.type}"/>`);
+          if (result.url) {
+            splinePaths.push(`<a href="${result.url}" xlink:href="${result.url}">${pathElement}</a>`);
+          } else {
+            splinePaths.push(pathElement);
+          }
         }
 
         return `${beforePath}\n${splinePaths.join('\n')}\n${afterPath}`;
@@ -345,6 +363,7 @@ ${afterPath}`;
             area: number;
             perimeter: number;
             color?: string;
+            url?: string;
           }> = [];
 
           if (options.areas) {
@@ -352,6 +371,7 @@ ${afterPath}`;
             for (const focusAreaName of focusAreaNames) {
               const entities = FocusAreaParser.getEntitiesForFocusArea(focusAreas, focusAreaName);
               const color = FocusAreaParser.getColorForFocusArea(focusAreas, focusAreaName);
+              const url = FocusAreaParser.getUrlForFocusArea(focusAreas, focusAreaName);
 
               if (options.verbose) {
                 console.error(`Processing focus area "${focusAreaName}" with entities: ${entities.join(', ')}`);
@@ -384,7 +404,8 @@ ${afterPath}`;
                 points: paddedPoints,
                 area: result.area,
                 perimeter: result.perimeter,
-                color
+                color,
+                url
               });
             }
           } else {

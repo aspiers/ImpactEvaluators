@@ -27,6 +27,7 @@ export interface FocusArea {
   label: string;
   color: string;
   areas: string[];
+  url?: string;
 }
 
 export interface ConcaveHullResult {

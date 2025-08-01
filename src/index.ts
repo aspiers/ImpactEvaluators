@@ -3,6 +3,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { Command } from 'commander';
+import * as d3Color from 'd3-color';
 import { SVGParser } from './svgParser.js';
 import { HullCalculator } from './hullCalculator.js';
 import { SplineGenerator } from './splineGenerator.js';
@@ -77,9 +78,37 @@ FOCUS AREAS:
 The tool outputs SVG with smooth spline curve overlay.`);
   }
 
-  private createTextElement(name: string, position: Point): string {
+  private createTextElement(name: string, position: Point, fillColor?: string): string {
     const style = ERDHullCLI.TEXT_STYLE;
-    return `<text x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="${style.textAnchor}" dominant-baseline="${style.dominantBaseline}" font-family="${style.fontFamily}" font-size="${style.fontSize}" fill-opacity="${style.fillOpacity}" font-weight="${style.fontWeight}" fill="${style.fill}" data-label-for="${name}">${name}</text>`;
+    const textColor = fillColor ? this.processColorForText(fillColor) : style.fill;
+    const textOpacity = fillColor ? '0.9' : style.fillOpacity; // High opacity for readability
+    return `<text x="${position.x.toFixed(2)}" y="${position.y.toFixed(2)}" text-anchor="${style.textAnchor}" dominant-baseline="${style.dominantBaseline}" font-family="${style.fontFamily}" font-size="${style.fontSize}" fill-opacity="${textOpacity}" font-weight="${style.fontWeight}" fill="${textColor}" data-label-for="${name}">${name}</text>`;
+  }
+
+  /**
+   * Process hull fill color to make it more readable as text
+   * Uses d3-color utilities to darken and desaturate the color
+   */
+  private processColorForText(color: string): string {
+    try {
+      // Parse the color using d3-color
+      const parsedColor = d3Color.color(color);
+      if (!parsedColor) {
+        return '#374151'; // Dark gray fallback
+      }
+
+      // Convert to HSL for easier manipulation
+      const hslColor = d3Color.hsl(parsedColor);
+      
+      // Reduce saturation by 20% and lightness by 40% for better readability
+      hslColor.s *= 0.8;
+      hslColor.l = Math.max(0.2, hslColor.l * 0.6); // Ensure minimum lightness
+      
+      return hslColor.toString();
+    } catch (error) {
+      // Fallback to dark gray if color parsing fails
+      return '#374151';
+    }
   }
 
   private generateSVGOutput(
@@ -149,7 +178,7 @@ The tool outputs SVG with smooth spline curve overlay.`);
           height: textDimensions.height + 10
         });
 
-        const textElement = this.createTextElement(result.name, position);
+        const textElement = this.createTextElement(result.name, position, fillColor);
         pathElements.push(textElement);
       }
 
@@ -249,7 +278,7 @@ The tool outputs SVG with smooth spline curve overlay.`);
         });
       }
 
-      const textElement = this.createTextElement(result.name, position);
+      const textElement = this.createTextElement(result.name, position, fillColor);
       textLabels.push(`<!-- Text label for ${result.name} -->`);
       textLabels.push(textElement);
     }

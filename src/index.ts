@@ -2,133 +2,35 @@
 
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
+import { Command } from 'commander';
 import { SVGParser } from './svgParser.js';
 import { HullCalculator } from './hullCalculator.js';
 import { SplineGenerator } from './splineGenerator.js';
 import { Point, CurveType, SplineConfig } from './types.js';
 
-interface CLIOptions {
-  entityName: string;
-  svgFile: string;
-  concavity: number;
-  lengthThreshold: number;
-  outputFormat: 'json' | 'text' | 'svg';
-  curveType: CurveType;
-  curveTension: number;
-  curveAlpha: number;
-  verbose: boolean;
-  help: boolean;
-}
-
 class ERDHullCLI {
-  private defaultSvgFile = 'ERD.svg';
+  private program: Command;
 
-  parseArguments(args: string[]): CLIOptions {
-    const options: CLIOptions = {
-      entityName: '',
-      svgFile: this.defaultSvgFile,
-      concavity: 2,
-      lengthThreshold: 0,
-      outputFormat: 'json',
-      curveType: 'catmull-rom',
-      curveTension: 0.5,
-      curveAlpha: 0.5,
-      verbose: false,
-      help: false
-    };
-
-    for (let i = 0; i < args.length; i++) {
-      const arg = args[i];
-
-      switch (arg) {
-        case '--help':
-        case '-h':
-          options.help = true;
-          break;
-        case '--svg':
-        case '-s':
-          if (i + 1 < args.length) {
-            options.svgFile = args[++i];
-          }
-          break;
-        case '--concavity':
-        case '-c':
-          if (i + 1 < args.length) {
-            options.concavity = parseFloat(args[++i]);
-          }
-          break;
-        case '--length-threshold':
-        case '-l':
-          if (i + 1 < args.length) {
-            options.lengthThreshold = parseFloat(args[++i]);
-          }
-          break;
-        case '--output':
-        case '-o':
-          if (i + 1 < args.length) {
-            const format = args[++i];
-            if (['json', 'text', 'svg'].includes(format)) {
-              options.outputFormat = format as 'json' | 'text' | 'svg';
-            }
-          }
-          break;
-        case '--curve-type':
-        case '--curve':
-          if (i + 1 < args.length) {
-            const curveType = args[++i];
-            if (['linear', 'catmull-rom', 'cardinal', 'basis', 'basis-closed'].includes(curveType)) {
-              options.curveType = curveType as CurveType;
-            }
-          }
-          break;
-        case '--curve-tension':
-        case '--tension':
-          if (i + 1 < args.length) {
-            options.curveTension = parseFloat(args[++i]);
-          }
-          break;
-        case '--curve-alpha':
-        case '--alpha':
-          if (i + 1 < args.length) {
-            options.curveAlpha = parseFloat(args[++i]);
-          }
-          break;
-        case '--verbose':
-        case '-v':
-          options.verbose = true;
-          break;
-        default:
-          if (!arg.startsWith('-') && !options.entityName) {
-            options.entityName = arg;
-          }
-          break;
-      }
-    }
-
-    return options;
+  constructor() {
+    this.program = new Command();
+    this.setupProgram();
   }
 
-  showHelp(): void {
-    console.log(`
-ERD Hull Calculator - Calculate smooth spline curves around entity groups in SVG files
-
-USAGE:
-  erd-hull <entity-name> [OPTIONS]
-
-ARGUMENTS:
-  <entity-name>    Name of the entity to calculate hull for (e.g., "ImpactContributor")
-
-OPTIONS:
-  -s, --svg <file>              SVG file path (default: "ERD.svg")
-  -c, --concavity <number>      Concavity parameter (default: 2, lower = more concave)
-  -l, --length-threshold <num>  Length threshold for edge filtering (default: 0)
-  -o, --output <format>         Output format: json, text, svg (default: json)
-  --curve-type <type>           Curve type: linear, catmull-rom, cardinal, basis, basis-closed (default: catmull-rom)
-  --curve-tension <number>      Tension for cardinal curves (0.0-1.0, default: 0.5)
-  --curve-alpha <number>        Alpha for Catmull-Rom curves (0.0-1.0, default: 0.5)
-  -v, --verbose                 Verbose output
-  -h, --help                    Show this help message
-
+  private setupProgram(): void {
+    this.program
+      .name('erd-hull')
+      .description('Calculate smooth spline curves around entity groups in SVG files')
+      .version('1.0.0')
+      .argument('<entity-name>', 'Name of the entity to calculate hull for (e.g., "ImpactContributor")')
+      .option('-s, --svg <file>', 'SVG file path', 'ERD.svg')
+      .option('-c, --concavity <number>', 'Concavity parameter (lower = more concave)', parseFloat, 2)
+      .option('-l, --length-threshold <number>', 'Length threshold for edge filtering', parseFloat, 0)
+      .option('-o, --output <format>', 'Output format: json, text, svg', 'json')
+      .option('--curve-type <type>', 'Curve type: linear, catmull-rom, cardinal, basis, basis-closed', 'catmull-rom')
+      .option('--curve-tension <number>', 'Tension for cardinal curves (0.0-1.0)', parseFloat, 0.5)
+      .option('--curve-alpha <number>', 'Alpha for Catmull-Rom curves (0.0-1.0)', parseFloat, 0.5)
+      .option('-v, --verbose', 'Verbose output', false)
+      .addHelpText('after', `
 EXAMPLES:
   erd-hull ImpactContributor
   erd-hull ImpactContributor --curve-type cardinal --curve-tension 0.8
@@ -145,16 +47,15 @@ CURVE TYPES:
 OUTPUT FORMATS:
   json - JSON object with hull points, area, and perimeter
   text - Human-readable summary
-  svg  - Complete SVG with smooth spline curve overlay
-`);
+  svg  - Complete SVG with smooth spline curve overlay`);
   }
 
-  formatOutput(
+  private formatOutput(
     entityName: string,
     points: Point[],
     area: number,
     perimeter: number,
-    format: 'json' | 'text' | 'svg',
+    format: string,
     verbose: boolean,
     splineConfig: SplineConfig,
     svgContent?: string
@@ -242,96 +143,98 @@ ${afterClosing}`;
     }
   }
 
-  async run(args: string[]): Promise<void> {
-    try {
-      const options = this.parseArguments(args);
+  async run(): Promise<void> {
+    this.program
+      .action(async (entityName: string, options) => {
+        try {
+          // Validate output format
+          if (!['json', 'text', 'svg'].includes(options.output)) {
+            throw new Error(`Invalid output format: ${options.output}. Must be one of: json, text, svg`);
+          }
 
-      if (options.help) {
-        this.showHelp();
-        return;
-      }
+          // Validate curve type
+          const validCurveTypes: CurveType[] = ['linear', 'catmull-rom', 'cardinal', 'basis', 'basis-closed'];
+          if (!validCurveTypes.includes(options.curveType)) {
+            throw new Error(`Invalid curve type: ${options.curveType}. Must be one of: ${validCurveTypes.join(', ')}`);
+          }
 
-      if (!options.entityName) {
-        console.error('Error: Entity name is required');
-        console.error('Use --help for usage information');
-        process.exit(1);
-      }
+          // Resolve SVG file path
+          const svgPath = resolve(options.svg);
 
-      // Resolve SVG file path
-      const svgPath = resolve(options.svgFile);
+          if (!existsSync(svgPath)) {
+            throw new Error(`SVG file not found: ${svgPath}`);
+          }
 
-      if (!existsSync(svgPath)) {
-        console.error(`Error: SVG file not found: ${svgPath}`);
-        process.exit(1);
-      }
+          if (options.verbose) {
+            console.error(`Loading SVG file: ${svgPath}`);
+            console.error(`Searching for entity: ${entityName}`);
+            console.error(`Concavity: ${options.concavity}`);
+            console.error(`Length threshold: ${options.lengthThreshold}`);
+          }
 
-      if (options.verbose) {
-        console.error(`Loading SVG file: ${svgPath}`);
-        console.error(`Searching for entity: ${options.entityName}`);
-        console.error(`Concavity: ${options.concavity}`);
-        console.error(`Length threshold: ${options.lengthThreshold}`);
-      }
+          // Parse SVG and extract points
+          const parser = new SVGParser(svgPath);
+          const points = parser.extractPointsFromEntityGroup(entityName);
 
-      // Parse SVG and extract points
-      const parser = new SVGParser(svgPath);
-      const points = parser.extractPointsFromEntityGroup(options.entityName);
+          if (options.verbose) {
+            console.error(`Found ${points.length} points in entity group`);
+          }
 
-      if (options.verbose) {
-        console.error(`Found ${points.length} points in entity group`);
-      }
+          // Calculate concave hull
+          const calculator = new HullCalculator();
+          const result = calculator.calculateConcaveHull(
+            points,
+            options.concavity,
+            options.lengthThreshold
+          );
 
-      // Calculate concave hull
-      const calculator = new HullCalculator();
-      const result = calculator.calculateConcaveHull(
-        points,
-        options.concavity,
-        options.lengthThreshold
-      );
+          if (options.verbose) {
+            console.error(`Hull calculated: ${result.points.length} points`);
+            console.error(`Area: ${result.area.toFixed(2)}, Perimeter: ${result.perimeter.toFixed(2)}`);
+          }
 
-      if (options.verbose) {
-        console.error(`Hull calculated: ${result.points.length} points`);
-        console.error(`Area: ${result.area.toFixed(2)}, Perimeter: ${result.perimeter.toFixed(2)}`);
-      }
+          // Read SVG content if needed for SVG output format
+          const svgContent = options.output === 'svg' ? readFileSync(svgPath, 'utf-8') : undefined;
 
-      // Read SVG content if needed for SVG output format
-      const svgContent = options.outputFormat === 'svg' ? readFileSync(svgPath, 'utf-8') : undefined;
+          // Create spline configuration
+          const splineConfig: SplineConfig = {
+            type: options.curveType as CurveType,
+            tension: options.curveTension,
+            alpha: options.curveAlpha
+          };
 
-      // Create spline configuration
-      const splineConfig: SplineConfig = {
-        type: options.curveType,
-        tension: options.curveTension,
-        alpha: options.curveAlpha
-      };
+          // Output result
+          const output = this.formatOutput(
+            entityName,
+            result.points,
+            result.area,
+            result.perimeter,
+            options.output,
+            options.verbose,
+            splineConfig,
+            svgContent
+          );
 
-      // Output result
-      const output = this.formatOutput(
-        options.entityName,
-        result.points,
-        result.area,
-        result.perimeter,
-        options.outputFormat,
-        options.verbose,
-        splineConfig,
-        svgContent
-      );
+          console.log(output);
 
-      console.log(output);
+        } catch (error) {
+          if (error instanceof Error) {
+            console.error(`Error: ${error.message}`);
+          } else {
+            console.error('An unexpected error occurred');
+          }
+          process.exit(1);
+        }
+      });
 
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(`Error: ${error.message}`);
-      } else {
-        console.error('An unexpected error occurred');
-      }
-      process.exit(1);
-    }
+    this.program.parse();
   }
 }
 
 // Run CLI if this file is executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   const cli = new ERDHullCLI();
-  cli.run(process.argv.slice(2));
+  cli.run();
 }
 
 export { ERDHullCLI };

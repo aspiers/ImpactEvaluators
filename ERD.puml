@@ -1,5 +1,6 @@
 @startuml "MERIter ERD"
 title "MERIter Entity Relationship Diagram (ERD)"
+' !pragma layout smetana
 
 'skinparam linetype ortho
 

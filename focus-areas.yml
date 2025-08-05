@@ -17,7 +17,48 @@
 
 -
   name: Luca
-  color: lemonchiffon
+  color: lightcyan
   areas:
     - ExternalWorld
     - RewardAllocation
+
+-
+  name: Steffi (meta)
+  color: mediumspringgreen
+  areas:
+    - EvaluationDesigner
+    - Evaluator
+
+-
+  name: David
+  color: lemonchiffon
+  areas:
+    - Evaluator
+    - EvaluationResult
+    - RewardCalculator
+
+-
+  name: Shu
+  url: https://github.com/tnkshuuhei/scaffold-ie
+  color: lavender
+  areas:
+    - RewardCalculator
+    - RewardDistributor
+    - RewardAllocation
+
+-
+  name: William
+  url: https://github.com/whwgeorge/
+  color: lightskyblue
+  areas:
+    - RewardCalculator
+    - Evaluator
+
+-
+  name: Sharfy
+  color: beige
+  areas:
+    - ImpactScope
+    - ImpactClaim
+    - Evaluator
+    - Measurement

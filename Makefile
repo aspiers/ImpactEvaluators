@@ -8,6 +8,7 @@ SVG_AREAS = ERD-areas.svg
 SVG_FILES = $(PUML_FILES:.puml=.svg) $(SVG_AREAS)
 
 # Default target
+.PHONY: all
 all: $(PNG_FILES) $(SVG_FILES)
 
 # Rule to generate PNG from PUML
@@ -26,19 +27,23 @@ $(SVG_AREAS): $(FOCUS_AREAS) ERD.svg
 	@svg-annotator --areas focus-areas.yml > $@
 	@echo "Generated $(SVG_AREAS) with all focus area annotations"
 
-# Clean generated files
+.PHONY: areas
+areas: ERD-areas.svg
+
+.PHONY: clean
 clean:
 	@echo "Cleaning generated PNG and SVG files..."
 	@rm -f $(PNG_FILES) $(SVG_FILES) ERD-areas.svg
 
 # Watch for changes and regenerate (requires inotify-tools)
+.PHONY: watch
 watch:
 	@echo "Watching for changes in *.puml files..."
 	@while inotifywait -e modify *.puml $(FOCUS_AREAS) 2>/dev/null; do \
 		$(MAKE) all; \
 	done
 
-# Help target
+.PHONY: help
 help:
 	@echo "Available targets:"
 	@echo "  all    - Generate all PNG and SVG files from PUML files"
@@ -46,5 +51,3 @@ help:
 	@echo "  clean  - Remove generated PNG and SVG files"
 	@echo "  watch  - Watch for changes and auto-regenerate"
 	@echo "  help   - Show this help message"
-
-.PHONY: all areas clean watch help

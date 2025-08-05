@@ -46,7 +46,9 @@ package "IE Governance (meta)" as IEGovernance {
 }
 
 package Impact {
-    entity ImpactOrganization
+    entity ImpactOrganization {
+        organizationDID
+    }
     entity ImpactProject {
         organization
     }

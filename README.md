@@ -37,47 +37,12 @@ make clean  # Remove generated PNG files
 make help   # Show available commands
 ```
 
-### ERD Hull Calculator
-
-A mostly vibe-coded TypeScript CLI tool for calculating concave hulls
-around entity groups in the ERD diagrams:
-
-```bash
-# Install dependencies
-npm install
-
-# Calculate hull for any entity (e.g., ImpactContributor)
-npx tsx src/index.ts ImpactContributor
-
-# Generate text summary
-npx tsx src/index.ts Treasury --output text --verbose
-
-# Create SVG with hull overlay for visualization
-npx tsx src/index.ts ObjectivesDesigner --output svg > entity-hull.svg
-```
-
-**Features:**
-- **Concave Hull Calculation**: Uses the `concaveman` library for precise hull
-  generation
-- **Multiple Output Formats**: JSON data, text summary, or complete SVG with
-  hull overlay
-- **Flexible Parameters**: Adjustable concavity and length threshold for hull
-  shape control
-- **Direct TypeScript Execution**: Uses `tsx` for runtime execution without
-  compilation
-
-**Options:**
-- `--svg, -s <file>`: SVG file path (default: "ERD.svg")
-- `--concavity, -c <number>`: Concavity parameter (default: 20, lower = more
-  concave)
-- `--output, -o <format>`: Output format: json, text, svg (default: json)
-- `--verbose, -v`: Verbose output with debugging information
 
 ## Requirements
 
 - PlantUML installed and available in PATH
 - Make
-- Node.js and npm (for hull calculator tool)
+- svg-annotator tool (for focus area annotations)
 
 ## Project Structure
 

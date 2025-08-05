@@ -6,7 +6,6 @@ PNG_FILES = $(PUML_FILES:.puml=.png)
 FOCUS_AREAS = focus-areas.yml
 SVG_AREAS = ERD-areas.svg
 SVG_FILES = $(PUML_FILES:.puml=.svg) $(SVG_AREAS)
-TS_FILES = $(shell find src -name "*.ts" 2>/dev/null)
 
 # Default target
 all: $(PNG_FILES) $(SVG_FILES)
@@ -21,11 +20,11 @@ all: $(PNG_FILES) $(SVG_FILES)
 	@echo "Generating $@ from $<"
 	plantuml -tsvg -pipe < $< > $@
 
-# Generate focus area hulls SVG
+# Generate focus area annotations SVG
 $(SVG_AREAS): $(FOCUS_AREAS) ERD.svg
-	@echo "Generating focus area hulls..."
-	@npx tsx src/index.ts --areas focus-areas.yml > $@
-	@echo "Generated $(SVG_AREAS) with all focus area hulls"
+	@echo "Generating focus area annotations..."
+	@svg-annotator --areas focus-areas.yml > $@
+	@echo "Generated $(SVG_AREAS) with all focus area annotations"
 
 # Clean generated files
 clean:
@@ -43,7 +42,7 @@ watch:
 help:
 	@echo "Available targets:"
 	@echo "  all    - Generate all PNG and SVG files from PUML files"
-	@echo "  areas  - Generate ERD with focus area hulls overlay"
+	@echo "  areas  - Generate ERD with focus area annotations overlay"
 	@echo "  clean  - Remove generated PNG and SVG files"
 	@echo "  watch  - Watch for changes and auto-regenerate"
 	@echo "  help   - Show this help message"

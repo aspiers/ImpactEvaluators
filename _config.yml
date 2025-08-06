@@ -16,7 +16,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-remote-theme
-  - jekyll-paginate
 
 # AsciiDoc configuration
 asciidoc:
@@ -44,9 +43,9 @@ collections:
     output: true
     permalink: /:categories/:year/:month/:day/:title/
 
-# Pagination
-paginate: 10
-paginate_path: /page:num/
+# Pagination (disabled for research site)
+# paginate: 10
+# paginate_path: /page:num/
 
 # Default front matter
 defaults:

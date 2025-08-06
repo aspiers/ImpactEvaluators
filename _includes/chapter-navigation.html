@@ -19,14 +19,14 @@
 
 <nav class="chapter-nav" role="navigation">
   <div class="chapter-nav__wrapper">
-    
+
     {% comment %} Table of Contents {% endcomment %}
     <div class="chapter-nav__toc">
       <h4>Contents</h4>
       <ul class="chapter-nav__list">
         {% for chapter in chapters %}
           <li class="chapter-nav__item{% if chapter.slug == page.slug %} chapter-nav__item--current{% endif %}">
-            <a href="{{ '/chapters/' | append: chapter.slug | relative_url }}" 
+            <a href="{{ '/chapters/' | append: chapter.slug | relative_url }}"
                class="chapter-nav__link"
                {% if chapter.slug == page.slug %}aria-current="page"{% endif %}>
               <span class="chapter-nav__number">{{ chapter.number }}.</span>
@@ -36,22 +36,22 @@
         {% endfor %}
       </ul>
     </div>
-    
+
     {% comment %} Previous/Next Navigation {% endcomment %}
     <div class="chapter-nav__pagination">
       {% if prev_chapter %}
         <div class="chapter-nav__prev">
-          <a href="{{ '/chapters/' | append: prev_chapter.slug | relative_url }}" 
+          <a href="{{ '/chapters/' | append: prev_chapter.slug | relative_url }}"
              class="btn btn--primary btn--small"
              rel="prev">
             ← Previous: {{ prev_chapter.title }}
           </a>
         </div>
       {% endif %}
-      
+
       {% if next_chapter %}
         <div class="chapter-nav__next">
-          <a href="{{ '/chapters/' | append: next_chapter.slug | relative_url }}" 
+          <a href="{{ '/chapters/' | append: next_chapter.slug | relative_url }}"
              class="btn btn--primary btn--small"
              rel="next">
             Next: {{ next_chapter.title }} →
@@ -59,7 +59,7 @@
         </div>
       {% endif %}
     </div>
-    
+
   </div>
 </nav>
 
@@ -158,12 +158,12 @@
     padding: 1rem;
     margin: 1rem 0;
   }
-  
+
   .chapter-nav__pagination {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .chapter-nav__next {
     text-align: left;
   }
@@ -176,7 +176,7 @@
     background: none;
     border: 1px solid #333;
   }
-  
+
   .chapter-nav__pagination {
     display: none;
   }

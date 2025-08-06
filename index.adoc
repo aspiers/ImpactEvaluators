@@ -1,45 +1,36 @@
 ---
 layout: chapter
-title: Impact Evaluator Research
 ---
 
-= Impact Evaluator Research
+= MERIter Research
 
-Research on Generalized Impact Evaluator systems, building on the https://research.protocol.ai/publications/generalized-impact-evaluators/[Protocol Labs research framework^].
+This site relates to a relatively new field of research on a common
+pattern of system design which iteratively incentivizes impact
+projects through a repeated loop of Monitoring, Evaluation, and
+Rewards of Impact ("MERI").  It builds on the
+https://research.protocol.ai/publications/generalized-impact-evaluators/[Protocol
+Labs whitepaper^] on Generalized Impact Evaluators, or IEs for short.
+Alternative names are currently being considered, including "MERIters"
+and "MER-loops".
+
+The applicability of this design pattern spans a huge diversity of industries,
+methodologies, and theoretical frameworks.
 
 == Overview
 
-This research explores modular systems for coordinating work by measuring, evaluating, and retrospectively rewarding impact achieved towards specified valuable objectives.
+This research explores modularity, data and process models, and
+visualizations, as approaches for coordinating work in this space.
 
-Currently includes Entity Relationship Diagram modeling for core system architecture design.
+image::../diagrams/ERD.svg[ERD Diagram,align="center"]
 
-=== Key Components
+The diagram shows the conceptual model for Impact Evaluator systems
+with entities grouped into logical packages:
 
-* **Governance**: ObjectivesDesigner, ScopesDesigner, MeasurementDesigner, EvaluationDesigner, Treasury
-* **Impact Tracking**: ImpactOrganization → ImpactProject → ImpactScope → ImpactClaim + ImpactContributor
-* **Measurement**: Measurer taking Measurements of ImpactClaims
-* **Evaluation**: Evaluator performing Evaluations of Measurements
-* **Rewards**: RewardCalculator → RewardAllocation → PayoutProcessor → ImpactContributor
-
-== Current Research Phase
-
-The research currently focuses on system architecture design and modeling.
-
-=== Entity Relationship Diagram
-
-image::diagrams/ERD.svg[ERD Diagram,align="center"]
-
-The diagram shows the conceptual model for Impact Evaluator systems with entities grouped into logical packages:
-
-* IE Governance
-* Impact Tracking
+* Impact
 * Measurement
 * Evaluation
 * Rewards
-
-== Focus Areas
-
-The research includes focused analysis of specific system components, as defined in the focus areas configuration.
+* Governance
 
 [NOTE]
 ====

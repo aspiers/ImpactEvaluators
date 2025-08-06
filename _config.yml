@@ -1,7 +1,7 @@
 # Jekyll Configuration for Impact Evaluator Research
-title: "Generalized Impact Evaluators: Model and Visualization"
-description: "Research on semi-formal abstract models of Impact Evaluators and their applications"
-author: "IE Research Team"
+title: "MERIter Modelling"
+description: "Aligning work on MERIters via semi-formal models and maps"
+author: "Adam Spiers"
 baseurl: ""
 url: ""
 

@@ -1,0 +1,78 @@
+# Modelling Impact Evaluators (a.k.a. IEs / MERIters / MER-loops)
+
+> Aligning our work through semi-formal models
+
+## Challenges
+
+- This is a huge, complex field spanning many industries
+- R&D can be broad and/or deep
+- We need to join the dots between different work streams, e.g.
+  - a simulation needs to approximate a real-world implementation
+  - an MVP needs to test theory
+- Terminology and clear communication matter
+  - Align mental models
+  - Promote reusability / avoid duplication of effort
+  - Facilitate onboarding
+  - Formal research should not be divorced from more concrete
+    development
+
+## The solution: we need a map!
+
+Creating and visualising an abstract model of IEs facilitates:
+
+- Big picture thinking
+- Precision of scoping due to clear separation of concerns
+- Locating our own work and outputs on the map
+- Locating the work and outputs of others on the map
+- Finding connections between different workstreams
+
+## Map structure
+
+A good map of IEs has at least 4 key sections:
+
+- impact
+- measurements
+- evaluations
+
+Note: MERIters are positive feedback loops: claims lead to rewards,
+and rewards lead to claims.
+
+### Entities vs. Data
+
+Items on the map are either entities or data.
+
+- Entities are agents / processes (identities in web of trust)
+- Data are inputs / outputs (attestations signed by entities)
+- Separation of concerns promotes modularity / reusability of work
+
+### Impact claims
+
+Whilst not explicitly modelled in the original IE paper (insert
+citation here), we assert that impact claims (e.g. Hypercerts) need to
+be an explicit part of this abstract model
+
+  - Claims are self-reported; separation from measurements avoids conflicts of interest
+
+### Governance
+
+- Governance of MERIters can be modelled as "meta-MERIters"
+
+### Evaluations
+
+Evaluations can be stacked to form an arbitrarily deep graph of evaluations.
+
+From a data modelling perspective, this can be represented simply by
+allowing the inputs to evaluation functions to be not only
+measurements, but other evaluations.
+
+## Current work
+
+- Discussion on application to various use cases
+- Relevance to implementation design
+
+## Future work
+
+- Place everyone / everything on the map
+- Consider composability
+- Stress-test the model
+- Prototype components

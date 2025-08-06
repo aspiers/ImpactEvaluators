@@ -88,6 +88,12 @@ exclude:
   - CLAUDE.md
   - tmp/
   - .ai/
+  - assets/css/main.scss
+
+# Sass/SCSS - Disabled, using Dart Sass via npm instead
+# sass:
+#   sass_dir: _sass
+#   style: compressed
 
 # Good f'in luck if you want to ignore emacs temp/lock files :-(
 # Neither of these work ... at all.

@@ -42,7 +42,8 @@ make help   # Show available commands
 
 - PlantUML installed and available in PATH
 - Make
-- svg-annotator tool (for focus area annotations)
+- [svg-annotator](https://github.com/aspiers/svg-annotator) tool (for
+  focus area annotations)
 
 ## Project Structure
 

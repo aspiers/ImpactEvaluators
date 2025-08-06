@@ -30,7 +30,7 @@
     padding: 0.5em 1em;
     font-family: $sans-serif-narrow;
 
-    @include bp.breakpoint($x-large) {
+    @include breakpoint($x-large) {
       max-width: $x-large;
     }
 

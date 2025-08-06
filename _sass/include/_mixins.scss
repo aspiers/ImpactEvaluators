@@ -2,13 +2,11 @@
    MIXINS
    ========================================================================== */
 
-@use "../theme/default" as default;
-
 %tab-focus {
   /* Default*/
-  outline: thin dotted default.$warning-color;
+  outline: thin dotted $warning-color;
   /* Webkit*/
-  outline: 5px auto default.$warning-color;
+  outline: 5px auto $warning-color;
   outline-offset: -2px;
 }
 

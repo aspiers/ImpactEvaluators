@@ -19,12 +19,12 @@
   -webkit-animation-delay: 0.30s;
           animation-delay: 0.30s;
 
-  @include bp.breakpoint($large) {
+  @include breakpoint($large) {
     padding-left: 1em;
     padding-right: 1em;
   }
 
-  @include bp.breakpoint($x-large) {
+  @include breakpoint($x-large) {
     max-width: $x-large;
   }
 
@@ -33,11 +33,11 @@
     list-style: none;
     font-size: $type-size-6;
 
-    @include bp.breakpoint($large) {
+    @include breakpoint($large) {
       @include span(10 of 12 last);
     }
 
-    @include bp.breakpoint($x-large) {
+    @include breakpoint($x-large) {
       @include prefix(0.5 of 12);
     }
   }
@@ -437,7 +437,7 @@
   li > ul li {
     display: none;
 
-    @include bp.breakpoint($medium) {
+    @include breakpoint($medium) {
       display: block;
     }
   }

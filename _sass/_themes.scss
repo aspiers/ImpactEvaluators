@@ -1,5 +1,3 @@
-@use "sass:math";
-
 /* ==========================================================================
    SHARED THEME SETTINGS
    ========================================================================== */
@@ -49,8 +47,7 @@ $caption-font-family        : $serif;
    Breakpoints
    ========================================================================== */
 
-@use "vendor/breakpoint/breakpoint" as bp;
-@include bp.breakpoint-set("to ems", true);
+@include breakpoint-set("to ems", true);
 
 $small                      : 600px !default;
 $medium                     : 768px !default;
@@ -69,7 +66,7 @@ $right-sidebar-width-wide   : auto;
 $susy: (
     columns: 12,
     column-width: 120px,
-    gutters: math.div(1, 4),
+    gutters: 1/4,
     math: fluid,
     output: float,
     gutter-position: after,
@@ -105,3 +102,4 @@ $vimeo-color                : #1ab7ea;
 $vine-color                 : #00bf8f;
 $youtube-color              : #bb0000;
 $xing-color                 : #006567;
+   

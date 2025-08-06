@@ -5,11 +5,11 @@
 .archive {
   margin-bottom: 2em;
 
-  @include bp.breakpoint($medium) {
+  @include breakpoint($medium) {
     @include span(12 of 12);
   }
 
-  @include bp.breakpoint($large) {
+  @include breakpoint($large) {
     @include span(10 of 12 last);
     @include prefix(0.5 of 12);
   }
@@ -90,15 +90,15 @@
    ========================================================================== */
 
 .list__item {
-  @include bp.breakpoint($medium) {
+  @include breakpoint($medium) {
     padding-right: $right-sidebar-width-narrow;
   }
 
-  @include bp.breakpoint($large) {
+  @include breakpoint($large) {
     padding-right: $right-sidebar-width;
   }
 
-  @include bp.breakpoint($x-large) {
+  @include breakpoint($x-large) {
     padding-right: $right-sidebar-width-wide;
   }
 
@@ -128,14 +128,14 @@
     display: none;
   }
 
-  @include bp.breakpoint($small) {
+  @include breakpoint($small) {
     @include gallery(5 of 10);
     .archive__item-teaser {
       max-height: 200px;
     }
   }
 
-  @include bp.breakpoint($medium) {
+  @include breakpoint($medium) {
     margin-left: 0; /* reset before mixin does its thing*/
     margin-right: 0; /* reset before mixin does its thing*/
     @include gallery(2.5 of 10);
@@ -166,7 +166,7 @@
   margin-bottom: 2em;
   font-size: 1.25rem;
 
-  @include bp.breakpoint($small) {
+  @include breakpoint($small) {
     margin-bottom: 0;
     @include gallery(4 of 12);
 
@@ -184,7 +184,7 @@
       margin-bottom: 2em;
     }
 
-    @include bp.breakpoint($small) {
+    @include breakpoint($small) {
       .archive__item-teaser {
         @include span(5 of 12);
       }
@@ -205,7 +205,7 @@
       margin-bottom: 2em;
     }
 
-    @include bp.breakpoint($small) {
+    @include breakpoint($small) {
       text-align: right;
 
       .archive__item-teaser {
@@ -228,7 +228,7 @@
       margin-bottom: 2em;
     }
 
-    @include bp.breakpoint($small) {
+    @include breakpoint($small) {
       text-align: center;
 
       .archive__item-teaser {

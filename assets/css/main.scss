@@ -1,41 +1,39 @@
----
----
-
 /*
  * This file controls what is imported from /_sass
  *
  * Note that the files are processed in the order they are imported, so they are partly
-   sorted by the dependencies. Also, the first two lines of the file are required by Jekyll.
+   sorted by the dependencies.
  */
 
-@use "sass:math";
-@use "sass:color";
-@use "sass:string";
-@use "sass:map";
-@use "sass:meta";
+@import
+    "vendor/breakpoint/breakpoint",
 
-@use "vendor/breakpoint/breakpoint" as bp;
-@use "themes" as *;
-@use "theme/default" as *;
-@use "theme/dark" as *;
-@use "include/mixins" as *;
+    "themes",
+    "theme/default",
+    "theme/dark",
 
-@use "vendor/susy/susy" as *;
-@use "layout/reset" as *;
-@use "layout/base" as *;
-@use "include/utilities" as *;
-@use "layout/tables" as *;
-@use "layout/buttons" as *;
-@use "layout/notices" as *;
-@use "layout/masthead" as *;
-@use "layout/navigation" as *;
-@use "layout/footer" as *;
-@use "syntax" as *;
-@use "layout/forms" as *;
-@use "layout/page" as *;
-@use "layout/archive" as *;
-@use "layout/sidebar" as *;
-@use "vendor/font-awesome/fontawesome" as *;
-@use "vendor/font-awesome/solid" as *;
-@use "vendor/font-awesome/brands" as *;
-@use "research-custom" as *;
+    "include/mixins",
+    "vendor/susy/susy",
+
+    "layout/reset",
+    "layout/base",
+
+    "include/utilities",
+    "layout/tables",
+    "layout/buttons",
+    "layout/notices",
+    "layout/masthead",
+    "layout/navigation",
+    "layout/footer",
+    "syntax",
+
+    "layout/forms",
+
+    "layout/page",
+    "layout/archive",
+    "layout/sidebar",
+
+    "vendor/font-awesome/fontawesome",
+    "vendor/font-awesome/solid",
+    "vendor/font-awesome/brands"
+;

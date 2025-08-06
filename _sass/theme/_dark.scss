@@ -2,21 +2,19 @@
    DARK THEME
    ========================================================================== */
 
-@use "sass:color";
-
 /* Color codes used for the theme */
 $gray                       : #7a8288;
-$dark-gray                  : color.mix(#000, $gray, 40%);
-$darker-gray                : color.mix(#000, $gray, 60%);
-$light-gray                 : color.mix(#fff, $gray, 50%);
+$dark-gray                  : mix(#000, $gray, 40%);
+$darker-gray                : mix(#000, $gray, 60%);
+$light-gray                 : mix(#fff, $gray, 50%);
 
 $background                 : #474747;
-$background-light           : color.mix(#fff, $background, 80%);
-$background-lighter         : color.mix(#fff, $background, 90%);
+$background-light           : mix(#fff, $background, 80%);
+$background-lighter         : mix(#fff, $background, 90%);
 $text                       : #ffffff;
 $link                       : #0ea1c5;
-$link-dark                  : color.mix(#000, $link, 25%);
-$link-light                 : color.mix(#fff, $link, 25%);
+$link-dark                  : mix(#000, $link, 25%);
+$link-light                 : mix(#fff, $link, 25%);
 
 /* Color codes used for the site */
 $danger-color               : #ee5f5b;

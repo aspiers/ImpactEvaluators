@@ -2,10 +2,6 @@
    STYLE RESETS
    ========================================================================== */
 
-@use "../vendor/susy/susy" as *;
-@use "../vendor/breakpoint/breakpoint" as bp;
-@use "../themes" as *;
-
 @include border-box-sizing;
 
 html {
@@ -13,12 +9,13 @@ html {
   box-sizing: border-box;
   background-color: var(--global-bg-color);
   font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
 
-  @include bp.breakpoint($medium) {
+  @include breakpoint($medium) {
     font-size: 18px;
   }
+
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 /* Remove margin */

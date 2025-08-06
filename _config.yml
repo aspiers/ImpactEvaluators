@@ -1,6 +1,7 @@
 # Jekyll Configuration for Impact Evaluator Research
-title: "Impact Evaluator Research"
-description: "Research on Generalized Impact Evaluator systems"
+title: "Generalized Impact Evaluators: Model and Visualization"
+description: "Research on semi-formal abstract models of Impact Evaluators and their applications"
+author: "IE Research Team"
 baseurl: ""
 url: ""
 
@@ -15,6 +16,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-remote-theme
+  - jekyll-paginate
 
 # AsciiDoc configuration
 asciidoc:
@@ -34,23 +36,44 @@ asciidoctor:
 
 # Collection settings
 collections:
+  chapters:
+    output: true
+    permalink: /:collection/:name/
+    sort_by: order
   posts:
     output: true
     permalink: /:categories/:year/:month/:day/:title/
+
+# Pagination
+paginate: 10
+paginate_path: /page:num/
 
 # Default front matter
 defaults:
   - scope:
       path: ""
+      type: "chapters"
+    values:
+      layout: "chapter"
+      author: "IE Research Team"
+  - scope:
+      path: ""
       type: "posts"
     values:
-      layout: "post"
+      layout: "single"
       author: "IE Research Team"
   - scope:
       path: ""
       type: "pages"
     values:
-      layout: "page"
+      layout: "single"
+
+# PDF generation settings
+pdf:
+  title: "Generalized Impact Evaluators: Model and Visualization"
+  author: "IE Research Team"
+  subject: "Impact Evaluator Research"
+  keywords: "impact evaluation, abstract models, visualization, composability"
 
 # Exclude from processing
 exclude:
@@ -67,4 +90,3 @@ exclude:
   - .gitignore
   - AGENTS.md
   - CLAUDE.md
-  - "**/assets/css/main.scss"  # Exclude theme's main.scss to prevent duplicate processing

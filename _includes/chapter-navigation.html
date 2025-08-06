@@ -1,0 +1,184 @@
+{% assign chapters = site.data.chapters | sort: "number" %}
+{% assign current_chapter = nil %}
+{% assign prev_chapter = nil %}
+{% assign next_chapter = nil %}
+
+{% comment %} Find current chapter and adjacent chapters {% endcomment %}
+{% for chapter in chapters %}
+  {% if chapter.slug == page.slug %}
+    {% assign current_chapter = chapter %}
+    {% if forloop.first == false %}
+      {% assign prev_chapter = chapters[forloop.index0 | minus: 2] %}
+    {% endif %}
+    {% unless forloop.last %}
+      {% assign next_chapter = chapters[forloop.index0 | plus: 1] %}
+    {% endunless %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<nav class="chapter-nav" role="navigation">
+  <div class="chapter-nav__wrapper">
+    
+    {% comment %} Table of Contents {% endcomment %}
+    <div class="chapter-nav__toc">
+      <h4>Contents</h4>
+      <ul class="chapter-nav__list">
+        {% for chapter in chapters %}
+          <li class="chapter-nav__item{% if chapter.slug == page.slug %} chapter-nav__item--current{% endif %}">
+            <a href="{{ '/chapters/' | append: chapter.slug | relative_url }}" 
+               class="chapter-nav__link"
+               {% if chapter.slug == page.slug %}aria-current="page"{% endif %}>
+              <span class="chapter-nav__number">{{ chapter.number }}.</span>
+              <span class="chapter-nav__title">{{ chapter.title }}</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    {% comment %} Previous/Next Navigation {% endcomment %}
+    <div class="chapter-nav__pagination">
+      {% if prev_chapter %}
+        <div class="chapter-nav__prev">
+          <a href="{{ '/chapters/' | append: prev_chapter.slug | relative_url }}" 
+             class="btn btn--primary btn--small"
+             rel="prev">
+            ← Previous: {{ prev_chapter.title }}
+          </a>
+        </div>
+      {% endif %}
+      
+      {% if next_chapter %}
+        <div class="chapter-nav__next">
+          <a href="{{ '/chapters/' | append: next_chapter.slug | relative_url }}" 
+             class="btn btn--primary btn--small"
+             rel="next">
+            Next: {{ next_chapter.title }} →
+          </a>
+        </div>
+      {% endif %}
+    </div>
+    
+  </div>
+</nav>
+
+<style>
+/* Chapter Navigation Styles */
+.chapter-nav {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 0.375rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  font-family: "Latin Modern Sans", "Computer Modern Sans", "Arial", sans-serif;
+}
+
+.chapter-nav__wrapper {
+  max-width: 100%;
+}
+
+.chapter-nav__toc h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.chapter-nav__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.chapter-nav__item {
+  margin-bottom: 0.5rem;
+}
+
+.chapter-nav__link {
+  display: flex;
+  align-items: baseline;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #495057;
+  transition: all 0.2s ease;
+}
+
+.chapter-nav__link:hover {
+  background: #e9ecef;
+  color: #212529;
+  text-decoration: none;
+}
+
+.chapter-nav__item--current .chapter-nav__link {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.chapter-nav__item--current .chapter-nav__link:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.chapter-nav__number {
+  font-weight: bold;
+  margin-right: 0.5rem;
+  min-width: 2em;
+}
+
+.chapter-nav__title {
+  flex: 1;
+}
+
+.chapter-nav__pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.chapter-nav__prev,
+.chapter-nav__next {
+  flex: 1;
+  min-width: 200px;
+}
+
+.chapter-nav__next {
+  text-align: right;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .chapter-nav {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .chapter-nav__pagination {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .chapter-nav__next {
+    text-align: left;
+  }
+}
+
+/* Print styles */
+@media print {
+  .chapter-nav {
+    page-break-inside: avoid;
+    background: none;
+    border: 1px solid #333;
+  }
+  
+  .chapter-nav__pagination {
+    display: none;
+  }
+}
+</style>

@@ -1,0 +1,147 @@
+---
+layout: compress
+---
+
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+  <head>
+    {% include head.html %}
+    {% include head/custom.html %}
+    <link rel="stylesheet" href="{{ '/assets/css/academic.css' | relative_url }}">
+    <style>
+      /* Latin Modern font setup */
+      body, .page__content, .page__meta, .masthead__inner-wrap {
+        font-family: "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+        font-size: 11pt;
+        line-height: 1.6;
+      }
+      
+      /* Chapter-specific styling */
+      .page__title {
+        font-family: "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #333;
+        padding-bottom: 0.5em;
+      }
+      
+      .chapter-meta {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 2em;
+        font-size: 0.9em;
+      }
+      
+      /* Academic formatting */
+      .page__content h1, .page__content h2, .page__content h3 {
+        font-family: "Latin Modern Sans", "Computer Modern Sans", "Arial", sans-serif;
+        margin-top: 2em;
+        margin-bottom: 1em;
+      }
+      
+      .page__content h2 {
+        font-size: 1.4em;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 0.3em;
+      }
+      
+      .page__content h3 {
+        font-size: 1.2em;
+      }
+      
+      /* Figure and diagram styling */
+      .chapter-diagram {
+        text-align: center;
+        margin: 2em 0;
+      }
+      
+      .chapter-diagram svg {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      .figure-caption {
+        font-style: italic;
+        font-size: 0.9em;
+        text-align: center;
+        margin-top: 0.5em;
+        color: #666;
+      }
+      
+      /* Citation styling */
+      .citation {
+        font-size: 0.9em;
+        color: #555;
+      }
+      
+      /* Print-specific styles */
+      @media print {
+        .masthead, .page__footer, .chapter-nav {
+          display: none;
+        }
+        
+        .page__content {
+          font-size: 10pt;
+          line-height: 1.5;
+        }
+        
+        .page__title {
+          font-size: 14pt;
+          page-break-after: avoid;
+        }
+        
+        .chapter-diagram {
+          page-break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
+
+    {% include browser-upgrade.html %}
+    {% include masthead.html %}
+
+    <div class="initial-content">
+      <div id="main" role="main">
+        <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+          {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+          {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
+          {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date: "%B %d, %Y" }}">{% endif %}
+          {% if page.modified %}<meta itemprop="dateModified" content="{{ page.modified | date: "%B %d, %Y" }}">{% endif %}
+
+          <div class="page__inner-wrap">
+            {% unless page.header.overlay_color or page.header.overlay_image %}
+              <header>
+                {% if page.title %}
+                  <h1 class="page__title" itemprop="headline">
+                    {% if page.chapter_number %}Chapter {{ page.chapter_number }}: {% endif %}{{ page.title | markdownify | remove: "<p>" | remove: "</p>" | strip_html }}
+                  </h1>
+                {% endif %}
+                {% if page.description %}
+                  <p class="chapter-meta">{{ page.description }}</p>
+                {% endif %}
+              </header>
+            {% endunless %}
+
+            <!-- Chapter Navigation -->
+            {% include chapter-navigation.html %}
+
+            <section class="page__content" itemprop="text">
+              {{ content }}
+            </section>
+
+            <!-- Chapter Navigation (bottom) -->
+            {% include chapter-navigation.html %}
+
+            {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+          </div>
+        </article>
+      </div>
+    </div>
+
+    {% include scripts.html %}
+
+  </body>
+</html>

@@ -1,0 +1,29 @@
+- number: 1
+  title: "Introduction - The Need for a Map"
+  slug: "introduction"
+  description: "Understanding the challenges in the IE field and why we need a shared abstract model"
+  
+- number: 2
+  title: "The Abstract Model - Entities and Data"
+  slug: "abstract-model"
+  description: "Core structure of IE systems and the separation between entities and data"
+
+- number: 3
+  title: "Impact Claims"
+  slug: "impact-claims"
+  description: "Self-reported impact claims as foundational data structures"
+
+- number: 4
+  title: "Composability and Reusability"
+  slug: "composability"
+  description: "How IE primitives enable collaboration across projects like Hypercerts"
+
+- number: 5
+  title: "Governance"
+  slug: "governance"
+  description: "Meta-MERIters and governance structures for Impact Evaluator systems"
+
+- number: 6
+  title: "Implementation Roadmap"
+  slug: "implementation"
+  description: "Current work and future directions for IE research and development"

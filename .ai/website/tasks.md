@@ -20,16 +20,19 @@ See [prp.md](./prp.md) for the corresponding Product Requirements Prompt.
 
 # Tasks
 
-- [ ] 1. Set up Jekyll site structure and configuration
-  - [ ] 1.1. Finish initializing Jekyll site with academic paper layout
-             (uses academicpages theme, but doesn't look right so probably
-             needs a bunch of files copying from
-             https://github.com/academicpages/academicpages.github.io)
-  - [ ] 1.2. Configure _config.yml for both web and PDF output
-  - [ ] 1.3. Create _data/chapters.yml for chapter metadata and ordering
-  - [ ] 1.4. Set up _layouts/chapter.html template with Latin Modern font
-  - [ ] 1.5. Create _includes/navigation.html for chapter navigation
-  - [ ] 1.6. Configure assets/css/main.scss for academic formatting
+- [x] 1. Set up Jekyll site structure and configuration
+  - [x] 1.1. Finish initializing Jekyll site with academic paper layout
+             (Copied theme files from tmp directory, cleaned up misplaced root files)
+  - [x] 1.2. Configure _config.yml for both web and PDF output
+             (Added chapters collection, updated title/description, added jekyll-paginate plugin)
+  - [x] 1.3. Create _data/chapters.yml for chapter metadata and ordering
+             (Created 6 chapters with numbers, titles, slugs, and descriptions)
+  - [x] 1.4. Set up _layouts/chapter.html template with Latin Modern font
+             (Created complete chapter.html layout with embedded Latin Modern fonts, academic styling, figure/diagram support, and print CSS)
+  - [x] 1.5. Create _includes/navigation.html for chapter navigation
+             (Created _includes/chapter-navigation.html with TOC, pagination, responsive design, and embedded CSS styles)
+  - [x] 1.6. Configure assets/css/main.scss for academic formatting
+             (Created assets/css/academic.scss with comprehensive academic styling including Latin Modern fonts, chapter layouts, diagram styling, EAS schema formatting, and print CSS)
 
 - [ ] 2. Develop chapter content based on presentation.adoc
   - [ ] 2.1. Create Chapter 1: "Introduction - The Need for a Map" (based on Challenges and Solution sections)

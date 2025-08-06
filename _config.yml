@@ -87,6 +87,9 @@ exclude:
   - AGENTS.md
   - CLAUDE.md
   - tmp/
-  - .#*
-  - #*#
   - .ai/
+
+# Good f'in luck if you want to ignore emacs temp/lock files :-(
+# Neither of these work ... at all.
+# https://github.com/jekyll/jekyll-watch/pull/91
+# https://github.com/jekyll/jekyll-watch/pull/93

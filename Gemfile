@@ -22,4 +22,6 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   gem "jekyll-remote-theme", "~> 0.4.3"
   gem "jekyll-paginate"
+  gem "jekyll-relative-links"
+  gem "jekyll-titles-from-headings"
 end

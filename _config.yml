@@ -89,3 +89,4 @@ exclude:
   - .gitignore
   - AGENTS.md
   - CLAUDE.md
+  - tmp/

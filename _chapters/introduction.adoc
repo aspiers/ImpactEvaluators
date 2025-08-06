@@ -1,89 +1,210 @@
-= Introduction - The Need for a Map
+= Aligning work on MERIters via semi-formal model maps
 :chapter_number: 1
 :order: 1
-:description: Understanding the challenges in the IE field and why we need a shared abstract model
+:description: Tackling the challenges in the MERIter field via shared abstract models
 :date: 2025-08-06
 
-The field of Impact Evaluation represents one of the most complex and interdisciplinary domains in contemporary research and development. Spanning diverse industries, methodologies, and theoretical frameworks, Impact Evaluators (IEs)—also known as MERIters (Monitoring, Evaluation, and Results systems) or MER-loops—face unprecedented challenges in coordination, communication, and systematic development. This chapter establishes the foundational argument for why the field requires a shared abstract model to advance both theoretical understanding and practical implementation.
+This site relates to a relatively new field of research on a common pattern of
+system design which iteratively incentivizes impact projects through a
+repeated loop of Monitoring, Evaluation, and Rewards of Impact ("MERI").
+
+(Originally labelled Impact Evaluators or IEs for short, alternative names are
+now being considered, such as MERIters and MER-loops.)
+
+The applicability of this design pattern spans a huge diversity of industries,
+methodologies, and theoretical frameworks.
+
+This chapter establishes a foundational argument for why the field requires a
+shared abstract model to advance both theoretical understanding and practical
+implementation.
 
 == The Challenge Landscape
 
 === Complexity and Scale
 
-The Impact Evaluation field encompasses a vast ecosystem of interconnected challenges that operate at multiple scales simultaneously. The domain spans numerous industries, from international development and public health to environmental conservation and social innovation. Each sector brings its own methodological traditions, terminology, and evaluation frameworks, creating a fragmented landscape where comparable work often proceeds in isolation.
+The MERI field applies a vast ecosystem of interconnected challenges that
+operate at multiple scales simultaneously.  The domain spans numerous
+industries, from fighting climate change to funding Free / Open Source
+software. Each sector brings its own methodological traditions, terminology,
+and evaluation frameworks, creating a fragmented landscape where potentially
+synergistic work often proceeds in isolation.
 
-Research and development within this field exhibits both breadth and depth characteristics that compound coordination difficulties. Teams may pursue broad, exploratory research across multiple domains, or focus intensively on specific methodological innovations. This diversity, while valuable for advancing knowledge, creates significant barriers to knowledge synthesis and collaborative advancement.
+R&D development within this field exhibits both breadth and depth
+characteristics that compound coordination difficulties. Teams may pursue
+broad, exploratory research across multiple domains, or focus intensively on
+specific methodological innovations. This diversity, while valuable for
+advancing knowledge, creates significant barriers to knowledge synthesis and
+collaborative advancement.
+
+=== Integration and Alignment Challenges
+
+A critical challenge facing the field is the need to bridge different levels
+of abstraction and implementation.  Theoretical simulations must accurately
+approximate real-world implementations, while minimum viable products (MVPs)
+need to effectively test underlying theoretical assumptions.  This alignment
+requirement extends beyond technical considerations to encompass fundamental
+questions about how different research outputs relate to one another and to
+the broader field objectives.
+
+Any disconnect between formal research and concrete development risks limiting
+the field's ability to translate theoretical advances into practical impact.
+In the worst case, academic research would proceed independently of
+implementation concerns, while development teams would lack access to or
+awareness of relevant theoretical foundations.  Such separation can reduce the
+efficiency of knowledge transfer and limit the potential for systematic
+advancement.
 
 .Overview of the Impact Evaluator abstract model
 image::ERD.svg[Impact Evaluator Abstract Model Overview, align="center"]
 Figure 1.1: Overview of the Impact Evaluator abstract model, illustrating the complexity of interactions between different components in IE systems
 
-=== Integration and Alignment Challenges
-
-A critical challenge facing the field is the need to bridge different levels of abstraction and implementation. Theoretical simulations must accurately approximate real-world implementations, while minimum viable products (MVPs) need to effectively test underlying theoretical assumptions. This alignment requirement extends beyond technical considerations to encompass fundamental questions about how different research outputs relate to one another and to the broader field objectives.
-
-The disconnect between formal research and concrete development represents a persistent challenge that limits the field's ability to translate theoretical advances into practical impact. Academic research often proceeds independently of implementation concerns, while development teams may lack access to or awareness of relevant theoretical foundations. This separation reduces the efficiency of knowledge transfer and limits the potential for systematic advancement.
-
 === Communication and Coordination Barriers
 
-Perhaps the most fundamental challenge facing the Impact Evaluation field is the lack of shared conceptual frameworks for communication and coordination. Different research groups, development teams, and implementation organizations often use inconsistent terminology to describe similar concepts, or use identical terms to refer to different phenomena. This terminological confusion creates barriers to collaboration and knowledge sharing that extend far beyond simple communication difficulties.
+Perhaps the most fundamental challenge facing the Impact Evaluation field is
+the lack of shared conceptual frameworks for communication and
+coordination. Different research groups, development teams, and implementation
+organizations often use inconsistent terminology to describe similar concepts,
+or use identical terms to refer to different phenomena. This terminological
+confusion creates barriers to collaboration and knowledge sharing that extend
+far beyond simple communication difficulties.
 
-The absence of aligned mental models compounds these communication challenges. Without shared conceptual frameworks, teams struggle to identify connections between their work and that of others, leading to unnecessary duplication of effort and missed opportunities for collaboration. New researchers and practitioners face extended onboarding periods as they must not only learn domain-specific knowledge but also navigate the fragmented terminological landscape.
+The absence of aligned mental models compounds these communication
+challenges. Without shared conceptual frameworks, teams struggle to identify
+connections between their work and that of others, leading to unnecessary
+duplication of effort and missed opportunities for collaboration. New
+researchers and practitioners face extended onboarding periods as they must
+not only learn domain-specific knowledge but also navigate the fragmented
+terminological landscape.
 
 == The Solution: A Shared Abstract Model
 
 === The Map Metaphor
 
-The solution to these multifaceted challenges lies in developing what we term a "map" of the Impact Evaluator domain. This map takes the form of a shared abstract model that provides a common conceptual framework for understanding, describing, and coordinating work within the field. Like geographical maps that enable navigation and coordination across physical territories, an abstract model of Impact Evaluators enables intellectual navigation and coordination across the conceptual territory of the field.
+The solution to these multifaceted challenges lies in developing what we term
+a "map" of the Impact Evaluator domain. This map takes the form of a shared
+abstract model that provides a common conceptual framework for understanding,
+describing, and coordinating work within the field. Like geographical maps
+that enable navigation and coordination across physical territories, an
+abstract model of Impact Evaluators enables intellectual navigation and
+coordination across the conceptual territory of the field.
 
-The map metaphor is particularly apt because it captures several essential characteristics of what the field requires. Maps provide standardized representations that enable different users to locate themselves, identify destinations, and plan routes. They abstract away unnecessary detail while preserving essential structural relationships. Most importantly, maps enable coordination between different actors without requiring centralized control or homogenization of objectives.
+The map metaphor is particularly apt because it captures several essential
+characteristics of what the field requires. Maps provide standardized
+representations that enable different users to locate themselves, identify
+destinations, and plan routes. They abstract away unnecessary detail while
+preserving essential structural relationships. Most importantly, maps enable
+coordination between different actors without requiring centralized control or
+homogenization of objectives.
 
 === Facilitative Capabilities
 
-Creating and visualizing an abstract model of Impact Evaluators facilitates several critical capabilities that address the challenges identified above:
+Creating and visualizing an abstract model of Impact Evaluators facilitates
+several critical capabilities that address the challenges identified above:
 
-*Big Picture Thinking*: The abstract model provides a comprehensive overview that enables researchers and practitioners to understand how their specific work relates to the broader field structure. This systemic perspective supports more informed decision-making about research directions, development priorities, and collaboration opportunities.
+*Big Picture Thinking*: The abstract model provides a comprehensive overview
+*that enables researchers and practitioners to understand how their specific
+*work relates to the broader field structure. This systemic perspective
+*supports more informed decision-making about research directions, development
+*priorities, and collaboration opportunities.
 
-*Precision of Scoping*: Clear separation of concerns within the abstract model enables more precise scoping of projects and research initiatives. By identifying distinct domains and their interfaces, teams can more accurately define project boundaries and dependencies, reducing scope creep and improving project management.
+*Precision of Scoping*: Clear separation of concerns within the abstract model
+*enables more precise scoping of projects and research initiatives. By
+*identifying distinct domains and their interfaces, teams can more accurately
+*define project boundaries and dependencies, reducing scope creep and
+*improving project management.
 
-*Work Positioning*: The model provides a framework for locating specific research outputs and development projects within the broader field context. This positioning capability enables teams to identify their unique contributions while recognizing areas of overlap or potential collaboration with others.
+*Work Positioning*: The model provides a framework for locating specific
+*research outputs and development projects within the broader field
+*context. This positioning capability enables teams to identify their unique
+*contributions while recognizing areas of overlap or potential collaboration
+*with others.
 
 .The abstract model with focus area annotations
 image::ERD-focus-areas.svg[Impact Evaluator Model with Focus Areas, align="center"]
 Figure 1.2: The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
 
-*Connection Discovery*: By providing a common framework for describing work, the abstract model enables identification of connections between different research streams that might not be apparent without shared conceptual vocabulary. This connection discovery capability supports more effective collaboration and knowledge synthesis.
+*Connection Discovery*: By providing a common framework for describing work,
+*the abstract model enables identification of connections between different
+*research streams that might not be apparent without shared conceptual
+*vocabulary. This connection discovery capability supports more effective
+*collaboration and knowledge synthesis.
 
 === Structural Requirements
 
-The development of an effective abstract model for Impact Evaluators requires careful attention to structural characteristics that support the facilitative capabilities described above. The model must achieve sufficient abstraction to accommodate the diversity of approaches within the field while maintaining enough specificity to provide meaningful guidance for coordination and communication.
+The development of an effective abstract model for Impact Evaluators requires
+careful attention to structural characteristics that support the facilitative
+capabilities described above. The model must achieve sufficient abstraction to
+accommodate the diversity of approaches within the field while maintaining
+enough specificity to provide meaningful guidance for coordination and
+communication.
 
-Key structural requirements include modularity, which enables different components of the model to be developed and refined independently while maintaining overall coherence. The model must also exhibit extensibility, allowing new concepts and relationships to be incorporated as the field evolves. Clarity of interfaces between different model components ensures that teams can work effectively at component boundaries without requiring deep knowledge of all model details.
+Key structural requirements include modularity, which enables different
+components of the model to be developed and refined independently while
+maintaining overall coherence. The model must also exhibit extensibility,
+allowing new concepts and relationships to be incorporated as the field
+evolves. Clarity of interfaces between different model components ensures that
+teams can work effectively at component boundaries without requiring deep
+knowledge of all model details.
 
 == Implications for Field Development
 
 === Theoretical Advancement
 
-The establishment of a shared abstract model creates new possibilities for theoretical advancement within the Impact Evaluation field. By providing common conceptual foundations, the model enables more systematic comparison of different approaches and more rigorous testing of theoretical propositions. Research groups can build more effectively on the work of others when they share common frameworks for describing their contributions.
+The establishment of a shared abstract model creates new possibilities for
+theoretical advancement within the Impact Evaluation field. By providing
+common conceptual foundations, the model enables more systematic comparison of
+different approaches and more rigorous testing of theoretical
+propositions. Research groups can build more effectively on the work of others
+when they share common frameworks for describing their contributions.
 
-The model also supports the development of more sophisticated theoretical frameworks by enabling researchers to identify gaps and opportunities for theoretical development. When the field's conceptual structure is made explicit through abstract modeling, areas requiring further theoretical development become more apparent, leading to more strategic research investment.
+The model also supports the development of more sophisticated theoretical
+frameworks by enabling researchers to identify gaps and opportunities for
+theoretical development. When the field's conceptual structure is made
+explicit through abstract modeling, areas requiring further theoretical
+development become more apparent, leading to more strategic research
+investment.
 
 === Practical Implementation
 
-Beyond theoretical benefits, the abstract model provides practical advantages for implementation teams and practitioners. Shared vocabulary and conceptual frameworks reduce the communication overhead associated with collaboration, enabling teams to focus more energy on substantive work rather than terminological negotiation.
+Beyond theoretical benefits, the abstract model provides practical advantages
+for implementation teams and practitioners. Shared vocabulary and conceptual
+frameworks reduce the communication overhead associated with collaboration,
+enabling teams to focus more energy on substantive work rather than
+terminological negotiation.
 
-The model also supports better tool and system interoperability by providing common conceptual foundations for technical design decisions. When development teams share understanding of core abstractions, the systems they build are more likely to be compatible and composable.
+The model also supports better tool and system interoperability by providing
+common conceptual foundations for technical design decisions. When development
+teams share understanding of core abstractions, the systems they build are
+more likely to be compatible and composable.
 
 == Chapter Roadmap
 
-This introduction has established the foundational argument for developing a shared abstract model of Impact Evaluators. The subsequent chapters of this work develop this argument in increasing detail, moving from abstract conceptual foundations to concrete implementation considerations.
+This introduction has established the foundational argument for developing a
+shared abstract model of Impact Evaluators. The subsequent chapters of this
+work develop this argument in increasing detail, moving from abstract
+conceptual foundations to concrete implementation considerations.
 
-Chapter 2 examines the structure of the abstract model itself, focusing on the critical distinction between entities and data within Impact Evaluator systems. Chapter 3 explores impact claims as a foundational data structure that enables self-reported impact documentation while maintaining separation from third-party evaluation processes.
+Chapter 2 examines the structure of the abstract model itself, focusing on the
+critical distinction between entities and data within Impact Evaluator
+systems. Chapter 3 explores impact claims as a foundational data structure
+that enables self-reported impact documentation while maintaining separation
+from third-party evaluation processes.
 
-Chapter 4 investigates the composability and reusability properties that emerge from properly structured abstract models, with particular attention to how these properties enable collaboration across different projects and organizations. Chapter 5 addresses governance considerations, including the concept of meta-MERIters that enable governance of Impact Evaluator systems through Impact Evaluator mechanisms themselves.
+Chapter 4 investigates the composability and reusability properties that
+emerge from properly structured abstract models, with particular attention to
+how these properties enable collaboration across different projects and
+organizations. Chapter 5 addresses governance considerations, including the
+concept of meta-MERIters that enable governance of Impact Evaluator systems
+through Impact Evaluator mechanisms themselves.
 
-Finally, Chapter 6 presents a practical implementation roadmap that connects the theoretical foundations developed in earlier chapters to concrete development priorities and coordination mechanisms.
+Finally, Chapter 6 presents a practical implementation roadmap that connects
+the theoretical foundations developed in earlier chapters to concrete
+development priorities and coordination mechanisms.
 
 ---
 
-_This chapter is part of ongoing research into systematic approaches to Impact Evaluation. The abstract model presented here builds on foundations established in "Generalized Impact Evaluators" (Protocol Labs Research, 2023) while extending these concepts to address coordination and communication challenges in the broader IE research community._
+_This chapter is part of ongoing research into systematic approaches to Impact
+Evaluation. The abstract model presented here builds on foundations
+established in "Generalized Impact Evaluators" (Protocol Labs Research, 2023)
+while extending these concepts to address coordination and communication
+challenges in the broader IE research community._

@@ -3,9 +3,9 @@
 # Variables
 PUML_FILES = $(wildcard *.puml)
 PNG_FILES = $(PUML_FILES:.puml=.png)
-FOCUS_AREAS = focus-areas.yml
-SVG_AREAS = ERD-areas.svg
-SVG_FILES = $(PUML_FILES:.puml=.svg) $(SVG_AREAS)
+ANNOTATION_FILES = $(filter-out _config.yml, $(wildcard *.yml))
+ANNOTATED_SVG_FILES = $(ANNOTATION_FILES:%.yml=ERD-%.svg)
+SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES)
 
 # Default target
 .PHONY: all
@@ -22,18 +22,18 @@ all: $(PNG_FILES) $(SVG_FILES)
 	plantuml -tsvg -pipe < $< > $@
 
 # Generate focus area annotations SVG
-$(SVG_AREAS): $(FOCUS_AREAS) ERD.svg
-	@echo "Generating focus area annotations..."
-	@svg-annotator --areas focus-areas.yml > $@
-	@echo "Generated $(SVG_AREAS) with all focus area annotations"
+ERD-%.svg: %.yml ERD.svg
+	@echo "Generating $@ with annotations from $< ..."
+	@svg-annotator --areas $< > $@
+	@echo "Generated $@ with annotations from $<"
 
 .PHONY: areas
-areas: ERD-areas.svg
+areas: $(ANNOTATED_SVG_FILES)
 
 .PHONY: clean
 clean:
 	@echo "Cleaning generated PNG and SVG files..."
-	@rm -f $(PNG_FILES) $(SVG_FILES) ERD-areas.svg
+	@rm -f $(PNG_FILES) $(SVG_FILES) $(ANNOTATED_SVG_FILES)
 
 # Watch for changes and regenerate (requires inotify-tools)
 .PHONY: watch

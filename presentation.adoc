@@ -33,9 +33,10 @@ Creating and visualising an abstract model of IEs facilitates:
 
 A good map of IEs has at least 4 key sections:
 
-- impact
-- measurements
-- evaluations
+- *Impact:* entities and data producing and claiming impact
+- *Measurements:* entities and data producing and declaring measurements of impact
+- *Evaluations:* entities and data producing and declaring evaluations of impact based on measurements and claims
+- *Rewards:*
 
 NOTE: MERIters are positive feedback loops: claims lead to rewards,
 and rewards lead to claims.
@@ -54,9 +55,10 @@ Whilst not explicitly modelled in the original IE paper
 footnote:[Generalized Impact Evaluators, Protocol Labs Research (2023).
 Available at: https://research.protocol.ai/publications/generalized-impact-evaluators/],
 we assert that impact claims (e.g. Hypercerts) need to be an explicit part of this
-abstract model
+abstract model:
 
-  - Claims are self-reported; separation from measurements avoids conflicts of interest
+  - Claims are self-reported
+  - Separation from third-party measurements avoids conflicts of interest
 
 === Governance
 
@@ -64,11 +66,14 @@ abstract model
 
 === Evaluations
 
-Evaluations can be stacked to form an arbitrarily deep graph of evaluations.
+- Evaluations can be stacked to form an arbitrarily deep graph of evaluations.
 
-From a data modelling perspective, this can be represented simply by
-allowing the inputs to evaluation functions to be not only
-measurements, but other evaluations.
+  From a data modelling perspective, this can be represented simply by
+  allowing the inputs to evaluation functions to be not only
+  measurements, but other evaluations.
+
+- Evaluations can depend not only on measurements and on other evaluations, but also on
+  impact claims.
 
 == Current work
 

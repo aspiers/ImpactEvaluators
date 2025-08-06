@@ -8,14 +8,11 @@ url: ""
 # Build settings
 markdown: kramdown
 highlighter: rouge
-remote_theme: "academicpages/academicpages.github.io"
-
 # Plugins
 plugins:
   - jekyll-asciidoc
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-remote-theme
 
 # AsciiDoc configuration
 asciidoc:

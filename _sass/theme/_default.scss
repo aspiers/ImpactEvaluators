@@ -1,84 +1,49 @@
-// Modern theme colors using new Sass color functions
 @use "sass:color";
 
-// Base colors
-$gray: #7a8288 !default;
-$dark-gray: color.mix(#000, $gray, 40%) !default;
-$darker-gray: color.mix(#000, $gray, 60%) !default;
-$light-gray: color.mix(#fff, $gray, 50%) !default;
-$lighter-gray: color.mix(#fff, $gray, 90%) !default;
+/* ==========================================================================
+   DEFAULT THEME
+   ========================================================================== */
 
-$background-color: #fff !default;
-$code-background-color: #fafafa !default;
-$code-background-color-dark: $light-gray !default;
-$text-color: $dark-gray !default;
-$muted-text-color: color.mix(#fff, $text-color, 20%) !default;
-$border-color: $lighter-gray !default;
-$form-background-color: $lighter-gray !default;
-$footer-background-color: $lighter-gray !default;
+/* Color codes used for the theme */
+$gray                       : #7a8288;
+$dark-gray                  : color.mix(#000, $gray, 40%);
+$darker-gray                : color.mix(#000, $gray, 60%);
+$light-gray                 : #9ba1a6;
+$lighter-gray               : color.mix(#fff, $gray, 90%);
 
-$primary-color: #6f777d !default;
-$success-color: #3fa63f !default;
-$warning-color: #d67f05 !default;
-$danger-color: #ee5f5b !default;
-$info-color: #3b9cba !default;
-$focus-color: $primary-color !default;
-$active-color: color.mix(#fff, $primary-color, 80%) !default;
+/* Color codes used for the site */
+$danger-color               : #ee5f5b;
+$info-color                 : #2f7f93;
+$notice-color               : #7a8288;
+$success-color              : #62c462;
+$warning-color              : #f89406;
 
-// YIQ color contrast
-$yiq-contrasted-dark-default: $dark-gray !default;
-$yiq-contrasted-light-default: #fff !default;
-$yiq-contrasted-threshold: 175 !default;
-$yiq-debug: false !default;
+/* Other basic settings for the template */
+$border-radius              : 4px;
+$box-shadow                 : 0 1px 1px rgba(0, 0, 0, 0.125);
+$global-transition          : all 0.2s ease-in-out;
+$masthead-height            : 70px;
+$navicon-width              : 28px;
+$navicon-height             : 4px;
+$sidebar-link-max-width     : 250px;
+$sidebar-screen-min-width   : 1024px;
 
-// Brands
-$behance-color: #1769ff !default;
-$bitbucket-color: #205081 !default;
-$dribbble-color: #ea4c89 !default;
-$facebook-color: #3b5998 !default;
-$flickr-color: #ff0084 !default;
-$foursquare-color: #0072b1 !default;
-$github-color: #171516 !default;
-$gitlab-color: #e24329 !default;
-$instagram-color: #517fa4 !default;
-$keybase-color: #ef7639 !default;
-$lastfm-color: #d51007 !default;
-$linkedin-color: #007bb6 !default;
-$mastodon-color: #2b90d9 !default;
-$pinterest-color: #cb2027 !default;
-$reddit-color: #ff4500 !default;
-$rss-color: #fa9b39 !default;
-$soundcloud-color: #ff3300 !default;
-$stackoverflow-color: #fe7a15 !default;
-$tumblr-color: #32506d !default;
-$twitter-color: #55acee !default;
-$vimeo-color: #1ab7ea !default;
-$vine-color: #00bf8f !default;
-$youtube-color: #bb0000 !default;
-$xing-color: #006567 !default;
-
-// Links
-$link-color: color.mix(#000, $info-color, 20%) !default;
-$link-color-hover: color.mix(#000, $link-color, 25%) !default;
-$link-color-visited: color.mix(#fff, $link-color, 15%) !default;
-$masthead-link-color: $primary-color !default;
-$masthead-link-color-hover: color.mix(#000, $primary-color, 25%) !default;
-$navicon-link-color-hover: color.mix(#fff, $primary-color, 75%) !default;
-
-// Syntax highlighting colors
-$base00: #263238 !default;
-$base01: #2e3c43 !default;
-$base02: #314549 !default;
-$base03: #546e7a !default;
-$base04: #b2ccd6 !default;
-$base05: #eeffff !default;
-$base06: #eeffff !default;
-$base07: #ffffff !default;
-$base08: #f07178 !default;
-$base09: #f78c6c !default;
-$base0a: #ffcb6b !default;
-$base0b: #c3e88d !default;
-$base0c: #89ddff !default;
-$base0d: #82aaff !default;
-$base0e: #c792ea !default;
-$base0f: #ff5370 !default;
+/* Default light theme for the site */
+:root {
+    --global-base-color                 : #{$gray};
+    --global-bg-color                   : #fff;
+    --global-footer-bg-color            : #f2f3f3;
+    --global-border-color               : #{$lighter-gray};
+    --global-dark-border-color          : #bdc1c4;
+    --global-code-background-color      : #fafafa;
+    --global-code-text-color            : #{$darker-gray};
+    --global-fig-caption-color          : color.mix(#fff, #{$dark-gray}, 25%);
+    --global-link-color                 : #52adc8;
+    --global-link-color-hover           : color.mix(#000, #2f7f93, 25%);
+    --global-link-color-visited         : color.mix(#fff, #2f7f93, 25%);  
+    --global-masthead-link-color        : #{$dark-gray};
+    --global-masthead-link-color-hover  : color.mix(#000, #{$gray}, 25%);    
+    --global-text-color                 : #{$dark-gray};
+    --global-text-color-light           : #{$light-gray};
+    --global-thead-color                : #{$lighter-gray};
+}

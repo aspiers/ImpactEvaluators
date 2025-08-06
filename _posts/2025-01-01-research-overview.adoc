@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: single
 title: "Research Overview: Generalized Impact Evaluators"
 date: 2025-01-01
 categories: research overview

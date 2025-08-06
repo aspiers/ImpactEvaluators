@@ -59,7 +59,7 @@ efficiency of knowledge transfer and limit the potential for systematic
 advancement.
 
 .Overview of the Impact Evaluator abstract model
-image::../diagrams/ERD.svg[Impact Evaluator Abstract Model Overview, align="center"]
+image::../../diagrams/ERD.svg[Impact Evaluator Abstract Model Overview, align="center"]
 Figure 1.1: Overview of the Impact Evaluator abstract model, illustrating the complexity of interactions between different components in IE systems
 
 === Communication and Coordination Barriers
@@ -124,7 +124,7 @@ several critical capabilities that address the challenges identified above:
 *with others.
 
 .The abstract model with focus area annotations
-image::ERD-focus-areas.svg[Impact Evaluator Model with Focus Areas, align="center"]
+image::../../diagrams/ERD-focus-areas.svg[Impact Evaluator Model with Focus Areas, align="center"]
 Figure 1.2: The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
 
 *Connection Discovery*: By providing a common framework for describing work,

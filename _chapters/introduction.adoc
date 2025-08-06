@@ -1,8 +1,12 @@
+---
+title: "Aligning work on MERIters via semi-formal models and maps"
+description: "Tackling the challenges in the MERIter field via shared abstract models"
+chapter_number: 1
+order: 1
+date: 2025-08-06
+---
+
 = Aligning work on MERIters via semi-formal model maps
-:chapter_number: 1
-:order: 1
-:description: Tackling the challenges in the MERIter field via shared abstract models
-:date: 2025-08-06
 
 This site relates to a relatively new field of research on a common pattern of
 system design which iteratively incentivizes impact projects through a

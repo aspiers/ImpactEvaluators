@@ -20,7 +20,7 @@ See [prp.md](./prp.md) for the corresponding Product Requirements Prompt.
 
 # Tasks
 
-- [x] 1. Set up Jekyll site structure and configuration
+- [ ] 1. Set up Jekyll site structure and configuration
   - [x] 1.1. Finish initializing Jekyll site with academic paper layout
              (Copied theme files from tmp directory, cleaned up misplaced root files)
   - [x] 1.2. Configure _config.yml for both web and PDF output
@@ -33,8 +33,9 @@ See [prp.md](./prp.md) for the corresponding Product Requirements Prompt.
              (Created _includes/chapter-navigation.html with TOC, pagination, responsive design, and embedded CSS styles)
   - [x] 1.6. Configure assets/css/main.scss for academic formatting
              (Created assets/css/academic.scss with comprehensive academic styling including Latin Modern fonts, chapter layouts, diagram styling, EAS schema formatting, and print CSS)
+  - [ ] 1.7. Achieve academicpages styling, whilst avoiding warnings from Jekyll builds
 
-- [ ] 2. Develop chapter content based on presentation.adoc
+- [ ] 2. Develop chapter content in asciidoc format based on presentation.adoc
   - [ ] 2.1. Create Chapter 1: "Introduction - The Need for a Map" (based on Challenges and Solution sections)
   - [ ] 2.2. Create Chapter 2: "The Abstract Model - Entities and Data" (based on Map Structure section)
   - [ ] 2.3. Create Chapter 3: "Impact Claims" (based on Impact Claims section)

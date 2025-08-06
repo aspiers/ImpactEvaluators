@@ -1,0 +1,12 @@
+1a) E, but primarily A and B
+1b) C
+2a) C and D
+2b) D but expecting A
+3a) A, and C (probably focusing on individual sections such as Evaluate), but D is desirable (I'm thinking d3.js would be a great way of allowing dynamic interaction with the SVGs)
+3b) A is already implemented. B is partially implemented but just opens a whole new webpage rather than animating the diagram or anything more fancy. C is partially implemented (just write different YAML files each with a different combination of annotations, and then generate separate versions of the SVG for each)
+4a) B
+4b) B
+5a) D but mainly B
+5b) A
+6) D
+7) D

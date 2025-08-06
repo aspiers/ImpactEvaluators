@@ -1,8 +1,7 @@
 ---
-layout: single
+layout: chapter
 title: Impact Evaluator Research
 ---
-:toc:
 
 = Impact Evaluator Research
 

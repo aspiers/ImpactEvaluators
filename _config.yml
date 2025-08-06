@@ -91,3 +91,4 @@ exclude:
   - CLAUDE.md
   - tmp/
   - .#*
+  - .ai/

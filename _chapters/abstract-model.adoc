@@ -1,0 +1,157 @@
+---
+title: "Chapter 2: The Abstract Model - Entities and Data"
+excerpt: "Exploring the fundamental structure of the Impact Evaluator abstract model, focusing on the critical distinction between entities and data"
+order: 2
+date: 2025-08-06
+layout: chapter
+---
+
+The abstract model presented in Chapter 1 requires careful structural design to achieve its goals of facilitating coordination, communication, and systematic development within the Impact Evaluation field. This chapter examines the foundational architecture of the model, with particular emphasis on the fundamental distinction between entities and data that enables modularity and reusability across different implementations and use cases.
+
+== The Four-Section Architecture
+
+=== Structural Overview
+
+A comprehensive map of Impact Evaluators consists of four key sections that capture the essential functions and relationships within IE systems:
+
+**Impact**: Entities and data structures that produce and represent impact claims. This section encompasses the mechanisms by which work activities translate into documented impact assertions, including both the agents that perform impact-generating work and the data structures that formally represent their claims.
+
+**Measurements**: Entities and data structures that produce and declare measurements of impact. This section focuses on the independent measurement and verification processes that provide empirical foundations for impact assessment, distinct from the self-reported claims produced in the Impact section.
+
+**Evaluations**: Entities and data structures that produce and declare evaluations of impact based on measurements, claims, and other evaluations. This section captures the analytical and decision-making processes that synthesize multiple information sources to produce assessments of impact quality, significance, and value.
+
+**Rewards**: Entities and data structures that allocate and distribute rewards based on evaluations. This section encompasses the mechanisms by which impact evaluations translate into concrete benefits for impact producers, completing the feedback loop that characterizes MERIter systems.
+
+.The Complete MERIter Loop
+[NOTE]
+====
+MERIters function as positive feedback loops where claims lead to rewards, and rewards incentivize further claims. This cyclical structure distinguishes Impact Evaluator systems from simple measurement or evaluation frameworks by emphasizing the dynamic relationship between assessment and incentivization.
+====
+
+=== Interface Design
+
+The four-section architecture achieves modularity through careful interface design between sections. Each section defines clear inputs and outputs that enable independent development and implementation while maintaining overall system coherence. Impact claims serve as outputs from the Impact section and inputs to the Measurements and Evaluations sections. Similarly, measurements provide outputs that become inputs for evaluation processes.
+
+This interface-based design enables different organizations or research groups to focus on specific sections while contributing to the broader IE ecosystem. A research group specializing in measurement methodologies can develop improved measurement entities and data structures without requiring deep knowledge of reward allocation mechanisms, provided they adhere to the defined interfaces.
+
+== Entities Versus Data: The Fundamental Distinction
+
+=== Conceptual Foundations
+
+The most critical architectural decision in the abstract model is the systematic distinction between entities and data. This distinction provides the foundation for modularity, reusability, and clear separation of concerns that enable effective collaboration across different projects and implementations.
+
+**Entities** represent active agents or processes within IE systems. These are identities within webs of trust that possess agency and responsibility. Entities perform actions, make decisions, and bear accountability for their outputs. Examples include research organizations conducting impact measurements, evaluation bodies assessing impact claims, and reward distribution mechanisms allocating benefits based on evaluations.
+
+**Data** represent inputs and outputs within IE systems. These are attestations, typically signed by entities, that provide formal representations of information. Data structures capture claims, measurements, evaluations, and reward allocations in formats that enable systematic processing and verification. Examples include impact claim documents, measurement datasets, evaluation reports, and reward distribution records.
+
+=== Separation of Concerns
+
+The entity-data distinction enables clear separation of concerns that promotes both technical and organizational modularity. By separating "who does the work" (entities) from "what information is produced" (data), the model enables independent development of different system components while maintaining interoperability.
+
+This separation addresses one of the fundamental coordination challenges identified in Chapter 1: the need to enable collaboration between teams with different technical capabilities, organizational structures, and operational constraints. A small research group can contribute valuable measurement methodologies without needing to implement complete IE systems, while larger organizations can integrate multiple independently developed components into comprehensive implementations.
+
+.Technical Modularity
+[sidebar]
+****
+The entity-data distinction provides technical benefits that extend beyond organizational considerations. Data structures can be standardized and versioned independently of the entities that produce them, enabling backwards compatibility and gradual system evolution. Entities can be upgraded or replaced without affecting data formats, while new data requirements can be accommodated without modifying entity implementations.
+****
+
+=== Trust and Verification
+
+The entity-data distinction also provides foundations for trust and verification within IE systems. Entities serve as identities within webs of trust, enabling attribution and accountability for data production. Data structures include cryptographic signatures that link them to specific entities, providing mechanisms for verification and fraud detection.
+
+This trust architecture addresses critical concerns about the integrity of impact evaluation processes. By maintaining clear linkages between data and the entities responsible for their production, the model enables stakeholders to make informed assessments about data reliability based on their trust relationships with producing entities.
+
+== Data Structure Patterns
+
+=== Impact Claims as Foundational Data
+
+While not explicitly modeled in the original Impact Evaluator research, impact claims emerge as a fundamental data structure that requires explicit representation in the abstract model. Impact claims, exemplified by technologies such as Hypercerts, provide self-reported documentation of impact-generating activities.
+
+The explicit inclusion of impact claims serves several critical functions within the abstract model:
+
+**Separation from Third-Party Assessment**: By maintaining impact claims as distinct data structures separate from measurements and evaluations, the model avoids conflicts of interest that arise when impact producers also control impact assessment processes.
+
+**Self-Sovereignty**: Impact claims enable impact producers to document their work and intended impacts without requiring permission from external authorities, supporting innovation and diverse approaches to impact generation.
+
+**Composability Foundation**: Standardized impact claim formats provide common interfaces that enable different measurement and evaluation approaches to operate on the same underlying impact assertions.
+
+=== Measurement Integration
+
+Measurement data structures provide empirical foundations that complement self-reported impact claims. The abstract model accommodates diverse measurement approaches while maintaining consistency through standardized interfaces.
+
+Key characteristics of measurement data include:
+
+- **Independence**: Measurement entities operate independently of impact claim producers, providing objectivity and reducing bias.
+- **Methodological Diversity**: The model accommodates different measurement methodologies without privileging specific approaches.
+- **Temporal Flexibility**: Measurements can be produced at different time intervals and synchronized with impact claim cycles as appropriate for specific domains.
+
+=== Evaluation Composability
+
+Evaluation data structures demonstrate one of the most powerful capabilities of the abstract model: the ability to compose evaluations in arbitrarily deep hierarchies. From a data modeling perspective, this composability emerges naturally by allowing evaluation functions to accept not only measurements and impact claims as inputs, but also other evaluations.
+
+This evaluation composability enables several advanced IE capabilities:
+
+**Meta-Evaluation**: Higher-level evaluations can assess the quality and reliability of lower-level evaluations, enabling quality assurance and continuous improvement processes.
+
+**Specialization**: Different evaluation entities can focus on specific aspects of impact assessment while contributing to comprehensive evaluation processes through composition.
+
+**Stakeholder Perspectives**: Multiple evaluation perspectives can be composed to provide multidimensional impact assessments that reflect diverse stakeholder priorities and values.
+
+== Governance Through Meta-MERIters
+
+=== Self-Referential Architecture
+
+One of the most elegant aspects of the abstract model is its capacity for self-referential governance through "meta-MERIters." The governance of Impact Evaluator systems can itself be modeled as Impact Evaluator processes, creating recursive structures that maintain consistency while enabling adaptive governance.
+
+Meta-MERIters operate by treating governance activities as impact-generating work that produces governance impact claims. These claims undergo measurement and evaluation processes that assess governance effectiveness, leading to rewards that incentivize effective governance participation.
+
+=== Governance Data Structures
+
+Governance through meta-MERIters requires specialized data structures that capture governance-specific information while remaining compatible with the general IE data model:
+
+- **Governance Impact Claims**: Documentation of governance contributions such as policy development, dispute resolution, and system maintenance
+- **Governance Measurements**: Assessments of governance process effectiveness, stakeholder satisfaction, and system performance
+- **Governance Evaluations**: Synthesis of governance measurements to determine governance quality and reward allocation
+- **Governance Rewards**: Benefits allocated to effective governance contributors
+
+=== Recursive Coordination
+
+The meta-MERIter approach provides mechanisms for addressing one of the fundamental challenges in decentralized systems: how to coordinate coordination mechanisms themselves. By applying IE principles recursively, the model enables governance systems that improve themselves through the same feedback mechanisms they provide for other impact activities.
+
+== Implementation Implications
+
+=== Standardization Requirements
+
+The abstract model's effectiveness depends on appropriate standardization of interfaces between entities and data structures. These standards must achieve sufficient specificity to enable interoperability while maintaining sufficient flexibility to accommodate diverse implementation approaches.
+
+Critical standardization areas include:
+- Data format specifications for claims, measurements, evaluations, and rewards
+- Entity identification and authentication mechanisms
+- Cryptographic signature requirements for data integrity
+- Interface specifications for cross-section communication
+
+=== Development Sequencing
+
+The entity-data distinction provides guidance for implementation sequencing that maximizes early value delivery while building toward comprehensive IE systems. Development teams can begin with simplified data structures and basic entity implementations, then add sophistication incrementally as requirements become clearer.
+
+A typical development sequence might progress through:
+1. Basic impact claim data structures and simple impact entities
+2. Measurement data structures and measurement entities for specific domains
+3. Evaluation composition mechanisms and evaluation entities
+4. Reward allocation data structures and distribution entities
+5. Meta-MERIter governance integration
+
+== Chapter Summary
+
+This chapter has examined the structural foundations of the Impact Evaluator abstract model, with particular emphasis on the four-section architecture and the fundamental entity-data distinction. These architectural decisions provide the modularity and separation of concerns necessary to achieve the coordination and collaboration benefits outlined in Chapter 1.
+
+The entity-data distinction emerges as the most critical design decision, enabling independent development of system components while maintaining interoperability through standardized interfaces. The four-section architecture provides comprehensive coverage of IE system functions while supporting diverse implementation approaches.
+
+The introduction of impact claims as explicit data structures addresses gaps in earlier IE models while maintaining separation between self-reported impact documentation and third-party assessment processes. The composability of evaluations and the recursive governance capabilities through meta-MERIters demonstrate advanced capabilities that emerge from well-designed abstract models.
+
+Chapter 3 will examine impact claims in greater detail, exploring their role as foundational data structures and their implications for self-sovereign impact documentation and verification.
+
+---
+
+_This chapter builds on the conceptual foundations established in "Generalized Impact Evaluators" (Protocol Labs Research, 2023) while extending the model to address practical implementation and coordination requirements identified through ongoing research collaboration._

@@ -3,9 +3,6 @@ source "https://rubygems.org"
 # Jekyll
 gem "jekyll", "~> 4.3"
 
-# Theme
-gem "minima"
-
 # AsciiDoc processor
 gem "asciidoctor", "~> 2.0"
 
@@ -20,4 +17,5 @@ group :jekyll_plugins do
   gem "jekyll-asciidoc"
   gem "jekyll-feed"
   gem "jekyll-sitemap"
+  gem "jekyll-remote-theme", "~> 0.4.3"
 end

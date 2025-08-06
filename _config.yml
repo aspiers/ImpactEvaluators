@@ -7,13 +7,14 @@ url: ""
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
+remote_theme: "academicpages/academicpages.github.io"
 
 # Plugins
 plugins:
   - jekyll-asciidoc
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-remote-theme
 
 # AsciiDoc configuration
 asciidoc:
@@ -60,7 +61,7 @@ exclude:
   - .bundle
   - .sass-cache
   - _site
-  - *.puml
+  - "*.puml"
   - Makefile
   - .git
   - .gitignore

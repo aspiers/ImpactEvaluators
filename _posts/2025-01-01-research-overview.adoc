@@ -1,0 +1,65 @@
+---
+layout: post
+title: "Research Overview: Generalized Impact Evaluators"
+date: 2025-01-01
+categories: research overview
+author: IE Research Team
+---
+:toc:
+
+= Research Overview: Generalized Impact Evaluators
+
+This post provides an overview of our research into Generalized Impact Evaluator systems.
+
+== Background
+
+Impact Evaluators represent a novel approach to coordinating work by measuring, evaluating, and retrospectively rewarding impact achieved towards specified valuable objectives.
+
+The concept builds on the https://research.protocol.ai/publications/generalized-impact-evaluators/[Protocol Labs research framework^], extending it into practical system architecture design.
+
+== System Architecture
+
+Our current research focuses on modeling the core components needed for a functional Impact Evaluator system:
+
+=== Governance Layer
+
+The governance layer defines:
+
+* **Objectives**: What outcomes we want to achieve
+* **Scopes**: The boundaries and contexts for evaluation
+* **Measurement criteria**: How impact will be measured
+* **Evaluation methods**: How measurements will be assessed
+
+=== Impact Tracking
+
+The impact tracking subsystem manages:
+
+[source,text]
+----
+ImpactOrganization
+├── ImpactProject
+    ├── ImpactScope
+        ├── ImpactClaim
+        └── ImpactContributor
+----
+
+=== Measurement & Evaluation Pipeline
+
+. **Measurement**: Measurers collect data on ImpactClaims
+. **Evaluation**: Evaluators assess the quality and significance of Measurements
+. **Reward Calculation**: RewardCalculators determine appropriate compensation
+. **Allocation**: RewardAllocations distribute rewards to ImpactContributors
+
+== Next Steps
+
+The research will continue developing:
+
+* Detailed component specifications
+* Interface definitions between system components
+* Implementation strategies for key algorithms
+* Case studies of potential applications
+
+[TIP]
+====
+View the complete system model in our link:../ERD.svg[Entity Relationship Diagram^].
+====

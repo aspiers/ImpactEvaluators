@@ -1,0 +1,68 @@
+# Jekyll Configuration for Impact Evaluator Research
+title: "Impact Evaluator Research"
+description: "Research on Generalized Impact Evaluator systems"
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Plugins
+plugins:
+  - jekyll-asciidoc
+  - jekyll-feed
+  - jekyll-sitemap
+
+# AsciiDoc configuration
+asciidoc:
+  processor: asciidoctor
+  ext: asciidoc,adoc,ad
+
+asciidoctor:
+  base_dir: :docdir
+  safe: unsafe
+  attributes:
+    - idseparator=_
+    - source-highlighter=rouge
+    - icons=font
+    - experimental=true
+    - toc=left
+    - toclevels=3
+
+# Collection settings
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "IE Research Team"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - .sass-cache
+  - _site
+  - *.puml
+  - Makefile
+  - .git
+  - .gitignore
+  - AGENTS.md
+  - CLAUDE.md

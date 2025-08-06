@@ -27,8 +27,8 @@ asciidoctor:
     - source-highlighter=rouge
     - icons=font
     - experimental=true
-    - toc=left
-    - toclevels=3
+#    - toc=left
+#    - toclevels=3
 
 # Collection settings
 collections:

@@ -67,3 +67,4 @@ exclude:
   - .gitignore
   - AGENTS.md
   - CLAUDE.md
+  - "**/assets/css/main.scss"  # Exclude theme's main.scss to prevent duplicate processing

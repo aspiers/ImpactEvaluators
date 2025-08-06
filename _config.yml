@@ -90,3 +90,4 @@ exclude:
   - AGENTS.md
   - CLAUDE.md
   - tmp/
+  - .#*

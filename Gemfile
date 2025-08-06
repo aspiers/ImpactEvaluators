@@ -6,6 +6,9 @@ gem "jekyll", "~> 4.3"
 # AsciiDoc processor
 gem "asciidoctor", "~> 2.0"
 
+# Fix Ruby 3.5+ deprecation warning
+gem "logger"
+
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 

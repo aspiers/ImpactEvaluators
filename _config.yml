@@ -189,7 +189,6 @@ exclude:
   - README
   - tmp
   - vendor
-  - "*.puml"
   - Makefile
   - .git
   - .gitignore

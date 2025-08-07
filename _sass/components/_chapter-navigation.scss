@@ -1,5 +1,11 @@
 /* Chapter Navigation Styles */
 .chapter-nav {
+  /*
+      Horrible workaround for the fact that .page__content is floated.
+      Proper fix would be to abolish Susy in favour of grid and/or flexbox layout.
+  */
+  clear: both;
+
   background: #f8f9fa;
   border: 1px solid #e9ecef;
   border-radius: 0.375rem;

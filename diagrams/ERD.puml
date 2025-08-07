@@ -1,5 +1,10 @@
 @startuml "MERIter ERD"
-title "MERIter Entity Relationship Diagram (ERD)"
+
+!$PROJECT_NAME = "MERIter"
+!$DIAGRAM_TYPE = "Entity Relationship Diagram (ERD)"
+!$FULL_TITLE = $PROJECT_NAME + " " + $DIAGRAM_TYPE
+
+title $FULL_TITLE
 ' !pragma layout smetana
 
 <style>

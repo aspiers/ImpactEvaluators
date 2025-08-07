@@ -1,0 +1,97 @@
+/* Chapter-specific styling */
+
+/* Latin Modern font setup for chapter pages */
+body.layout--chapter,
+.layout--chapter .page__content,
+.layout--chapter .page__meta,
+.layout--chapter .masthead__inner-wrap {
+  font-family: "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+  font-size: 11pt;
+  line-height: 1.6;
+}
+
+/* Chapter title styling - overrides base page__title */
+.layout--chapter .page__title {
+  font-family: "Latin Modern Roman", "Computer Modern", "Times New Roman", serif;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 1em;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.5em;
+}
+
+.chapter-meta {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 2em;
+  font-size: 0.9em;
+}
+
+/* Academic formatting for headings */
+.layout--chapter .page__content {
+  h1, h2, h3 {
+    font-family: "Latin Modern Sans", "Computer Modern Sans", "Arial", sans-serif;
+    margin-top: 2em;
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3em;
+  }
+
+  h3 {
+    font-size: 1.2em;
+  }
+}
+
+/* Figure and diagram styling */
+.chapter-diagram {
+  text-align: center;
+  margin: 2em 0;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  font-size: 0.9em;
+  text-align: center;
+  margin-top: 0.5em;
+  color: #666;
+}
+
+/* Citation styling */
+.citation {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Print-specific styles */
+@media print {
+  .layout--chapter {
+    .masthead,
+    .page__footer,
+    .chapter-nav {
+      display: none;
+    }
+
+    .page__content {
+      font-size: 10pt;
+      line-height: 1.5;
+    }
+
+    .page__title {
+      font-size: 14pt;
+      page-break-after: avoid;
+    }
+
+    .chapter-diagram {
+      page-break-inside: avoid;
+    }
+  }
+}

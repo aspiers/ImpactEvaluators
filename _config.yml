@@ -197,6 +197,7 @@ exclude:
   - CLAUDE.md
   - tmp/
   - .ai/
+  - jekyll.log
 
 # Good f'in luck if you want to ignore emacs temp/lock files :-(
 # Neither of these work ... at all.

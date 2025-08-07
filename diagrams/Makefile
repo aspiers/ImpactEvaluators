@@ -50,6 +50,11 @@ ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.sv
 	@echo "Generating $@ for $(PACKAGE) package..."
 	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -pipe < $< > $@
 
+# Generate ERD with Impact, Measure, and Evaluation packages only
+ERD-impact-measure-evaluate.svg: ERD.puml
+	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
+	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -pipe < $< > $@
+
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)
 

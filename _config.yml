@@ -204,8 +204,7 @@ exclude:
 # https://github.com/jekyll/jekyll-watch/pull/93
 
 keep_files:
-  - .git
-  - .svn
+  - _sass
 
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"

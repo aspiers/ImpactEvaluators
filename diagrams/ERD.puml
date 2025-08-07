@@ -3,6 +3,17 @@ title "MERIter Entity Relationship Diagram (ERD)"
 ' !pragma layout smetana
 
 <style>
+document {
+    title {
+        FontSize 32
+        FontStyle bold
+    }
+}
+package {
+    title {
+        FontSize 18
+    }
+}
 classDiagram {
     class {
         BackgroundColor #55555511

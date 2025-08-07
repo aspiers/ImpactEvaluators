@@ -9,7 +9,7 @@
 ' Configuration variables
 !$SHOW_FIELDS = %false()
 !$SHOW_EAS_FIELDS = %false()
-!$VISIBLE_PACKAGES = "IEGovernance,Impact,Measure,Evaluate,Reward"
+!$VISIBLE_PACKAGES = "Governance,Impact,Measure,Evaluate,Reward"
 
 ' Helper function to check if package is visible
 !function $isPackageVisible($packageName)
@@ -57,8 +57,8 @@ spot {
 
 'skinparam linetype ortho
 
-!if ($isPackageVisible("IEGovernance"))
-package "IE Governance (meta)" as IEGovernance {
+!if ($isPackageVisible("Governance"))
+package "Governance (meta)" as Governance {
     entity ObjectivesDesigner
     entity ScopesDesigner
     entity MeasurementDesigner
@@ -233,21 +233,21 @@ Evaluate -r[hidden]-> Reward
 EvaluationResult -r[hidden]-> RewardDistributor
 !endif
 
-!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Impact"))
+!if ($isPackageVisible("Governance") && $isPackageVisible("Impact"))
 ImpactScope "*" <-l- "1" ScopesDesigner : designs
 !endif
-!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Measure"))
+!if ($isPackageVisible("Governance") && $isPackageVisible("Measure"))
 MeasurementDesigner "1" -d-> "*" Measurer : designs
 !endif
-!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Evaluate"))
+!if ($isPackageVisible("Governance") && $isPackageVisible("Evaluate"))
 EvaluationDesigner "1" -d-> "*" Evaluator : designs
 !endif
-!if ($isPackageVisible("IEGovernance"))
+!if ($isPackageVisible("Governance"))
 entity FundingSource
 FundingSource "*" -d[norank]-> "1" Treasury : funds
 !endif
 
-!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Reward"))
+!if ($isPackageVisible("Governance") && $isPackageVisible("Reward"))
 RewardDesigner "1" --> "1" RewardCalculator : designs
 Treasury "1" --> "1" RewardDistributor : funds
 !endif

@@ -12,7 +12,7 @@ valuable objectives.
 Currently includes Entity Relationship Diagram modeling for core system
 architecture design.
 
-**📊 [View ERD Diagram](ERD.png)**
+**📊 [View ERD Diagram](diagrams/ERD.png)**
 
 ### Key Components
 

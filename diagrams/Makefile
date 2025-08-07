@@ -5,7 +5,9 @@ PUML_FILES = $(wildcard *.puml)
 PNG_FILES = $(PUML_FILES:.puml=.png)
 ANNOTATION_FILES = $(filter-out _config.yml, $(wildcard *.yml))
 ANNOTATED_SVG_FILES = $(ANNOTATION_FILES:%.yml=ERD-%.svg)
-SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES)
+VISIBLE_PACKAGES = Governance Impact Measure Evaluate Reward
+PACKAGE_SVG_FILES = $(addprefix ERD-,$(addsuffix .svg,$(shell echo $(VISIBLE_PACKAGES) | tr A-Z a-z)))
+SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES) $(PACKAGE_SVG_FILES)
 
 # Default target
 .PHONY: all
@@ -35,8 +37,24 @@ ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg
 	@sed -i 's/MERIter/Meta-MERIter/g' $@
 	@echo "Completed Meta-MERIter transformation for $@"
 
+# Generate individual package ERD files using VISIBLE_PACKAGES variable
+# Target-specific variable assignments
+ERD-governance.svg: PACKAGE = Governance
+ERD-impact.svg: PACKAGE = Impact
+ERD-measure.svg: PACKAGE = Measure
+ERD-evaluate.svg: PACKAGE = Evaluate
+ERD-reward.svg: PACKAGE = Reward
+
+# Pattern rule for package-specific ERD files (only matches the 5 specific packages)
+ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml
+	@echo "Generating $@ for $(PACKAGE) package..."
+	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -pipe < $< > $@
+
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)
+
+.PHONY: packages
+packages: $(PACKAGE_SVG_FILES)
 
 .PHONY: clean
 clean:
@@ -54,8 +72,9 @@ watch:
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  all    - Generate all PNG and SVG files from PUML files"
-	@echo "  areas  - Generate ERD with focus area annotations overlay"
-	@echo "  clean  - Remove generated PNG and SVG files"
-	@echo "  watch  - Watch for changes and auto-regenerate"
-	@echo "  help   - Show this help message"
+	@echo "  all      - Generate all PNG and SVG files from PUML files"
+	@echo "  areas    - Generate ERD with focus area annotations overlay"
+	@echo "  packages - Generate individual ERD files for each package"
+	@echo "  clean    - Remove generated PNG and SVG files"
+	@echo "  watch    - Watch for changes and auto-regenerate"
+	@echo "  help     - Show this help message"

@@ -9,11 +9,13 @@
 ' Configuration variables
 !$SHOW_FIELDS = %false()
 !$SHOW_EAS_FIELDS = %false()
-!$VISIBLE_PACKAGES = "Governance,Impact,Measure,Evaluate,Reward"
+!ifndef VISIBLE_PACKAGES
+!define VISIBLE_PACKAGES "Governance,Impact,Measure,Evaluate,Reward"
+!endif
 
 ' Helper function to check if package is visible
 !function $isPackageVisible($packageName)
-  !return %strpos($VISIBLE_PACKAGES, $packageName) != -1
+  !return %strpos(VISIBLE_PACKAGES, $packageName) != -1
 !endfunction
 
 title $FULL_TITLE

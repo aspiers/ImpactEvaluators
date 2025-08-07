@@ -9,6 +9,12 @@
 ' Configuration variables
 !$SHOW_FIELDS = %false()
 !$SHOW_EAS_FIELDS = %false()
+!$VISIBLE_PACKAGES = "IEGovernance,Impact,Measure,Evaluate,Reward"
+
+' Helper function to check if package is visible
+!function $isPackageVisible($packageName)
+  !return %strpos($VISIBLE_PACKAGES, $packageName) != -1
+!endfunction
 
 title $FULL_TITLE
 
@@ -51,6 +57,7 @@ spot {
 
 'skinparam linetype ortho
 
+!if ($isPackageVisible("IEGovernance"))
 package "IE Governance (meta)" as IEGovernance {
     entity ObjectivesDesigner
     entity ScopesDesigner
@@ -69,7 +76,9 @@ package "IE Governance (meta)" as IEGovernance {
     ObjectivesDesigner "1" --> "1" EvaluationDesigner : orients
     ObjectivesDesigner "1" --> "1" RewardDesigner : orients
 }
+!endif
 
+!if ($isPackageVisible("Impact"))
 package Impact {
     entity ImpactOrganization {
         !if ($SHOW_FIELDS)
@@ -140,7 +149,9 @@ package Impact {
     ImpactClaim "*" --> "*" ImpactWork : > represents
     ImpactContributor "*" -up--> "*" ImpactOrganization : > belongs to
 }
+!endif
 
+!if ($isPackageVisible("Measure"))
 package Measure {
     dataclass Measurement {
         !if ($SHOW_FIELDS)
@@ -164,13 +175,11 @@ package Measure {
     }
     entity Measurer
 
-    ImpactClaim "*" --> "*" Measurer : "submitted to\n(or discovered by)    "
-
     Measurer "1" --> "*" Measurement : takes
-    Measurement::impactClaimId "*" -l-> "1" ImpactClaim : measures
-    Measurement::entity "*" --> "*" ImpactContributor : credits
 }
+!endif
 
+!if ($isPackageVisible("Evaluate"))
 package Evaluate {
     dataclass EvaluationResult {
         !if ($SHOW_FIELDS)
@@ -179,11 +188,12 @@ package Evaluate {
     }
     entity Evaluator
 
-    EvaluationResult "1" -l-> "*" Measurement : evaluates
     Evaluator "1" -d-> "*" EvaluationResult : "calculates    "
     EvaluationResult "*" -u-> "*" Evaluator : "cascaded\nto"
 }
+!endif
 
+!if ($isPackageVisible("Reward"))
 package Reward {
     entity RewardCalculator
     dataclass RewardAllocation {
@@ -198,26 +208,75 @@ package Reward {
     RewardCalculator "1" -d-> "*" RewardAllocation : calculates
     RewardAllocation "*" -r-> "1" RewardDistributor : authorizes
 }
+!endif
 
-Impact -r[hidden]--> Measure
-Measure -r[hidden]--> Evaluate
-Evaluate -r[hidden]--> Reward
+' Package ordering - create consistent left-to-right layout
+!if ($isPackageVisible("Impact"))
+!if ($isPackageVisible("Measure"))
+Impact -r[hidden]-> Measure
+ImpactClaim -r[hidden]-> Measurer
+!endif
+!if ($isPackageVisible("Evaluate"))
+Impact -r[hidden]-> Evaluate
+!endif
+!if ($isPackageVisible("Reward"))
+Impact -r[hidden]-> Reward
+!endif
+!endif
 
-ScopesDesigner "1" --> "*" ImpactScope : designs
-MeasurementDesigner "1" --> "*" Measurer : designs
-EvaluationDesigner "1" --> "*" Evaluator : designs
-RewardDesigner "1" --> "1" RewardCalculator : designs
+!if ($isPackageVisible("Measure"))
+!if ($isPackageVisible("Evaluate"))
+Measure -r[hidden]-> Evaluate
+!endif
+!if ($isPackageVisible("Reward"))
+Measure -r[hidden]-> Reward
+!endif
+!endif
 
+!if ($isPackageVisible("Evaluate") && $isPackageVisible("Reward"))
+Evaluate -r[hidden]-> Reward
+EvaluationResult -r[hidden]-> RewardDistributor
+!endif
+
+!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Impact"))
+ImpactScope "*" <-l- "1" ScopesDesigner : designs
+!endif
+!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Measure"))
+MeasurementDesigner "1" -d-> "*" Measurer : designs
+!endif
+!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Evaluate"))
+EvaluationDesigner "1" -d-> "*" Evaluator : designs
+!endif
+!if ($isPackageVisible("IEGovernance"))
 entity FundingSource
-FundingSource "*" --> "1" Treasury : funds
+FundingSource "*" -d[norank]-> "1" Treasury : funds
+!endif
+
+!if ($isPackageVisible("IEGovernance") && $isPackageVisible("Reward"))
+RewardDesigner "1" --> "1" RewardCalculator : designs
 Treasury "1" --> "1" RewardDistributor : funds
+!endif
 
-Measurement "*" --> "*" Evaluator : "ingested     \nby     "
+!if ($isPackageVisible("Impact") && $isPackageVisible("Measure"))
+ImpactClaim "*" --> "*" Measurer : "submitted to /\ndiscovered by /\nself-reported by"
+ImpactClaim "1" <-l- "*" Measurement::impactClaimId : measures
+ImpactContributor "*" <-l- "*" Measurement::entity : credits
+!endif
+!if ($isPackageVisible("Evaluate") && $isPackageVisible("Measure"))
+Measurement "*" <-l- "1" EvaluationResult : evaluates
+Measurement "*" --> "*" Evaluator : "ingested\nby"
+!endif
+!if ($isPackageVisible("Evaluate") && $isPackageVisible("Reward"))
 EvaluationResult "1" --> "1" RewardCalculator : steers >
-RewardDistributor "1" ---> "*" ImpactContributor : > rewards
-RewardDistributor "1" ---> "*" ImpactContributor::workDecisionPolicy : > influences
+!endif
+!if ($isPackageVisible("Reward") && $isPackageVisible("Impact"))
+ImpactContributor "*" <-u-- "1" RewardDistributor : < rewards
+ImpactContributor::workDecisionPolicy "*" <-u-- "1" RewardDistributor : < influences
+!endif
 
+!if ($isPackageVisible("Reward"))
 entity ExternalWorld
 ExternalWorld "1" -u-> "*" RewardAllocation : values
+!endif
 
 @enduml

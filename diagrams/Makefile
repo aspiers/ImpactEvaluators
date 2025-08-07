@@ -27,6 +27,14 @@ ERD-%.svg: %.yml ERD.svg
 	@svg-annotator --areas $< > $@
 	@echo "Generated $@ with annotations from $<"
 
+# Augment the meta file specifically with additional transformation
+ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg
+	@echo "Generating $@ with annotations from $< ..."
+	@svg-annotator --areas $< > $@
+	@echo "Applying Meta-MERIter transformation to $@..."
+	@sed -i 's/MERIter/Meta-MERIter/g' $@
+	@echo "Completed Meta-MERIter transformation for $@"
+
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)
 

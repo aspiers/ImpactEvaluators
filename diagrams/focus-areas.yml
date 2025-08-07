@@ -23,13 +23,6 @@
     - RewardAllocation
 
 -
-  name: Steffi (meta)
-  color: mediumspringgreen
-  areas:
-    - EvaluationDesigner
-    - Evaluator
-
--
   name: David G
   color: lemonchiffon
   areas:

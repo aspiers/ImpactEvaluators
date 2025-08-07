@@ -1,11 +1,20 @@
+
 @startuml "MERIter ERD"
+' !pragma layout smetana
 
 !$PROJECT_NAME = "MERIter"
 !$DIAGRAM_TYPE = "Entity Relationship Diagram (ERD)"
 !$FULL_TITLE = $PROJECT_NAME + " " + $DIAGRAM_TYPE
 
+' Configuration variables
+!$SHOW_FIELDS = %false()
+!$SHOW_EAS_FIELDS = %false()
+
 title $FULL_TITLE
-' !pragma layout smetana
+
+!if (%not($SHOW_FIELDS))
+hide empty fields
+!endif
 
 <style>
 document {
@@ -63,20 +72,52 @@ package "IE Governance (meta)" as IEGovernance {
 
 package Impact {
     entity ImpactOrganization {
+        !if ($SHOW_FIELDS)
         organizationDID
+        !endif
     }
     entity ImpactProject {
+        !if ($SHOW_FIELDS)
         organization
+        !endif
     }
     entity ImpactWork
     dataclass ImpactScope {
-        project
+        !if ($SHOW_FIELDS)
+        projectUID
         epoch or timeInterval
+        !if ($SHOW_EAS_FIELDS)
+        --
+        uid
+        schema
+        refUID
+        time (of creation)
+        expirationTime
+        revocationTime
+        recipient
+        attester
+        revocable
+        !endif
+        !endif
     }
     dataclass ImpactClaim {
+        !if ($SHOW_FIELDS)
         scope
         timeInterval
         extra data
+        !if ($SHOW_EAS_FIELDS)
+        --
+        uid
+        schema
+        refUID
+        time (of creation)
+        expirationTime
+        revocationTime
+        recipient
+        attester
+        revocable
+        !endif
+        !endif
     }
     note left of ImpactClaim
         Vehicle for ImpactContributor
@@ -85,7 +126,9 @@ package Impact {
     end note
 
     entity ImpactContributor {
+        !if ($SHOW_FIELDS)
         workDecisionPolicy
+        !endif
     }
 
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
@@ -100,22 +143,39 @@ package Impact {
 
 package Measure {
     dataclass Measurement {
+        !if ($SHOW_FIELDS)
+        impactClaimId
         indicator
         timeInterval
         entity
+        !if ($SHOW_EAS_FIELDS)
+        --
+        uid
+        schema
+        refUID
+        time (of creation)
+        expirationTime
+        revocationTime
+        recipient
+        attester
+        revocable
+        !endif
+        !endif
     }
     entity Measurer
 
     ImpactClaim "*" --> "*" Measurer : "submitted to\n(or discovered by)    "
 
     Measurer "1" --> "*" Measurement : takes
-    Measurement "*" -l-> "1" ImpactClaim : measures
-    Measurement::entity "1" --> "1" ImpactContributor : credits
+    Measurement::impactClaimId "*" -l-> "1" ImpactClaim : measures
+    Measurement::entity "*" --> "*" ImpactContributor : credits
 }
 
 package Evaluate {
     dataclass EvaluationResult {
+        !if ($SHOW_FIELDS)
         timestamp
+        !endif
     }
     entity Evaluator
 
@@ -127,9 +187,11 @@ package Evaluate {
 package Reward {
     entity RewardCalculator
     dataclass RewardAllocation {
+        !if ($SHOW_FIELDS)
         amount
         recipient
         impactClaimId
+        !endif
     }
     entity RewardDistributor
 

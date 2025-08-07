@@ -1,0 +1,15 @@
+-
+  name: Steffi
+  color: lavender
+  areas:
+    - EvaluationDesigner
+    - Evaluator
+
+-
+  name: Millie
+  color: mediumspringgreen
+  areas:
+    - ObjectivesDesigner
+    - ScopesDesigner
+    - MeasurementDesigner
+    - EvaluationDesigner

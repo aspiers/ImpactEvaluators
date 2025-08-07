@@ -62,7 +62,6 @@ spot {
 !if ($isPackageVisible("Governance"))
 
 package "Governance (meta)" as Governance {
-    entity TheoryOfChange
     entity ObjectivesDesigner
     entity ScopesDesigner
     entity MeasurementDesigner
@@ -74,9 +73,6 @@ package "Governance (meta)" as Governance {
     ScopesDesigner -r[hidden]-> MeasurementDesigner
     MeasurementDesigner -r[hidden]-> EvaluationDesigner
     EvaluationDesigner -r[hidden]-> RewardDesigner
-    TheoryOfChange -d[hidden]-> ScopesDesigner
-    TheoryOfChange --> EvaluationDesigner : orients
-    TheoryOfChange --> MeasurementDesigner : orients
 
     ObjectivesDesigner "1" --> "1" ScopesDesigner : orients
     ObjectivesDesigner "1" --> "1" MeasurementDesigner : orients
@@ -87,6 +83,8 @@ package "Governance (meta)" as Governance {
 
 !if ($isPackageVisible("Impact"))
 package Impact {
+    entity TheoryOfChange
+
     entity ImpactOrganization {
         !if ($SHOW_FIELDS)
         organizationDID
@@ -142,6 +140,7 @@ package Impact {
         !endif
     }
 
+    TheoryOfChange -d-> ImpactProject : orients
     ImpactOrganization "1" -d-> "*" ImpactProject : facilitates
     ImpactProject "1" -d-> "*" ImpactScope : divides\ninto
     ImpactScope "1" -d-> "*" ImpactClaim : contains
@@ -249,6 +248,9 @@ entity FundingSource
 FundingSource "*" -d-> "1" Treasury : funds
 
 !if ($isPackageVisible("Impact"))
+TheoryOfChange -d[hidden]-> ScopesDesigner
+TheoryOfChange --> EvaluationDesigner : orients
+TheoryOfChange --> MeasurementDesigner : orients
 ImpactScope "*" <-l- "1" ScopesDesigner : designs
 !endif
 !if ($isPackageVisible("Measure"))

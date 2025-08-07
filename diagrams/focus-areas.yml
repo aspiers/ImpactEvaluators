@@ -1,11 +1,25 @@
 -
-  name: Carlos, David D
-  color: pink
+  name: Carlos
+  color: beige
   areas:
     - Measurer
     - Measurement
     - Evaluator
     - EvaluationResult
+
+-
+  name: David D
+  color: "#DAF2E2"
+  areas:
+    - Measurer
+    - Measurement
+    - Evaluator
+    - EvaluationResult
+    - TheoryOfChange
+    - ObjectivesDesigner
+    - ScopesDesigner
+    - MeasurementDesigner
+    - EvaluationDesigner
 
 -
   name: Carl
@@ -49,7 +63,7 @@
 
 -
   name: Sharfy
-  color: beige
+  color: pink
   areas:
     - ImpactScope
     - ImpactClaim
@@ -66,7 +80,7 @@
     - RewardCalculator
 
 -
-  name: Jeff
+  name: Jeff2
   tooltip: |
     Jeff is interested in the ways that retroactive funding incentivizes
     decisions happening earlier in time.

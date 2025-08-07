@@ -109,7 +109,7 @@ package Impact {
         !endif
         !endif
     }
-    dataclass ImpactClaim {
+    dataclass ImpactClaim [[{Vehicle for ImpactContributor entities to communicate outcomes to Measurers}]] {
         !if ($SHOW_FIELDS)
         scope
         timeInterval
@@ -128,11 +128,6 @@ package Impact {
         !endif
         !endif
     }
-    note left of ImpactClaim
-        Vehicle for ImpactContributor
-        entities to communicate
-        outcomes to Measurers
-    end note
 
     entity ImpactContributor {
         !if ($SHOW_FIELDS)

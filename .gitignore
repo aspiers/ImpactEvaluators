@@ -7,9 +7,9 @@ _site/
 .jekyll-metadata
 
 # Ruby/Bundler
-.bundle/
-vendor/
-Gemfile.lock
+/.bundle/
+/vendor/
+/Gemfile.lock
 
 # OS
 .DS_Store

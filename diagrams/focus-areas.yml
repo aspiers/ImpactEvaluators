@@ -62,5 +62,14 @@
     Jeff is interested in the ways that retroactive funding incentivizes
     decisions happening earlier in time.
   color: orange
-  links:
-    - RewardDistributor-ImpactContributor:influences
+  areas:
+    - RewardCalculator
+
+-
+  name: Jeff
+  tooltip: |
+    Jeff is interested in the ways that retroactive funding incentivizes
+    decisions happening earlier in time.
+  color: orange
+  areas:
+    - ImpactContributor

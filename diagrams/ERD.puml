@@ -58,7 +58,9 @@ spot {
 'skinparam linetype ortho
 
 !if ($isPackageVisible("Governance"))
+
 package "Governance (meta)" as Governance {
+    entity TheoryOfChange
     entity ObjectivesDesigner
     entity ScopesDesigner
     entity MeasurementDesigner
@@ -66,10 +68,13 @@ package "Governance (meta)" as Governance {
     entity RewardDesigner
     entity Treasury
 
+    RewardDesigner -r[hidden]-> Treasury
     ScopesDesigner -r[hidden]-> MeasurementDesigner
     MeasurementDesigner -r[hidden]-> EvaluationDesigner
     EvaluationDesigner -r[hidden]-> RewardDesigner
-    RewardDesigner -r[hidden]-> Treasury
+    TheoryOfChange -d[hidden]-> ScopesDesigner
+    TheoryOfChange --> EvaluationDesigner : orients
+    TheoryOfChange --> MeasurementDesigner : orients
 
     ObjectivesDesigner "1" --> "1" ScopesDesigner : orients
     ObjectivesDesigner "1" --> "1" MeasurementDesigner : orients
@@ -190,7 +195,11 @@ package Evaluate {
 
 !if ($isPackageVisible("Reward"))
 package Reward {
-    entity RewardCalculator
+    entity RewardCalculator {
+      !if ($SHOW_FIELDS)
+      rewardPolicy
+      !endif
+    }
     dataclass RewardAllocation {
         !if ($SHOW_FIELDS)
         amount
@@ -233,23 +242,23 @@ Evaluate -r[hidden]-> Reward
 EvaluationResult -r[hidden]-> RewardDistributor
 !endif
 
-!if ($isPackageVisible("Governance") && $isPackageVisible("Impact"))
-ImpactScope "*" <-l- "1" ScopesDesigner : designs
-!endif
-!if ($isPackageVisible("Governance") && $isPackageVisible("Measure"))
-MeasurementDesigner "1" -d-> "*" Measurer : designs
-!endif
-!if ($isPackageVisible("Governance") && $isPackageVisible("Evaluate"))
-EvaluationDesigner "1" -d-> "*" Evaluator : designs
-!endif
 !if ($isPackageVisible("Governance"))
 entity FundingSource
-FundingSource "*" -d[norank]-> "1" Treasury : funds
-!endif
+FundingSource "*" -d-> "1" Treasury : funds
 
-!if ($isPackageVisible("Governance") && $isPackageVisible("Reward"))
+!if ($isPackageVisible("Impact"))
+ImpactScope "*" <-l- "1" ScopesDesigner : designs
+!endif
+!if ($isPackageVisible("Measure"))
+MeasurementDesigner "1" -d-> "*" Measurer : designs
+!endif
+!if ($isPackageVisible("Evaluate"))
+EvaluationDesigner "1" -d-> "*" Evaluator : designs
+!endif
+!if ($isPackageVisible("Reward"))
 RewardDesigner "1" --> "1" RewardCalculator : designs
 Treasury "1" --> "1" RewardDistributor : funds
+!endif
 !endif
 
 !if ($isPackageVisible("Impact") && $isPackageVisible("Measure"))
@@ -266,7 +275,7 @@ EvaluationResult "1" --> "1" RewardCalculator : steers >
 !endif
 !if ($isPackageVisible("Reward") && $isPackageVisible("Impact"))
 ImpactContributor "*" <-u-- "1" RewardDistributor : < rewards
-ImpactContributor::workDecisionPolicy "*" <-u-- "1" RewardDistributor : < influences
+ImpactContributor::workDecisionPolicy "*" <-l[norank]-- "1" RewardCalculator : < influences
 !endif
 
 !if ($isPackageVisible("Reward"))

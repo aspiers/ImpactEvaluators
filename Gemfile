@@ -5,6 +5,7 @@ gem "jekyll", "~> 4.3"
 
 # AsciiDoc processor
 gem "asciidoctor", "~> 2.0"
+gem "asciidoctor-pdf", "~> 2.3"
 
 # Fix Ruby 3.5+ deprecation warning
 gem "logger"

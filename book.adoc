@@ -1,0 +1,17 @@
+= MERIters: Aligning work via semi-formal models and maps
+:doctype: book
+:toc:
+:toclevels: 3
+:numbered:
+:source-highlighter: rouge
+:icons: font
+
+include::_chapters/introduction.adoc[]
+
+include::_chapters/abstract-model.adoc[]
+
+include::_chapters/impact-claims.adoc[]
+
+include::_chapters/composability-reusability.adoc[]
+
+include::_chapters/conclusion.adoc[]

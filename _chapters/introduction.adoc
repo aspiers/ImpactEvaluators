@@ -58,10 +58,6 @@ awareness of relevant theoretical foundations.  Such separation can reduce the
 efficiency of knowledge transfer and limit the potential for systematic
 advancement.
 
-.Overview of the Impact Evaluator abstract model
-image::../../diagrams/ERD.svg[Impact Evaluator Abstract Model Overview, align="center"]
-Figure 1.1: Overview of the Impact Evaluator abstract model, illustrating the complexity of interactions between different components in IE systems
-
 === Communication and Coordination Barriers
 
 Perhaps the most fundamental challenge facing the Impact Evaluation field is
@@ -85,57 +81,69 @@ terminological landscape.
 === The Map Metaphor
 
 The solution to these multifaceted challenges lies in developing what we term
-a "map" of the Impact Evaluator domain. This map takes the form of a shared
+a "map" of the MERIter domain. This map takes the form of a shared
 abstract model that provides a common conceptual framework for understanding,
 describing, and coordinating work within the field. Like geographical maps
 that enable navigation and coordination across physical territories, an
-abstract model of Impact Evaluators enables intellectual navigation and
+abstract model of MERIters enables intellectual navigation and
 coordination across the conceptual territory of the field.
 
 The map metaphor is particularly apt because it captures several essential
 characteristics of what the field requires. Maps provide standardized
 representations that enable different users to locate themselves, identify
 destinations, and plan routes. They abstract away unnecessary detail while
-preserving essential structural relationships. Most importantly, maps enable
-coordination between different actors without requiring centralized control or
-homogenization of objectives.
+preserving essential structural relationships, and enable coordination between
+different actors without requiring centralized control or homogenization of
+objectives.
+
+=== Entity Relationship Diagrams
+
+Entity relationship diagramming (ERD) is a well-established technique for examining
+the interactions between entities within a system, so we use that in this
+paper as a way to map out an abstract model of MERIters.
+
+Detailed discussion of this ERD will be presented in chapter 2; however to
+give more immediately clarity on our approach to mapping, it is presented here
+as a preview.
+
+.Overview of the MERIter abstract model illustrating the complexity of interactions between different components in MERIter systems
+image::../../diagrams/ERD.svg[MERIter Abstract Model Overview, align="center"]
 
 === Facilitative Capabilities
 
-Creating and visualizing an abstract model of Impact Evaluators facilitates
+Creating and visualizing an abstract model of MERIters facilitates
 several critical capabilities that address the challenges identified above:
 
 *Big Picture Thinking*: The abstract model provides a comprehensive overview
-*that enables researchers and practitioners to understand how their specific
-*work relates to the broader field structure. This systemic perspective
-*supports more informed decision-making about research directions, development
-*priorities, and collaboration opportunities.
+that enables researchers and practitioners to understand how their specific
+work relates to the broader field structure. This systemic perspective
+supports more informed decision-making about research directions, development
+priorities, and collaboration opportunities.
 
 *Precision of Scoping*: Clear separation of concerns within the abstract model
-*enables more precise scoping of projects and research initiatives. By
-*identifying distinct domains and their interfaces, teams can more accurately
-*define project boundaries and dependencies, reducing scope creep and
-*improving project management.
+enables more precise scoping of projects and research initiatives. By
+identifying distinct domains and their interfaces, teams can more accurately
+define project boundaries and dependencies, reducing scope creep and
+improving project management.
 
 *Work Positioning*: The model provides a framework for locating specific
-*research outputs and development projects within the broader field
-*context. This positioning capability enables teams to identify their unique
-*contributions while recognizing areas of overlap or potential collaboration
-*with others.
+research outputs and development projects within the broader field
+context. This positioning capability enables teams to identify their unique
+contributions while recognizing areas of overlap or potential collaboration
+with others.
 
-.The abstract model with focus area annotations
-image::../../diagrams/ERD-focus-areas.svg[Impact Evaluator Model with Focus Areas, align="center"]
-Figure 1.2: The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
+.The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
+image::../../diagrams/ERD-focus-areas.svg[MERIter Model with Focus Areas, align="center"]
 
 *Connection Discovery*: By providing a common framework for describing work,
-*the abstract model enables identification of connections between different
-*research streams that might not be apparent without shared conceptual
-*vocabulary. This connection discovery capability supports more effective
-*collaboration and knowledge synthesis.
+the abstract model enables identification of connections between different
+research streams that might not be apparent without shared conceptual
+vocabulary. This connection discovery capability supports more effective
+collaboration and knowledge synthesis.
 
 === Structural Requirements
 
-The development of an effective abstract model for Impact Evaluators requires
+The development of an effective abstract model for MERIters requires
 careful attention to structural characteristics that support the facilitative
 capabilities described above. The model must achieve sufficient abstraction to
 accommodate the diversity of approaches within the field while maintaining
@@ -184,13 +192,13 @@ more likely to be compatible and composable.
 == Chapter Roadmap
 
 This introduction has established the foundational argument for developing a
-shared abstract model of Impact Evaluators. The subsequent chapters of this
-work develop this argument in increasing detail, moving from abstract
-conceptual foundations to concrete implementation considerations.
+shared abstract model of MERIters. The subsequent chapters of this work
+develop this argument in increasing detail, moving from abstract concepts to
+concrete implementation considerations.
 
 Chapter 2 examines the structure of the abstract model itself, focusing on the
-critical distinction between entities and data within Impact Evaluator
-systems. Chapter 3 explores impact claims as a foundational data structure
+critical distinction between entities and data within MERIter
+systems. Chapter 3 explores impact claims as a key data structure
 that enables self-reported impact documentation while maintaining separation
 from third-party evaluation processes.
 
@@ -198,8 +206,8 @@ Chapter 4 investigates the composability and reusability properties that
 emerge from properly structured abstract models, with particular attention to
 how these properties enable collaboration across different projects and
 organizations. Chapter 5 addresses governance considerations, including the
-concept of meta-MERIters that enable governance of Impact Evaluator systems
-through Impact Evaluator mechanisms themselves.
+concept of meta-MERIters that enable governance of MERIter systems
+through MERIter mechanisms themselves.
 
 Finally, Chapter 6 presents a practical implementation roadmap that connects
 the theoretical foundations developed in earlier chapters to concrete
@@ -208,7 +216,7 @@ development priorities and coordination mechanisms.
 ---
 
 _This chapter is part of ongoing research into systematic approaches to Impact
-Evaluation. The abstract model presented here builds on foundations
+Evaluation. The abstract model presented here builds on work
 established in "Generalized Impact Evaluators" (Protocol Labs Research, 2023)
 while extending these concepts to address coordination and communication
-challenges in the broader IE research community._
+challenges in the broader research community._

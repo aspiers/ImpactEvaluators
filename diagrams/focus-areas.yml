@@ -8,22 +8,8 @@
     - EvaluationResult
 
 -
-  name: David D
-  color: "#DAF2E2"
-  areas:
-    - Measurer
-    - Measurement
-    - Evaluator
-    - EvaluationResult
-    - TheoryOfChange
-    - ObjectivesDesigner
-    - ScopesDesigner
-    - MeasurementDesigner
-    - EvaluationDesigner
-
--
   name: Carl
-  color: lightblue
+  color: lavender
   url: https://cnn.com
   areas:
     - Evaluator
@@ -87,3 +73,14 @@
   color: orange
   areas:
     - ImpactContributor
+
+-
+  name: Wisdom
+  tooltip: |
+    Wisdom is working on gathering data (measurements) on
+    contributions to mathematical proofs.  Later on, evaluations
+    would be designed to determine the relative impact of those proofs.
+  color: blanchedalmond
+  areas:
+    - Measurer
+    - Measurement

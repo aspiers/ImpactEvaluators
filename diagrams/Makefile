@@ -48,12 +48,12 @@ ERD-reward.svg: PACKAGE = Reward
 # Pattern rule for package-specific ERD files (only matches the 5 specific packages)
 ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml
 	@echo "Generating $@ for $(PACKAGE) package..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -pipe < $< > $@
 
 # Generate ERD with Impact, Measure, and Evaluation packages only
 ERD-impact-measure-evaluate.svg: ERD.puml
 	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -pipe < $< > $@
 
 # Generate ERD with all fields including EAS fields
 ERD-EAS.svg: ERD.puml
@@ -85,7 +85,6 @@ help:
 	@echo "  all      - Generate all PNG and SVG files from PUML files"
 	@echo "  areas    - Generate ERD with focus area annotations overlay"
 	@echo "  packages - Generate individual ERD files for each package"
-	@echo "  ERD-EAS.svg - Generate ERD with all fields including EAS fields"
 	@echo "  clean    - Remove generated PNG and SVG files"
 	@echo "  watch    - Watch for changes and auto-regenerate"
 	@echo "  help     - Show this help message"

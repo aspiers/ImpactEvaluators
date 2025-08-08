@@ -4,18 +4,29 @@
 {% assign next_chapter = nil %}
 
 {% comment %} Find current chapter and adjacent chapters {% endcomment %}
+{% assign current_slug = page.slug | default: page.name | remove: '.adoc' %}
+{% assign current_index = -1 %}
+
+{% comment %} First pass: find the current chapter index {% endcomment %}
 {% for chapter in chapters %}
-  {% if chapter.slug == page.slug %}
+  {% if chapter.slug == current_slug %}
+    {% assign current_index = forloop.index0 %}
     {% assign current_chapter = chapter %}
-    {% if forloop.first == false %}
-      {% assign prev_chapter = chapters[forloop.index0 | minus: 2] %}
-    {% endif %}
-    {% unless forloop.last %}
-      {% assign next_chapter = chapters[forloop.index0 | plus: 1] %}
-    {% endunless %}
     {% break %}
   {% endif %}
 {% endfor %}
+
+{% comment %} Set prev/next based on index {% endcomment %}
+{% if current_index >= 0 %}
+  {% if current_index > 0 %}
+    {% assign prev_index = current_index | minus: 1 %}
+    {% assign prev_chapter = chapters[prev_index] %}
+  {% endif %}
+  {% assign next_index = current_index | plus: 1 %}
+  {% if next_index < chapters.size %}
+    {% assign next_chapter = chapters[next_index] %}
+  {% endif %}
+{% endif %}
 
 <nav class="chapter-nav" role="navigation">
   <div class="chapter-nav__wrapper">

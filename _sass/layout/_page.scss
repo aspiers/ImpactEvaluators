@@ -59,6 +59,10 @@
     font-size: 1em;
   }
 
+  ul li > p {
+    margin-bottom: 0;
+  }
+
   /* paragraph indents */
   p {
     margin: 0 0 $indent-var;

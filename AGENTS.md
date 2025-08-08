@@ -22,6 +22,21 @@ make areas        # Generate ERD-areas.svg with focus area annotations
 Focus areas can be added to ERD diagrams using the svg-annotator tool.
 Configuration is defined in `focus-areas.yml`.
 
+### Jekyll Site Building
+
+Whenever SCSS or JS changes, run these:
+
+```bash
+npm run build             # Compile SCSS to CSS, and build JS
+./copy-sass.sh            # Copy _sass to _site for sourcemap support
+```
+
+If `jekyll serve` isn't running, the following is also required:
+
+```bash
+bundle exec jekyll build  # Build the complete Jekyll site
+```
+
 ## Focus Areas System
 
 Focus areas are defined in YAML files (e.g., `focus-areas.yml`) and
@@ -32,7 +47,6 @@ allow grouping multiple entities with custom styling:
 - Processed using the svg-annotator tool
 
 ## Configuration Files
-
 
 ### Focus Areas YAML Format
 

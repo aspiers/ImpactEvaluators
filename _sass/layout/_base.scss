@@ -266,6 +266,14 @@ figcaption {
   }
 }
 
+/* AsciiDoc image captions */
+
+.imageblock .title {
+  font-style: italic;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+}
+
 
 /* Fix IE9 SVG bug */
 
@@ -329,7 +337,7 @@ nav {
       opacity: 1;
     }
   }
-  
+
   @keyframes intro {
     0% {
       opacity: 0;

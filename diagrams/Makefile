@@ -50,12 +50,12 @@ ERD-reward.svg: PACKAGE = Reward
 # Pattern rule for package-specific ERD files (only matches the 5 specific packages)
 ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml Makefile
 	@echo "Generating $@ for $(PACKAGE) package..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -DPROJECT_NAME="MERIter: $$(basename $@ .svg | sed 's/^ERD-//' | sed 's/\b\w/\U&/g')" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
 
 # Generate ERD with Impact, Measure, and Evaluation packages only
 ERD-impact-measure-evaluate.svg: ERD.puml Makefile
 	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -DPROJECT_NAME="Impact, Measure, and Evaluate" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
 
 # Generate ERD with all fields including EAS fields
 ERD-EAS.svg: ERD.puml Makefile

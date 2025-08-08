@@ -26,7 +26,11 @@
   !return %strpos(VISIBLE_PACKAGES, $packageName) != -1
 !endfunction
 
+!ifdef $FULL_TITLE
+!if $FULL_TITLE != ""
 title $FULL_TITLE
+!endif
+!endif
 
 !if (SHOW_FIELDS == "false")
 hide empty fields

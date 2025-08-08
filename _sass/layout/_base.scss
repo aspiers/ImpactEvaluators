@@ -274,6 +274,28 @@ figcaption {
   margin-bottom: 1em;
 }
 
+/* AsciiDoc sidebars */
+
+.sidebarblock {
+  background: var(--global-code-background-color, #f8f8f8);
+  border: 1px solid var(--global-border-color, #e0e0e0);
+  border-left: 4px solid var(--global-link-color, #3498db);
+  border-radius: $border-radius;
+  margin: 1.5em 0;
+  padding: 1em;
+  
+  .title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+    color: var(--global-link-color, #3498db);
+  }
+  
+  .paragraph:last-child p {
+    margin-bottom: 0;
+  }
+}
+
 
 /* Fix IE9 SVG bug */
 

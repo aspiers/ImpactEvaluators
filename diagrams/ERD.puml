@@ -87,10 +87,10 @@ package "Governance (meta)" as Governance {
     MeasurementDesigner -r[hidden]-> EvaluationDesigner
     EvaluationDesigner -r[hidden]-> RewardDesigner
 
-    ObjectivesDesigner "1" --> "1" ScopesDesigner : orients
-    ObjectivesDesigner "1" --> "1" MeasurementDesigner : orients
-    ObjectivesDesigner "1" --> "1" EvaluationDesigner : orients
-    ObjectivesDesigner "1" --> "1" RewardDesigner : orients
+    ObjectivesDesigner "1" --> "1" ScopesDesigner : steers
+    ObjectivesDesigner "1" --> "1" MeasurementDesigner : steers
+    ObjectivesDesigner "1" --> "1" EvaluationDesigner : steers
+    ObjectivesDesigner "1" --> "1" RewardDesigner : steers
 }
 !endif
 

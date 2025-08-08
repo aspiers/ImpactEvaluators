@@ -16,6 +16,11 @@ and "MER-loops".
 The applicability of this design pattern spans a huge diversity of industries,
 methodologies, and theoretical frameworks.
 
+[NOTE]
+====
+For an earlier presentation of this work, see: https://docs.google.com/presentation/d/16oXmlyG16K8vDI0lhrVHfvmxd3qU70yMOotGMWM_1aY/edit?usp=sharing[MERIters Presentation^]
+====
+
 == Overview
 
 This research explores modularity, data and process models, and

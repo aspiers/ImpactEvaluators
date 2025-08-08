@@ -27,12 +27,10 @@ implementation.
 
 === Complexity and Scale
 
-The MERI field applies a vast ecosystem of interconnected challenges that
-operate at multiple scales simultaneously.  The domain spans numerous
-industries, from fighting climate change to funding Free / Open Source
-software. Each sector brings its own methodological traditions, terminology,
-and evaluation frameworks, creating a fragmented landscape where potentially
-synergistic work often proceeds in isolation.
+The MERIter field spans numerous industries, from fighting climate change to
+funding Free / Open Source software. Each sector brings its own methodological
+traditions, terminology, and evaluation frameworks, creating a fragmented
+landscape where potentially synergistic work often proceeds in isolation.
 
 R&D development within this field exhibits both breadth and depth
 characteristics that compound coordination difficulties. Teams may pursue
@@ -44,12 +42,12 @@ collaborative advancement.
 === Integration and Alignment Challenges
 
 A critical challenge facing the field is the need to bridge different levels
-of abstraction and implementation.  Theoretical simulations must accurately
-approximate real-world implementations, while minimum viable products (MVPs)
-need to effectively test underlying theoretical assumptions.  This alignment
-requirement extends beyond technical considerations to encompass fundamental
-questions about how different research outputs relate to one another and to
-the broader field objectives.
+of abstraction and implementation.  For example, theoretical simulations must
+accurately approximate real-world implementations, while minimum viable
+products (MVPs) need to effectively test underlying theoretical assumptions.
+This alignment requirement extends beyond technical considerations to
+encompass fundamental questions about how different research outputs relate to
+one another and to the broader field objectives.
 
 Any disconnect between formal research and concrete development risks limiting
 the field's ability to translate theoretical advances into practical impact.
@@ -107,19 +105,7 @@ Detailed discussion of this ERD will be presented in chapter 2; however to
 give more immediately clarity on our approach to mapping, it is presented here
 as a preview.
 
-.Overview of the MERIter abstract model illustrating the complexity of interactions between different components in MERIter systems
-++++
-<div class="imageblock text-center">
-<div class="content">
-<object data="../../diagrams/ERD.svg" type="image/svg+xml">
-  <img src="../../diagrams/ERD.svg" alt="MERIter Abstract Model Overview">
-</object>
-<div class="svg-link">
-  <a href="../../diagrams/ERD.svg" target="_blank">↗ Open full diagram</a>
-</div>
-</div>
-</div>
-++++
+image::../../diagrams/ERD.svg[MERIter Abstract Model Overview, align=center]
 
 === Facilitative Capabilities
 
@@ -144,19 +130,7 @@ context. This positioning capability enables teams to identify their unique
 contributions while recognizing areas of overlap or potential collaboration
 with others.
 
-.The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
-++++
-<div class="imageblock text-center">
-<div class="content">
-<object data="../../diagrams/ERD-focus-areas.svg" type="image/svg+xml">
-  <img src="../../diagrams/ERD-focus-areas.svg" alt="MERIter Model with Focus Areas">
-</object>
-<div class="svg-link">
-  <a href="../../diagrams/ERD-focus-areas.svg" target="_blank">↗ Open full diagram</a>
-</div>
-</div>
-</div>
-++++
+image::../../diagrams/ERD-focus-areas.svg[MERIter Model with Focus Areas, align=center]
 
 *Connection Discovery*: By providing a common framework for describing work,
 the abstract model enables identification of connections between different

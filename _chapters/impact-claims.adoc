@@ -1,5 +1,5 @@
 ---
-title: "Impact Claims"
+title: "Impact Claims and Beyond"
 excerpt: "Self-reported impact claims as foundational data structures"
 slug: "impact-claims"
 chapter_number: 3
@@ -8,7 +8,7 @@ date: 2025-08-06
 layout: chapter
 ---
 
-= Impact Claims
+= Impact Claims and Beyond
 
 == Modelling claims as a directed graph
 
@@ -23,7 +23,13 @@ The graph-like nature of claims is also suggested by the following diagrams, whi
 image::../../images/IE-paper-causality.png[Impact Evaluation Causality Framework, align=center]
 
 .World Bank Results Chain
-image::../../images/World-Bank-results-chain.png[Results chain from "Impact Evalution In Practice", World Bank, 2016align=center]
+image::../../images/World-Bank-results-chain.png[Results chain from "Impact Evalution In Practice", World Bank, 2016, align=center]
+
+These publications also highlight the difficulty of establishing causality in general.  However intuitively it is clear that the more supporting information (both ex-ante and ex-post) published in a form which facilitates independent verification, the more likely it is that the causal relationships between impact action and benefits can be trusted and therefore funded with confidence.
+
+// TODO: include https://github.com/hypercerts-org/ecocerts/issues/3
+
+== Modelling claims with meta-claims
 
 The following diagram illustrates the possibilities for various types of claims, including meta-claims such as reviews and endorsements.  It also shows potential relationships between claims, and how they can be represented as a directed graph.
 
@@ -34,18 +40,28 @@ image::../../diagrams/claims.svg[Claims Relationship Diagram,align="center"]
 
 When claims are made in a structured way in public, they are effectively attestations.  Fortunately there already exists very nice infrastructure for constructing onchain and offchain attestations, in the form of EAS (Ethereum Attestation Service), which is ideal for MERIters which are built in a web3 context.  Indeed, this is the infrastructure that Hypercerts intends to use to construct its attestations in version 2 of the project.
 
-== Hypercerts
+Every EAS attestation has the following fields:
 
+- `uid` - unique identifier for the claim which can be referenced by other claims (e.g. via `refUID` below)
+- `schema` - the schema of the claim, which is a URI that identifies the claim type
+- `refUID` - a reference to another claim, which can be used to link claims together
+- `time` (of creation)
+- `expirationTime`
+- `revocable` - whether the claim can be revoked
+- `recipient` - the recipient of the claim
+- `attester` - the attester (creator)of the claim
+- `revocationTime` - the time of revocation of the claim (the only)
 
-TODO:
+This base set of fields is sufficient to represent the claims and attestations that are required for MERIters.  However, there are some additional fields that are required to represent the claims and attestations that are required for Hypercerts.
 
-Include this relevant quote from https://www.hypercerts.org/docs/whitepaper/hypercerts-intro#examples:
+== Impact Claims in Hypercerts
 
-The key point is the
+Quoting from https://www.hypercerts.org/docs/whitepaper/hypercerts-intro#examples:
 
 > Importantly a hypercert does not specify the “size” of the impact, e.g. a hypercert does not state “5 tons of CO2 removed from the atmosphere.” Instead the hypercert only defines the work, e.g. “200 trees protected” (scope of work) in 2022 (time of work). The size of the impact is then left to the evaluations of the “CO2 in the atmosphere” (scope of impact) in 2022 (time of impact) that point towards the covered region of the hypercert. For instance: This allows a self evaluation to claim that 5 tons of CO2 were removed in a given year as well as one or multiple evaluations from independent auditors to confirm or challenge how much CO2 has been removed. An evaluator could detect that some of the trees were not healthy and hence only 4 tons of CO2 were removed. Allowing for multiple evaluation is a defining characteristic of the open evaluation system.
+
+The key point here is the distinction between self-reported measurement claims
 
 
 https://www.hypercerts.org/docs/developer/metadata#example-3-hypercert-with-excluded-impact-claims
 
-https://github.com/hypercerts-org/ecocerts/issues/3

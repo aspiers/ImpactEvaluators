@@ -16,7 +16,9 @@ See [prp.md](./prp.md) for the corresponding Product Requirements Prompt.
 - `_plugins/plantuml_generator.rb` - Jekyll plugin for PlantUML integration
 - `focus-areas.yml` - Annotation configuration for ERD diagrams
 - `schemas/` - Directory for EAS schema specifications
-- `_chapters/` - Directory containing individual chapter markdown files
+- `_chapters/` - Directory containing individual chapter AsciiDoc files
+- `_chapters/composability-reusability.adoc` - Chapter 4 on composability and cross-project collaboration
+- `_chapters/conclusion.adoc` - Chapter 6 conclusion synthesizing key insights and outlining current/future work
 
 # Tasks
 
@@ -36,12 +38,12 @@ See [prp.md](./prp.md) for the corresponding Product Requirements Prompt.
   - [ ] 1.7. Achieve academicpages styling, whilst avoiding warnings from Jekyll builds
 
 - [ ] 2. Develop chapter content in asciidoc format based on presentation.adoc
-  - [ ] 2.1. Create Chapter 1: "Introduction - The Need for a Map" (based on Challenges and Solution sections)
-  - [ ] 2.2. Create Chapter 2: "The Abstract Model - Entities and Data" (based on Map Structure section)
-  - [ ] 2.3. Create Chapter 3: "Impact Claims" (based on Impact Claims section)
-  - [ ] 2.4. Create Chapter 4: "Composability and Reusability" (new content on cross-project collaboration, building on impact claims)
+  - [x] 2.1. Create Chapter 1: "Introduction - The Need for a Map" (based on Challenges and Solution sections)
+  - [x] 2.2. Create Chapter 2: "The Abstract Model - Entities and Data" (based on Map Structure section)
+  - [ ] 2.3. Flesh out Chapter 3: "Impact Claims" (based on Impact Claims section)
+  - [x] 2.4. Create Chapter 4: "Composability and Reusability" (new content on cross-project collaboration, building on impact claims)
   - [ ] 2.5. Create Chapter 5: "Governance" (based on Governance section)
-  - [ ] 2.6. Create Chapter 6: "Implementation Roadmap" (based on Current and Future Work sections)
+  - [x] 2.6. Create Chapter 6: "Conclusion" (based on Current and Future Work sections)
   - [ ] 2.7. Ensure equal balance of text and visuals in each chapter
 
 - [ ] 3. Implement EAS schema specifications

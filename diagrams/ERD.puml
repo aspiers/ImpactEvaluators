@@ -2,10 +2,12 @@
 @startuml "MERIter ERD"
 ' !pragma layout smetana
 
-!$PROJECT_NAME = "MERIter"
+!ifndef PROJECT_NAME
+!define PROJECT_NAME MERIter
+!endif
 !$DIAGRAM_TYPE = "Entity Relationship Diagram (ERD)"
 !ifndef FULL_TITLE
-!$FULL_TITLE = $PROJECT_NAME + " " + $DIAGRAM_TYPE
+!$FULL_TITLE = PROJECT_NAME + " " + $DIAGRAM_TYPE
 !endif
 
 ' Configuration variables
@@ -260,8 +262,9 @@ FundingSource "*" -d-> "1" Treasury : funds
 
 !if ($isPackageVisible("Impact"))
 TheoryOfChange -d[hidden]-> ScopesDesigner
-TheoryOfChange --> EvaluationDesigner : orients
-TheoryOfChange --> MeasurementDesigner : orients
+' TOC orients the design indirectly through the impact claims (discussed with ddao)
+'TheoryOfChange --> EvaluationDesigner : orients
+'TheoryOfChange --> MeasurementDesigner : orients
 ImpactScope "*" <-l- "1" ScopesDesigner : designs
 !endif
 !if ($isPackageVisible("Measure"))
@@ -277,7 +280,7 @@ Treasury "1" --> "1" RewardDistributor : funds
 !endif
 
 !if ($isPackageVisible("Impact") && $isPackageVisible("Measure"))
-ImpactClaim "*" --> "*" Measurer : "submitted to /\ndiscovered by /\nself-reported by"
+ImpactClaim "*" --> "*" Measurer : "submitted to /\ndiscovered by"
 ImpactClaim "1" <-l- "*" Measurement::impactClaimId : measures
 ImpactContributor "*" <-l- "*" Measurement::entity : credits
 !endif

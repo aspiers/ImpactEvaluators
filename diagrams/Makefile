@@ -14,25 +14,27 @@ SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES) $(PACKAGE_SVG_FILES)
 all: $(PNG_FILES) $(SVG_FILES)
 
 # Rule to generate PNG from PUML
-%.png: %.puml
+%.png: %.puml Makefile
 	@echo "Generating $@ from $<"
 	plantuml -tpng -pipe < $< > $@
 
 # Rule to generate SVG from PUML
-%.svg: %.puml
+%.svg: %.puml Makefile
 	@echo "Generating $@ from $<"
 	plantuml -tsvg -pipe < $< > $@
 
 # Generate focus area annotations SVG
-ERD-%.svg: %.yml ERD.svg
+ERD-%.svg: %.yml ERD.svg Makefile
 	@echo "Generating $@ with annotations from $< ..."
 	@svg-annotator --areas $< > $@
+	@sed -i 's/MERIter Entity Relationship Diagram (ERD)/MERIter areas of research/g' $@
 	@echo "Generated $@ with annotations from $<"
 
 # Augment the meta file specifically with additional transformation
-ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg
+ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg Makefile
 	@echo "Generating $@ with annotations from $< ..."
 	@svg-annotator --areas $< > $@
+	@sed -i 's/MERIter Entity Relationship Diagram (ERD)/MERIter areas of research/g' $@
 	@echo "Applying Meta-MERIter transformation to $@..."
 	@sed -i 's/MERIter/Meta-MERIter/g' $@
 	@echo "Completed Meta-MERIter transformation for $@"
@@ -46,17 +48,17 @@ ERD-evaluate.svg: PACKAGE = Evaluate
 ERD-reward.svg: PACKAGE = Reward
 
 # Pattern rule for package-specific ERD files (only matches the 5 specific packages)
-ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml
+ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml Makefile
 	@echo "Generating $@ for $(PACKAGE) package..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -DPROJECT_NAME="MERIter: $$(basename $@ .svg | sed 's/^ERD-//' | sed 's/\b\w/\U&/g')" -pipe < $< > $@
 
 # Generate ERD with Impact, Measure, and Evaluation packages only
-ERD-impact-measure-evaluate.svg: ERD.puml
+ERD-impact-measure-evaluate.svg: ERD.puml Makefile
 	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
-	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -pipe < $< > $@
+	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -DPROJECT_NAME="Impact, Measure, and Evaluate" -pipe < $< > $@
 
 # Generate ERD with all fields including EAS fields
-ERD-EAS.svg: ERD.puml
+ERD-EAS.svg: ERD.puml Makefile
 	@echo "Generating $@ with all fields including EAS fields..."
 	@plantuml -tsvg -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
 

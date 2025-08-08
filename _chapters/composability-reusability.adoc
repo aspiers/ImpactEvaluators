@@ -38,7 +38,7 @@ Projects build on each other's impact claims while maintaining autonomy. For exa
 - **Verification Entities**: Accuracy confirmation
 - **Meta-Evaluation Projects**: Reliability assessment of evaluators
 
-image::diagrams/ERD-focus-areas.svg[Cross-project Collaboration Example, align=center, link=/diagrams/ERD-focus-areas.svg]
+image::diagrams/ERD-focus-areas.svg[Cross-project Collaboration Example, align=center, link=../../diagrams/ERD-focus-areas.svg]
 
 === Methodology Sharing
 Effective methodologies become reusable components through:

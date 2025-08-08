@@ -22,31 +22,31 @@ Impact Evaluators consist of five key sections:
 **Impact**: Entities and data structures that produce and represent impact claims, translating work activities into documented impact assertions.
 
 .MERIter impact abstract model
-image::diagrams/ERD-impact.svg[MERIter Impact Abstract Model, align=center, link=/diagrams/ERD-impact.svg]
+image::diagrams/ERD-impact.svg[MERIter Impact Abstract Model, align=center, link=../../diagrams/ERD-impact.svg]
 
 **Measurements**: Entities and data structures that produce independent measurements of impact, providing empirical support distinct from self-reported claims.
 
 .MERIter measurements abstract model
-image::diagrams/ERD-measure.svg[MERIter Measurements Abstract Model, align=center, link=/diagrams/ERD-measure.svg]
+image::diagrams/ERD-measure.svg[MERIter Measurements Abstract Model, align=center, link=../../diagrams/ERD-measure.svg]
 
 **Evaluations**: Entities and data structures that synthesize measurements, claims, and other evaluations to assess impact quality, significance, and value.
 
 .MERIter evaluations abstract model
-image::diagrams/ERD-evaluate.svg[MERIter Evaluations Abstract Model, align=center, link=/diagrams/ERD-evaluate.svg]
+image::diagrams/ERD-evaluate.svg[MERIter Evaluations Abstract Model, align=center, link=../../diagrams/ERD-evaluate.svg]
 
 **Rewards**: Entities and data structures that allocate and distribute rewards based on evaluations, completing the MERIter feedback loop.
 
 .MERIter rewards abstract model
-image::diagrams/ERD-reward.svg[MERIter Rewards Abstract Model, align=center, link=/diagrams/ERD-reward.svg]
+image::diagrams/ERD-reward.svg[MERIter Rewards Abstract Model, align=center, link=../../diagrams/ERD-reward.svg]
 
 **Governance**: Entities that govern the Impact Evaluator system. The ObjectivesDesigner steers the design of measure-evaluate-reward entities and manages the treasury funding reward distribution.
 
 .MERIter governance abstract model
-image::diagrams/ERD-governance.svg[MERIter Governance Abstract Model, align=center, link=/diagrams/ERD-governance.svg]
+image::diagrams/ERD-governance.svg[MERIter Governance Abstract Model, align=center, link=../../diagrams/ERD-governance.svg]
 
 MERIters function as positive feedback loops where claims lead to rewards, and rewards incentivize further claims. This cyclical structure distinguishes Impact Evaluator systems from simple measurement or evaluation frameworks by emphasizing the dynamic relationship between assessment and incentivization.
 
-image::diagrams/ERD.svg[MERIter Impact, Measure, Evaluate, Reward Loop, align=center, link=/diagrams/ERD.svg]
+image::diagrams/ERD.svg[MERIter Impact, Measure, Evaluate, Reward Loop, align=center, link=../../diagrams/ERD.svg]
 
 === Interface Design
 
@@ -129,7 +129,7 @@ Meta-MERIters address how to coordinate coordination mechanisms themselves. By a
 
 The following diagram illustrates focus areas of some existing research on meta-MERIters.
 
-image::diagrams/ERD-focus-areas-meta.svg[MERIter Meta-Governance Focus Areas, align=center, link=/diagrams/ERD-focus-areas-meta.svg]
+image::diagrams/ERD-focus-areas-meta.svg[MERIter Meta-Governance Focus Areas, align=center, link=../../diagrams/ERD-focus-areas-meta.svg]
 
 == Implementation Implications
 

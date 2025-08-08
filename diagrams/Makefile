@@ -5,11 +5,12 @@ PUML_FILES = $(wildcard *.puml)
 PNG_FILES = $(PUML_FILES:.puml=.png)
 ANNOTATION_FILES = $(filter-out _config.yml, $(wildcard *.yml))
 ANNOTATED_SVG_FILES = $(ANNOTATION_FILES:%.yml=ERD-%.svg)
+ANNOTATED_PNG_FILES = $(ANNOTATION_FILES:%.yml=ERD-%.png)
 VISIBLE_PACKAGES = Governance Impact Measure Evaluate Reward
 PACKAGE_SVG_FILES = $(addprefix ERD-,$(addsuffix .svg,$(shell echo $(VISIBLE_PACKAGES) | tr A-Z a-z)))
 PACKAGE_PNG_FILES = $(addprefix ERD-,$(addsuffix .png,$(shell echo $(VISIBLE_PACKAGES) | tr A-Z a-z)))
-SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES) $(PACKAGE_SVG_FILES)
-ALL_PNG_FILES = $(PNG_FILES) $(PACKAGE_PNG_FILES) ERD-impact-measure-evaluate.png ERD-EAS.png
+SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES) $(PACKAGE_SVG_FILES) ERD-no-elements.svg ERD-no-title.svg
+ALL_PNG_FILES = $(PNG_FILES) $(PACKAGE_PNG_FILES) $(ANNOTATED_PNG_FILES) ERD-impact-measure-evaluate.png ERD-EAS.png ERD-no-elements.png ERD-no-title.png
 
 # Default target
 .PHONY: all
@@ -41,6 +42,11 @@ ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg Makefile
 	@echo "Applying Meta-MERIter transformation to $@..."
 	@sed -i 's/MERIter/Meta-MERIter/g' $@
 	@echo "Completed Meta-MERIter transformation for $@"
+
+# Generate focus area annotations PNG from SVG using ImageMagick
+ERD-%.png: ERD-%.svg Makefile
+	@echo "Converting $< to $@..."
+	@convert $< $@
 
 # Generate individual package ERD files using VISIBLE_PACKAGES variable
 # Target-specific variable assignments for SVG
@@ -84,6 +90,32 @@ ERD-EAS.svg: ERD.puml Makefile
 ERD-EAS.png: ERD.puml Makefile
 	@echo "Generating $@ with all fields including EAS fields..."
 	@plantuml -tpng -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
+
+# Generate ERD with hidden elements (classes, entities, notes)
+ERD-no-elements.svg: ERD.puml Makefile
+	@echo "Generating $@ with hidden elements..."
+	@plantuml -tsvg -DHIDE_ELEMENTS="true" -D'FULL_TITLE=MERIter ERD (no elements)' -pipe < $< > $@
+
+ERD-no-elements.png: ERD.puml Makefile
+	@echo "Generating $@ with hidden elements..."
+	@plantuml -tpng -DHIDE_ELEMENTS="true" -D'FULL_TITLE=MERIter ERD (no elements)' -pipe < $< > $@
+
+# Generate ERD with no title
+ERD-no-title.svg: ERD.puml Makefile
+	@echo "Generating $@ with no title..."
+	@plantuml -tsvg -DFULL_TITLE="" -pipe < $< > $@
+
+ERD-no-title.png: ERD.puml Makefile
+	@echo "Generating $@ with no title..."
+	@plantuml -tpng -DFULL_TITLE="" -pipe < $< > $@
+
+ERD-no-elements-spots.svg: ERD.puml Makefile
+	@echo "Generating $@ with hidden elements..."
+	@plantuml -tsvg -DHIDE_ELEMENTS="true" -DHIDE_SPOTS="true" -D'FULL_TITLE=MERIter ERD (no elements)' -pipe < $< > $@
+
+ERD-no-elements-spots.png: ERD.puml Makefile
+	@echo "Generating $@ with hidden elements and spots..."
+	@plantuml -tpng -DHIDE_ELEMENTS="true" -DHIDE_SPOTS="true" -D'FULL_TITLE=MERIter ERD (no elements and spots)' -pipe < $< > $@
 
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)

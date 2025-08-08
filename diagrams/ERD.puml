@@ -20,6 +20,12 @@
 !ifndef VISIBLE_PACKAGES
 !define VISIBLE_PACKAGES "Governance,Impact,Measure,Evaluate,Reward"
 !endif
+!ifndef HIDE_ELEMENTS
+!define HIDE_ELEMENTS "false"
+!endif
+!ifndef HIDE_SPOTS
+!define HIDE_SPOTS "false"
+!endif
 
 ' Helper function to check if package is visible
 !function $isPackageVisible($packageName)
@@ -54,22 +60,31 @@ classDiagram {
         BackgroundColor #55555511
     }
     arrow {
+        !if (HIDE_ELEMENTS == "true")
+        LineColor white
+        FontColor white
+        !else
         LineColor #0055A9
         FontColor #0055A9
+        !endif
     }
     class, entity, note {
-        ' LineColor white
-        ' BackgroundColor white
-        ' BorderColor white
-        ' FontColor white
+        !if (HIDE_ELEMENTS == "true")
+        LineColor white
+        BackgroundColor white
+        BorderColor white
+        FontColor white
+        !endif
     }
 }
 spot {
     spotEntity, spotDataClass {
-        ' LineColor white
-        ' BackgroundColor white
-        ' BorderColor white
-        ' FontColor white
+        !if (HIDE_SPOTS == "true")
+        LineColor white
+        BackgroundColor white
+        BorderColor white
+        FontColor white
+        !endif
     }
 }
 </style>

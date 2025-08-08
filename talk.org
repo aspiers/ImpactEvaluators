@@ -1,0 +1,7 @@
+* map
+*** located (almost?) everyone on the map
+*** had numerous discussions
+* tooling
+***
+*** Generalised SVG annotator
+* intersection of

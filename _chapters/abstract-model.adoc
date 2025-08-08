@@ -105,7 +105,7 @@ MERIters function as positive feedback loops where claims lead to rewards, and r
 ++++
 <div class="imageblock text-center">
 <div class="content">
-<object data="../../diagrams/ERD.svg" type="image/svg+xml">
+<object data="../../diagrams/ERD.svg" type="image/svg+xml" style="max-width: 100%">
   <img src="../../diagrams/ERD.svg" alt="MERIter Impact, Measure, Evaluate, Reward Loop">
 </object>
 <div class="svg-link">

@@ -9,7 +9,7 @@ all: book diagrams
 # Generate PDF book from AsciiDoc source
 book.pdf: book.adoc _chapters/*.adoc
 	@echo "Generating book.pdf from book.adoc..."
-	bundle exec asciidoctor-pdf book.adoc
+	bundle exec asciidoctor-pdf -a allow-uri-read -a imagesdir=. book.adoc
 
 # Alias for book.pdf
 book: book.pdf

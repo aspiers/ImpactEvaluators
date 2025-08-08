@@ -20,10 +20,10 @@ emerge organically which all lend credibility to the original impact claim under
 The graph-like nature of claims is also suggested by the following diagrams, which show the causal relationships between impact actions, outcomes, impact claims and evaluations.
 
 .Impact Evaluation Causality Framework
-image::../../images/IE-paper-causality.png[Impact Evaluation Causality Framework, align=center]
+image::images/IE-paper-causality.png[Impact Evaluation Causality Framework, align=center]
 
 .World Bank Results Chain
-image::../../images/World-Bank-results-chain.png[Results chain from "Impact Evalution In Practice", World Bank, 2016, align=center]
+image::images/World-Bank-results-chain.png[Results chain from "Impact Evalution In Practice", World Bank, 2016, align=center]
 
 These publications also highlight the difficulty of establishing causality in general.  However intuitively it is clear that the more supporting information (both ex-ante and ex-post) published in a form which facilitates independent verification, the more likely it is that the causal relationships between impact action and benefits can be trusted and therefore funded with confidence.
 
@@ -34,7 +34,7 @@ These publications also highlight the difficulty of establishing causality in ge
 The following diagram illustrates the possibilities for various types of claims, including meta-claims such as reviews and endorsements.  It also shows potential relationships between claims, and how they can be represented as a directed graph.
 
 .Claims Relationship Diagram
-image::../../diagrams/claims.svg[Claims Relationship Diagram,align="center"]
+image::diagrams/claims.svg[Claims Relationship Diagram,align="center"]
 
 == Representing claims as attestations
 

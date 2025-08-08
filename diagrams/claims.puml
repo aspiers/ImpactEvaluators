@@ -1,0 +1,95 @@
+@startuml "Claims Relationship Diagram"
+
+!ifndef PROJECT_NAME
+!define PROJECT_NAME MERIter
+!endif
+!$DIAGRAM_TYPE = "Claims Relationship Diagram"
+!ifndef FULL_TITLE
+!$FULL_TITLE = PROJECT_NAME + " " + $DIAGRAM_TYPE
+!endif
+
+!ifdef $FULL_TITLE
+!if $FULL_TITLE != ""
+title $FULL_TITLE
+!endif
+!endif
+
+<style>
+document {
+    title {
+        FontSize 32
+        FontStyle bold
+    }
+}
+package {
+    title {
+        FontSize 18
+    }
+    LineColor #666666
+}
+classDiagram {
+    class {
+        BackgroundColor #55555511
+    }
+    arrow {
+        LineColor #0055A9
+        FontColor #0055A9
+    }
+}
+</style>
+
+package "Core Claims" as CoreClaims {
+    dataclass ImpactClaim [[{The ImpactClaim is the foundational claim about work performed and impact generated within specific scopes and timeframes.}]]
+
+    dataclass EligibilityClaim [[{The EligibilityClaim validates that a claimant is authorized to participate in a specific project or scope.}]]
+}
+
+package "Methodology Claims" as MethodologyClaims {
+    dataclass MethodologyValidityClaim [[{The MethodologyValidityClaim asserts the soundness and appropriateness of a theory of change or measurement methodology.}]]
+
+    dataclass MethodologyAuthorshipClaim [[{The MethodologyAuthorshipClaim establishes who created or contributed to a methodology.}]]
+}
+
+dataclass MeasurementClaim [[{The MeasurementClaim provides independent measurements and assessments of impact claims.}]]
+
+dataclass EvaluationClaim [[{The EvaluationClaim provides evaluations and assessments of measurements or other claims.}]]
+
+package "Meta Claims" as MetaClaims {
+    dataclass ReviewClaim [[{The ReviewClaim provides peer review and validation of methodology validity claims or other claims.}]]
+
+    dataclass EndorsementClaim [[{The EndorsementClaim provides endorsements or support for reviews, evaluations, or other claims.}]]
+}
+
+
+' Core claim relationships
+ImpactClaim --> EligibilityClaim : contains\nimplicit
+ImpactClaim --> MethodologyValidityClaim : based\non
+
+' Measurement and evaluation relationships
+MeasurementClaim --> ImpactClaim : measures\nand relates to
+EvaluationClaim --> MeasurementClaim : evaluates
+'EvaluationClaim --> ImpactClaim : evaluates
+
+' Methodology relationships
+MethodologyAuthorshipClaim --> MethodologyValidityClaim : establishes\nauthority for
+ReviewClaim --> MethodologyValidityClaim : reviews\nvalidity of
+
+' Meta-claim relationships - allowing chains
+ReviewClaim --> EvaluationClaim : reviews
+ReviewClaim --> MeasurementClaim : reviews
+EndorsementClaim --> ReviewClaim : endorses
+EndorsementClaim --> EvaluationClaim : endorses
+EndorsementClaim --> MethodologyValidityClaim : endorses
+
+' Self-referential relationships for claim chains
+ReviewClaim --> ReviewClaim : reviews\nother reviews
+EndorsementClaim --> EndorsementClaim : endorses\nother endorsements
+
+
+' Layout hints
+CoreClaims -r[hidden]-> MethodologyClaims
+MethodologyClaims -r[hidden]-> MetaClaims
+
+note top of ImpactClaim : Central claim that all\nother claims reference\nand build credibility for
+
+@enduml

@@ -31,8 +31,3 @@ with entities grouped into logical packages:
 * Evaluation
 * Rewards
 * Governance
-
-[NOTE]
-====
-Additional research components and analysis will be added as the research develops.
-====

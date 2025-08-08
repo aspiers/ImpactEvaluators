@@ -1,3 +1,15 @@
+---
+title: "Impact Claims"
+excerpt: "Self-reported impact claims as foundational data structures"
+slug: "impact-claims"
+chapter_number: 3
+order: 3
+date: 2025-08-06
+layout: chapter
+---
+
+= Impact Claims
+
 While impact claims are clearly at the heart of Hypercerts, independent measurements and evaluations are also effectively claims relating to those impact claims.  Furthermore, impact claims are not made in a vacuum, but within the context of specific scopes and methodologies.  For example, an impact claim contains an implicit eligibility claim that the claimant is a valid participant of the relevant project or scope, and therefore eligible for making that impact claim.  The impact claim is also typically made according to a specific methodology or theory of change, for which there is a claim of validity: if claims that the methodology is sound are proven to be invalid, then any impact claim based on that methodology lose credibility.  Further claims could be made on the authorship of the methodology, on reviews of its validity, on reviews and/or endorsements of those reviews, and so on, potentially ad infinitum.
 
 This line of thinking leads to the conclusion that a directed graph of claims is required, facilitating creation and verification of chains of claims.  And allowing all of these claims to be made permissionlessly allows webs of trust to emerge organically which all lend credibility to the original impact claim under scrutiny.

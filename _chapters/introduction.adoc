@@ -1,6 +1,7 @@
 ---
 title: "Aligning work on MERIters via semi-formal models and maps"
 description: "Tackling the challenges in the MERIter field via shared abstract models"
+slug: "introduction"
 chapter_number: 1
 order: 1
 date: 2025-08-06

@@ -1,6 +1,8 @@
 ---
-title: "Chapter 2: The Abstract Model - Entities and Data"
+title: "The Abstract Model - Entities and Data"
 excerpt: "Exploring the core structure of the Impact Evaluator abstract model, focusing on the critical distinction between entities and data"
+slug: "abstract-model"
+chapter_number: 2
 order: 2
 date: 2025-08-06
 layout: chapter

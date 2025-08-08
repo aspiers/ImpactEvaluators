@@ -7,11 +7,13 @@ ANNOTATION_FILES = $(filter-out _config.yml, $(wildcard *.yml))
 ANNOTATED_SVG_FILES = $(ANNOTATION_FILES:%.yml=ERD-%.svg)
 VISIBLE_PACKAGES = Governance Impact Measure Evaluate Reward
 PACKAGE_SVG_FILES = $(addprefix ERD-,$(addsuffix .svg,$(shell echo $(VISIBLE_PACKAGES) | tr A-Z a-z)))
+PACKAGE_PNG_FILES = $(addprefix ERD-,$(addsuffix .png,$(shell echo $(VISIBLE_PACKAGES) | tr A-Z a-z)))
 SVG_FILES = $(PUML_FILES:.puml=.svg) $(ANNOTATED_SVG_FILES) $(PACKAGE_SVG_FILES)
+ALL_PNG_FILES = $(PNG_FILES) $(PACKAGE_PNG_FILES) ERD-impact-measure-evaluate.png ERD-EAS.png
 
 # Default target
 .PHONY: all
-all: $(PNG_FILES) $(SVG_FILES)
+all: $(ALL_PNG_FILES) $(SVG_FILES)
 
 # Rule to generate PNG from PUML
 %.png: %.puml Makefile
@@ -22,6 +24,7 @@ all: $(PNG_FILES) $(SVG_FILES)
 %.svg: %.puml Makefile
 	@echo "Generating $@ from $<"
 	plantuml -tsvg -pipe < $< > $@
+
 
 # Generate focus area annotations SVG
 ERD-%.svg: %.yml ERD.svg Makefile
@@ -40,27 +43,47 @@ ERD-focus-areas-meta.svg: focus-areas-meta.yml ERD.svg Makefile
 	@echo "Completed Meta-MERIter transformation for $@"
 
 # Generate individual package ERD files using VISIBLE_PACKAGES variable
-# Target-specific variable assignments
+# Target-specific variable assignments for SVG
 ERD-governance.svg: PACKAGE = Governance
 ERD-impact.svg: PACKAGE = Impact
 ERD-measure.svg: PACKAGE = Measure
 ERD-evaluate.svg: PACKAGE = Evaluate
 ERD-reward.svg: PACKAGE = Reward
 
-# Pattern rule for package-specific ERD files (only matches the 5 specific packages)
+# Target-specific variable assignments for PNG
+ERD-governance.png: PACKAGE = Governance
+ERD-impact.png: PACKAGE = Impact
+ERD-measure.png: PACKAGE = Measure
+ERD-evaluate.png: PACKAGE = Evaluate
+ERD-reward.png: PACKAGE = Reward
+
+# Pattern rule for package-specific ERD SVG files
 ERD-governance.svg ERD-impact.svg ERD-measure.svg ERD-evaluate.svg ERD-reward.svg: ERD.puml Makefile
 	@echo "Generating $@ for $(PACKAGE) package..."
 	@plantuml -tsvg -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
+
+# Pattern rule for package-specific ERD PNG files
+ERD-governance.png ERD-impact.png ERD-measure.png ERD-evaluate.png ERD-reward.png: ERD.puml Makefile
+	@echo "Generating $@ for $(PACKAGE) package..."
+	@plantuml -tpng -DVISIBLE_PACKAGES="$(PACKAGE)" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
 
 # Generate ERD with Impact, Measure, and Evaluation packages only
 ERD-impact-measure-evaluate.svg: ERD.puml Makefile
 	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
 	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
 
+ERD-impact-measure-evaluate.png: ERD.puml Makefile
+	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
+	@plantuml -tpng -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -DSHOW_FIELDS="true" -DFULL_TITLE="" -pipe < $< > $@
+
 # Generate ERD with all fields including EAS fields
 ERD-EAS.svg: ERD.puml Makefile
 	@echo "Generating $@ with all fields including EAS fields..."
 	@plantuml -tsvg -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
+
+ERD-EAS.png: ERD.puml Makefile
+	@echo "Generating $@ with all fields including EAS fields..."
+	@plantuml -tpng -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
 
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)
@@ -68,10 +91,13 @@ areas: $(ANNOTATED_SVG_FILES)
 .PHONY: packages
 packages: $(PACKAGE_SVG_FILES)
 
+.PHONY: pngs
+pngs: $(ALL_PNG_FILES)
+
 .PHONY: clean
 clean:
 	@echo "Cleaning generated PNG and SVG files..."
-	@rm -f $(PNG_FILES) $(SVG_FILES) $(ANNOTATED_SVG_FILES)
+	@rm -f $(ALL_PNG_FILES) $(SVG_FILES)
 
 # Watch for changes and regenerate (requires inotify-tools)
 .PHONY: watch
@@ -85,6 +111,7 @@ watch:
 help:
 	@echo "Available targets:"
 	@echo "  all      - Generate all PNG and SVG files from PUML files"
+	@echo "  pngs     - Generate all PNG files"
 	@echo "  areas    - Generate ERD with focus area annotations overlay"
 	@echo "  packages - Generate individual ERD files for each package"
 	@echo "  clean    - Remove generated PNG and SVG files"

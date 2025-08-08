@@ -4,7 +4,8 @@
       "Bash(npm install:*)",
       "Bash(npx tsx src/index.ts:*)",
       "Bash(make:*)",
-      "Bash(./copy-sass.sh)"
+      "Bash(./copy-sass.sh)",
+      "Bash(plantuml:*)"
     ],
     "deny": []
   },

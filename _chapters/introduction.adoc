@@ -108,7 +108,15 @@ give more immediately clarity on our approach to mapping, it is presented here
 as a preview.
 
 .Overview of the MERIter abstract model illustrating the complexity of interactions between different components in MERIter systems
-image::../../diagrams/ERD.svg[MERIter Abstract Model Overview, align="center"]
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD.svg" alt="MERIter Abstract Model Overview">
+</object>
+</div>
+</div>
+++++
 
 === Facilitative Capabilities
 
@@ -134,7 +142,15 @@ contributions while recognizing areas of overlap or potential collaboration
 with others.
 
 .The abstract model with focus area annotations, demonstrating how different research groups can identify their primary domains of work within the shared framework
-image::../../diagrams/ERD-focus-areas.svg[MERIter Model with Focus Areas, align="center"]
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-focus-areas.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-focus-areas.svg" alt="MERIter Model with Focus Areas">
+</object>
+</div>
+</div>
+++++
 
 *Connection Discovery*: By providing a common framework for describing work,
 the abstract model enables identification of connections between different

@@ -296,6 +296,18 @@ figcaption {
   }
 }
 
+/* SVG object embedding for interactive diagrams */
+
+.imageblock object[type="image/svg+xml"] {
+  width: 100%;
+  max-width: 600px;
+}
+
+.imageblock object[data*="ERD.svg"],
+.imageblock object[data*="ERD-focus-areas.svg"] {
+  max-width: 800px;
+}
+
 
 /* Fix IE9 SVG bug */
 

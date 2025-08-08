@@ -10,29 +10,96 @@ layout: chapter
 
 The abstract model presented in Chapter 1 requires careful structural design to achieve its goals of facilitating coordination, communication, and systematic development within the Impact Evaluation field. This chapter examines the core architecture of the model, with particular emphasis on the essential distinction between entities and data that enables modularity and reusability across different implementations and use cases.
 
-== The Four-Section Architecture
+// .Overview of the MERIter abstract model illustrating the complexity of interactions between different components in MERIter systems
+// image::../../diagrams/ERD.svg[MERIter Abstract Model Overview, align="center"]
+
+== The Five-Section Architecture
 
 === Structural Overview
 
-A comprehensive map of Impact Evaluators consists of four key sections that capture the essential functions and relationships within IE systems:
+A comprehensive map of Impact Evaluators consists of five key sections that capture the essential functions and relationships within IE systems:
 
 **Impact**: Entities and data structures that produce and represent impact claims. This section encompasses the mechanisms by which work activities translate into documented impact assertions, including both the agents that perform impact-generating work and the data structures that formally represent their claims.
 
+.MERIter impact abstract model
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-impact.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-impact.svg" alt="MERIter Impact Abstract Model">
+</object>
+</div>
+</div>
+++++
+
 **Measurements**: Entities and data structures that produce and declare measurements of impact. This section focuses on the independent measurement and verification processes that provide empirical support for impact assessment, distinct from the self-reported claims produced in the Impact section.
+
+.MERIter measurements abstract model
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-measure.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-measure.svg" alt="MERIter Measurements Abstract Model">
+</object>
+</div>
+</div>
+++++
 
 **Evaluations**: Entities and data structures that produce and declare evaluations of impact based on measurements, claims, and other evaluations. This section captures the analytical and decision-making processes that synthesize multiple information sources to produce assessments of impact quality, significance, and value.
 
+.MERIter evaluations abstract model
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-evaluate.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-evaluate.svg" alt="MERIter Evaluations Abstract Model">
+</object>
+</div>
+</div>
+++++
+
 **Rewards**: Entities and data structures that allocate and distribute rewards based on evaluations. This section encompasses the mechanisms by which impact evaluations translate into concrete benefits for impact producers, completing the feedback loop that characterizes MERIter systems.
 
-.The Complete MERIter Loop
-[NOTE]
-====
+.MERIter rewards abstract model
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-reward.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-reward.svg" alt="MERIter Rewards Abstract Model">
+</object>
+</div>
+</div>
+++++
+
+**Governance**: Entities that govern the Impact Evaluator system.  At the highest level, the ObjectivesDesigner is the entity that effectively governs the Impact Evaluator system by steering the design of the measure-evaluate-reward entities.  It is also responsible for managing the treasury which funds reward distribution.
+
+.MERIter governance abstract model
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD-governance.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD-governance.svg" alt="MERIter Governance Abstract Model">
+</object>
+</div>
+</div>
+++++
+
 MERIters function as positive feedback loops where claims lead to rewards, and rewards incentivize further claims. This cyclical structure distinguishes Impact Evaluator systems from simple measurement or evaluation frameworks by emphasizing the dynamic relationship between assessment and incentivization.
-====
+
+.The Complete MERIter Loop
+++++
+<div class="imageblock text-center">
+<div class="content">
+<object data="../../diagrams/ERD.svg" type="image/svg+xml">
+  <img src="../../diagrams/ERD.svg" alt="MERIter Impact, Measure, Evaluate, Reward Loop">
+</object>
+</div>
+</div>
+++++
 
 === Interface Design
 
-The four-section architecture achieves modularity through careful interface design between sections. Each section defines clear inputs and outputs that enable independent development and implementation while maintaining overall system coherence. Impact claims serve as outputs from the Impact section and inputs to the Measurements and Evaluations sections. Similarly, measurements provide outputs that become inputs for evaluation processes.
+The five-section architecture achieves modularity through careful interface design between sections. Each section defines clear inputs and outputs that enable independent development and implementation while maintaining overall system coherence. Impact claims serve as outputs from the Impact section and inputs to the Measurements and Evaluations sections. Similarly, measurements provide outputs that become inputs for evaluation processes.
 
 This interface-based design enables different organizations or research groups to focus on specific sections while contributing to the broader IE ecosystem. A research group specializing in measurement methodologies can develop improved measurement entities and data structures without requiring deep knowledge of reward allocation mechanisms, provided they adhere to the defined interfaces.
 
@@ -40,11 +107,15 @@ This interface-based design enables different organizations or research groups t
 
 === Conceptual Framework
 
-The most critical architectural decision in the abstract model is the systematic distinction between entities and data. This distinction provides the basis for modularity, reusability, and clear separation of concerns that enable effective collaboration across different projects and implementations.
+The abstract model makes a key distinction between entities and data:
 
 **Entities** represent active agents or processes within IE systems. These are identities within webs of trust that possess agency and responsibility. Entities perform actions, make decisions, and bear accountability for their outputs. Examples include research organizations conducting impact measurements, evaluation bodies assessing impact claims, and reward distribution mechanisms allocating benefits based on evaluations.
 
 **Data** represent inputs and outputs within IE systems. These are attestations, typically signed by entities, that provide formal representations of information. Data structures capture claims, measurements, evaluations, and reward allocations in formats that enable systematic processing and verification. Examples include impact claim documents, measurement datasets, evaluation reports, and reward distribution records.
+
+This distinction provides the basis for modularity, reusability, and clear
+separation of concerns that enable effective collaboration across different
+projects and implementations.
 
 === Separation of Concerns
 
@@ -146,9 +217,9 @@ A typical development sequence might progress through:
 
 == Chapter Summary
 
-This chapter has examined the structural principles of the Impact Evaluator abstract model, with particular emphasis on the four-section architecture and the essential entity-data distinction. These architectural decisions provide the modularity and separation of concerns necessary to achieve the coordination and collaboration benefits outlined in Chapter 1.
+This chapter has examined the structural principles of the Impact Evaluator abstract model, with particular emphasis on the five-section architecture and the essential entity-data distinction. These architectural decisions provide the modularity and separation of concerns necessary to achieve the coordination and collaboration benefits outlined in Chapter 1.
 
-The entity-data distinction emerges as the most critical design decision, enabling independent development of system components while maintaining interoperability through standardized interfaces. The four-section architecture provides comprehensive coverage of IE system functions while supporting diverse implementation approaches.
+The entity-data distinction emerges as the most critical design decision, enabling independent development of system components while maintaining interoperability through standardized interfaces. The five-section architecture provides comprehensive coverage of IE system functions while supporting diverse implementation approaches.
 
 The introduction of impact claims as explicit data structures addresses gaps in earlier IE models while maintaining separation between self-reported impact documentation and third-party assessment processes. The composability of evaluations and the recursive governance capabilities through meta-MERIters demonstrate advanced capabilities that emerge from well-designed abstract models.
 

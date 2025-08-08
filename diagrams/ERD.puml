@@ -4,11 +4,17 @@
 
 !$PROJECT_NAME = "MERIter"
 !$DIAGRAM_TYPE = "Entity Relationship Diagram (ERD)"
+!ifndef FULL_TITLE
 !$FULL_TITLE = $PROJECT_NAME + " " + $DIAGRAM_TYPE
+!endif
 
 ' Configuration variables
-!$SHOW_FIELDS = %false()
-!$SHOW_EAS_FIELDS = %false()
+!ifndef SHOW_FIELDS
+!define SHOW_FIELDS "false"
+!endif
+!ifndef SHOW_EAS_FIELDS
+!define SHOW_EAS_FIELDS "false"
+!endif
 !ifndef VISIBLE_PACKAGES
 !define VISIBLE_PACKAGES "Governance,Impact,Measure,Evaluate,Reward"
 !endif
@@ -20,7 +26,7 @@
 
 title $FULL_TITLE
 
-!if (%not($SHOW_FIELDS))
+!if (SHOW_FIELDS == "false")
 hide empty fields
 !endif
 
@@ -91,21 +97,21 @@ package Impact {
     entity TheoryOfChange [[{The TheoryOfChange is a framework that describes how and why desired changes are expected to happen in a particular context.}]]
 
     entity ImpactOrganization [[{The ImpactOrganization is an entity that facilitates and oversees impact projects and their contributors.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         organizationDID
         !endif
     }
     entity ImpactProject [[{The ImpactProject is a specific initiative aimed at creating measurable positive impact within defined scopes.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         organization
         !endif
     }
     entity ImpactWork [[{The ImpactWork is the actual work performed by contributors that generates impact within a project.}]]
     dataclass ImpactScope [[{The ImpactScope is a piece of structured data defining boundaries and timeframes for measuring impact within a project.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         projectUID
         epoch or timeInterval
-        !if ($SHOW_EAS_FIELDS)
+        !if (SHOW_EAS_FIELDS == "true")
         --
         uid
         schema
@@ -120,11 +126,11 @@ package Impact {
         !endif
     }
     dataclass ImpactClaim [[{The ImpactClaim is a structured piece of data serving as a vehicle for ImpactContributor entities to group communicate outcomes to Measurers}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         scope
         timeInterval
         extra data
-        !if ($SHOW_EAS_FIELDS)
+        !if (SHOW_EAS_FIELDS == "true")
         --
         uid
         schema
@@ -140,7 +146,7 @@ package Impact {
     }
 
     entity ImpactContributor [[{The ImpactContributor is a human and/or digital entity that performs work and claims impact within projects.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         workDecisionPolicy
         !endif
     }
@@ -160,12 +166,12 @@ package Impact {
 !if ($isPackageVisible("Measure"))
 package Measure {
     dataclass Measurement [[{The Measurement is a piece of structured data capturing specific indicators and metrics related to impact claims.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         impactClaimId
         indicator
         timeInterval
         entity
-        !if ($SHOW_EAS_FIELDS)
+        !if (SHOW_EAS_FIELDS == "true")
         --
         uid
         schema
@@ -188,7 +194,7 @@ package Measure {
 !if ($isPackageVisible("Evaluate"))
 package Evaluate {
     dataclass EvaluationResult [[{The EvaluationResult is a piece of structured data describing the output of an Evaluator running an evaluation.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         timestamp
         !endif
     }
@@ -202,12 +208,12 @@ package Evaluate {
 !if ($isPackageVisible("Reward"))
 package Reward {
     entity RewardCalculator [[{The RewardCalculator is responsible for calculating reward allocations based on evaluation results and reward policies.}]] {
-      !if ($SHOW_FIELDS)
+      !if (SHOW_FIELDS == "true")
       rewardPolicy
       !endif
     }
     dataclass RewardAllocation [[{The RewardAllocation is a piece of structured data specifying the amount and recipient of rewards for impact contributions.}]] {
-        !if ($SHOW_FIELDS)
+        !if (SHOW_FIELDS == "true")
         amount
         recipient
         impactClaimId

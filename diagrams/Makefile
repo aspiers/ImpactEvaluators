@@ -55,6 +55,11 @@ ERD-impact-measure-evaluate.svg: ERD.puml
 	@echo "Generating $@ with Impact, Measure, and Evaluate packages..."
 	@plantuml -tsvg -DVISIBLE_PACKAGES="Impact,Measure,Evaluate" -pipe < $< > $@
 
+# Generate ERD with all fields including EAS fields
+ERD-EAS.svg: ERD.puml
+	@echo "Generating $@ with all fields including EAS fields..."
+	@plantuml -tsvg -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
+
 .PHONY: areas
 areas: $(ANNOTATED_SVG_FILES)
 
@@ -80,6 +85,7 @@ help:
 	@echo "  all      - Generate all PNG and SVG files from PUML files"
 	@echo "  areas    - Generate ERD with focus area annotations overlay"
 	@echo "  packages - Generate individual ERD files for each package"
+	@echo "  ERD-EAS.svg - Generate ERD with all fields including EAS fields"
 	@echo "  clean    - Remove generated PNG and SVG files"
 	@echo "  watch    - Watch for changes and auto-regenerate"
 	@echo "  help     - Show this help message"

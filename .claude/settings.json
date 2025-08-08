@@ -5,7 +5,8 @@
       "Bash(npx tsx src/index.ts:*)",
       "Bash(make:*)",
       "Bash(./copy-sass.sh)",
-      "Bash(plantuml:*)"
+      "Bash(plantuml:*)",
+      "Bash(asciidoctor:*)"
     ],
     "deny": []
   },

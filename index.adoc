@@ -18,7 +18,7 @@ methodologies, and theoretical frameworks.
 
 [NOTE]
 ====
-For an earlier presentation of this work, see: https://docs.google.com/presentation/d/16oXmlyG16K8vDI0lhrVHfvmxd3qU70yMOotGMWM_1aY/edit?usp=sharing[MERIters Presentation^]
+For a presentation of this work, see: https://docs.google.com/presentation/d/14MPNwTc6fiNWDA1AL22YNVaWUjbF9n5aOgt4DGjUPFY/edit?usp=sharing[MERIters Presentation^]
 ====
 
 == Overview

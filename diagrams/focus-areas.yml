@@ -31,6 +31,13 @@
     - RewardCalculator
 
 -
+  name: Sejal
+  color: lemonchiffon
+  areas:
+    - Evaluator
+    - EvaluationResult
+
+-
   name: Shu
   url: https://github.com/tnkshuuhei/scaffold-ie
   color: lavender
@@ -66,7 +73,7 @@
     - RewardCalculator
 
 -
-  name: Jeff2
+  name: Jeff
   tooltip: |
     Jeff is interested in the ways that retroactive funding incentivizes
     decisions happening earlier in time.
@@ -84,3 +91,32 @@
   areas:
     - Measurer
     - Measurement
+
+-
+  name: Elizabeth, Devansh
+  tooltip: |
+    Elizabeth is working on the Evaluation and RewardAllocation functions
+    specifically within the context of the Deep Funding project.
+  url: https://www.deepfunding.org/
+  color: blanchedalmond
+  areas:
+    - Evaluator
+    - EvaluationDesigner
+    - RewardDesigner
+    - RewardCalculator
+
+-
+  name: Nidhi
+  color: lightgreen
+  areas:
+    - EvaluationResult
+    - RewardAllocation
+
+-
+  name: Clement
+  tooltip: |
+    Elizabeth is working on the Evaluation and RewardAllocation functions
+    specifically within the context of the Deep Funding project.
+  color: blanchedalmond
+  areas:
+    - RewardDistributor

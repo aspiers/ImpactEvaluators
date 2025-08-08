@@ -28,6 +28,9 @@ A comprehensive map of Impact Evaluators consists of five key sections that capt
 <object data="../../diagrams/ERD-impact.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-impact.svg" alt="MERIter Impact Abstract Model">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-impact.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -41,6 +44,9 @@ A comprehensive map of Impact Evaluators consists of five key sections that capt
 <object data="../../diagrams/ERD-measure.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-measure.svg" alt="MERIter Measurements Abstract Model">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-measure.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -54,6 +60,9 @@ A comprehensive map of Impact Evaluators consists of five key sections that capt
 <object data="../../diagrams/ERD-evaluate.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-evaluate.svg" alt="MERIter Evaluations Abstract Model">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-evaluate.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -67,6 +76,9 @@ A comprehensive map of Impact Evaluators consists of five key sections that capt
 <object data="../../diagrams/ERD-reward.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-reward.svg" alt="MERIter Rewards Abstract Model">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-reward.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -80,6 +92,9 @@ A comprehensive map of Impact Evaluators consists of five key sections that capt
 <object data="../../diagrams/ERD-governance.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-governance.svg" alt="MERIter Governance Abstract Model">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-governance.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -93,6 +108,9 @@ MERIters function as positive feedback loops where claims lead to rewards, and r
 <object data="../../diagrams/ERD.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD.svg" alt="MERIter Impact, Measure, Evaluate, Reward Loop">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++

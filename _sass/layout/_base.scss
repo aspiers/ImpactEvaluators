@@ -308,6 +308,16 @@ figcaption {
   max-width: 800px;
 }
 
+/* SVG diagram link styling */
+.imageblock .svg-link {
+  margin-top: 0.5em;
+  font-size: 0.9em;
+  
+  a {
+    text-decoration: underline;
+  }
+}
+
 
 /* Fix IE9 SVG bug */
 

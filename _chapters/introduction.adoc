@@ -114,6 +114,9 @@ as a preview.
 <object data="../../diagrams/ERD.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD.svg" alt="MERIter Abstract Model Overview">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++
@@ -148,6 +151,9 @@ with others.
 <object data="../../diagrams/ERD-focus-areas.svg" type="image/svg+xml">
   <img src="../../diagrams/ERD-focus-areas.svg" alt="MERIter Model with Focus Areas">
 </object>
+<div class="svg-link">
+  <a href="../../diagrams/ERD-focus-areas.svg" target="_blank">↗ Open full diagram</a>
+</div>
 </div>
 </div>
 ++++

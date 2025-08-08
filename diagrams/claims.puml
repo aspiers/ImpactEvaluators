@@ -1,16 +1,13 @@
 @startuml "Claims Relationship Diagram"
 
-!ifndef PROJECT_NAME
-!define PROJECT_NAME MERIter
-!endif
 !$DIAGRAM_TYPE = "Claims Relationship Diagram"
 !ifndef FULL_TITLE
-!$FULL_TITLE = PROJECT_NAME + " " + $DIAGRAM_TYPE
+!$FULL_TITLE = $DIAGRAM_TYPE
 !endif
 
 !ifdef $FULL_TITLE
 !if $FULL_TITLE != ""
-title $FULL_TITLE
+'title $FULL_TITLE
 !endif
 !endif
 
@@ -38,10 +35,14 @@ classDiagram {
 }
 </style>
 
-package "Core Claims" as CoreClaims {
+package "Impact Claims" as ImpactClaims {
     dataclass ImpactClaim [[{The ImpactClaim is the foundational claim about work performed and impact generated within specific scopes and timeframes.}]]
 
-    dataclass EligibilityClaim [[{The EligibilityClaim validates that a claimant is authorized to participate in a specific project or scope.}]]
+    dataclass MembershipClaim [[{The MembershipClaim validates that a claimant is authorized to participate in a specific project or scope.}]]
+
+    dataclass ImpactContributor [[{The ImpactContributor represents an individual or entity that contributes to impact generation.}]]
+
+    dataclass ImpactProject [[{The ImpactProject represents a structured initiative or program aimed at generating specific impact outcomes.}]]
 }
 
 package "Methodology Claims" as MethodologyClaims {
@@ -60,13 +61,16 @@ package "Meta Claims" as MetaClaims {
     dataclass EndorsementClaim [[{The EndorsementClaim provides endorsements or support for reviews, evaluations, or other claims.}]]
 }
 
-
 ' Core claim relationships
-ImpactClaim --> EligibilityClaim : contains\nimplicit
 ImpactClaim --> MethodologyValidityClaim : based\non
 
+' Contributor and project relationships
+ImpactContributor --> ImpactClaim : makes
+ImpactProject --> MembershipClaim : issues
+MembershipClaim --> ImpactContributor : authorizes\nparticipationfor
+
 ' Measurement and evaluation relationships
-MeasurementClaim --> ImpactClaim : measures\nand relates to
+ImpactClaim <-- MeasurementClaim : measures\nand relates to
 EvaluationClaim --> MeasurementClaim : evaluates
 'EvaluationClaim --> ImpactClaim : evaluates
 
@@ -79,6 +83,7 @@ ReviewClaim --> EvaluationClaim : reviews
 ReviewClaim --> MeasurementClaim : reviews
 EndorsementClaim --> ReviewClaim : endorses
 EndorsementClaim --> EvaluationClaim : endorses
+EndorsementClaim --> MethodologyAuthorshipClaim : endorses
 EndorsementClaim --> MethodologyValidityClaim : endorses
 
 ' Self-referential relationships for claim chains
@@ -87,7 +92,7 @@ EndorsementClaim --> EndorsementClaim : endorses\nother endorsements
 
 
 ' Layout hints
-CoreClaims -r[hidden]-> MethodologyClaims
+ImpactClaims -r[hidden]-> MethodologyClaims
 MethodologyClaims -r[hidden]-> MetaClaims
 
 note top of ImpactClaim : Central claim that all\nother claims reference\nand build credibility for

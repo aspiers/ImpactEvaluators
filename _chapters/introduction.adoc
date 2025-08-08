@@ -105,7 +105,7 @@ Detailed discussion of this ERD will be presented in chapter 2; however to
 give more immediately clarity on our approach to mapping, it is presented here
 as a preview.
 
-image::diagrams/ERD.svg[MERIter Abstract Model Overview, align=center]
+image::diagrams/ERD.svg[MERIter Abstract Model Overview, align=center, link=/diagrams/ERD.svg]
 
 === Facilitative Capabilities
 
@@ -130,7 +130,7 @@ context. This positioning capability enables teams to identify their unique
 contributions while recognizing areas of overlap or potential collaboration
 with others.
 
-image::diagrams/ERD-focus-areas.svg[MERIter Model with Focus Areas, align=center]
+image::diagrams/ERD-focus-areas.svg[MERIter Model with Focus Areas, align=center, link=/diagrams/ERD-focus-areas.svg]
 
 *Connection Discovery*: By providing a common framework for describing work,
 the abstract model enables identification of connections between different

@@ -35,12 +35,17 @@ package {
     title {
         FontSize 18
     }
+    LineColor #666666
 }
 classDiagram {
     class {
         BackgroundColor #55555511
     }
-    class, arrow, entity, note {
+    arrow {
+        LineColor #0055A9
+        FontColor #0055A9
+    }
+    class, entity, note {
         ' LineColor white
         ' BackgroundColor white
         ' BorderColor white
@@ -62,12 +67,12 @@ spot {
 !if ($isPackageVisible("Governance"))
 
 package "Governance (meta)" as Governance {
-    entity ObjectivesDesigner
-    entity ScopesDesigner
-    entity MeasurementDesigner
-    entity EvaluationDesigner
-    entity RewardDesigner
-    entity Treasury
+    entity ObjectivesDesigner [[{The ObjectivesDesigner is responsible for defining high-level goals and objectives that orient the entire impact evaluation system.}]]
+    entity ScopesDesigner [[{The ScopesDesigner is responsible for defining and structuring impact scopes that divide projects into measurable units.}]]
+    entity MeasurementDesigner [[{The MeasurementDesigner is responsible for designing measurement methodologies and configuring how measurements should be taken.}]]
+    entity EvaluationDesigner [[{The EvaluationDesigner is responsible for designing evaluation criteria and methodologies for assessing measurements.}]]
+    entity RewardDesigner [[{The RewardDesigner is responsible for designing reward policies and distribution mechanisms for impact contributors.}]]
+    entity Treasury [[{The Treasury is a pool of funds available for rewarding impact contributions and funding operations.}]]
 
     RewardDesigner -r[hidden]-> Treasury
     ScopesDesigner -r[hidden]-> MeasurementDesigner
@@ -83,20 +88,20 @@ package "Governance (meta)" as Governance {
 
 !if ($isPackageVisible("Impact"))
 package Impact {
-    entity TheoryOfChange
+    entity TheoryOfChange [[{The TheoryOfChange is a framework that describes how and why desired changes are expected to happen in a particular context.}]]
 
-    entity ImpactOrganization {
+    entity ImpactOrganization [[{The ImpactOrganization is an entity that facilitates and oversees impact projects and their contributors.}]] {
         !if ($SHOW_FIELDS)
         organizationDID
         !endif
     }
-    entity ImpactProject {
+    entity ImpactProject [[{The ImpactProject is a specific initiative aimed at creating measurable positive impact within defined scopes.}]] {
         !if ($SHOW_FIELDS)
         organization
         !endif
     }
-    entity ImpactWork
-    dataclass ImpactScope {
+    entity ImpactWork [[{The ImpactWork is the actual work performed by contributors that generates impact within a project.}]]
+    dataclass ImpactScope [[{The ImpactScope is a piece of structured data defining boundaries and timeframes for measuring impact within a project.}]] {
         !if ($SHOW_FIELDS)
         projectUID
         epoch or timeInterval
@@ -114,7 +119,7 @@ package Impact {
         !endif
         !endif
     }
-    dataclass ImpactClaim [[{Vehicle for ImpactContributor entities to communicate outcomes to Measurers}]] {
+    dataclass ImpactClaim [[{The ImpactClaim is a structured piece of data serving as a vehicle for ImpactContributor entities to group communicate outcomes to Measurers}]] {
         !if ($SHOW_FIELDS)
         scope
         timeInterval
@@ -134,7 +139,7 @@ package Impact {
         !endif
     }
 
-    entity ImpactContributor {
+    entity ImpactContributor [[{The ImpactContributor is a human and/or digital entity that performs work and claims impact within projects.}]] {
         !if ($SHOW_FIELDS)
         workDecisionPolicy
         !endif
@@ -154,7 +159,7 @@ package Impact {
 
 !if ($isPackageVisible("Measure"))
 package Measure {
-    dataclass Measurement {
+    dataclass Measurement [[{The Measurement is a piece of structured data capturing specific indicators and metrics related to impact claims.}]] {
         !if ($SHOW_FIELDS)
         impactClaimId
         indicator
@@ -174,7 +179,7 @@ package Measure {
         !endif
         !endif
     }
-    entity Measurer
+    entity Measurer [[{The Measurer is a human and/or digital entity responsible for taking measurements of impact claims and outcomes.}]]
 
     Measurer "1" --> "*" Measurement : takes
 }
@@ -182,12 +187,12 @@ package Measure {
 
 !if ($isPackageVisible("Evaluate"))
 package Evaluate {
-    dataclass EvaluationResult {
+    dataclass EvaluationResult [[{The EvaluationResult is a piece of structured data describing the output of an Evaluator running an evaluation.}]] {
         !if ($SHOW_FIELDS)
         timestamp
         !endif
     }
-    entity Evaluator
+    entity Evaluator [[{The Evaluator is a human and/or digital entity responsible for evaluating measurements and (optionally) other evaluations, and outputting evaluation results.}]]
 
     Evaluator "1" -d-> "*" EvaluationResult : "calculates    "
     EvaluationResult "*" -u-> "*" Evaluator : "cascaded\nto"
@@ -196,19 +201,19 @@ package Evaluate {
 
 !if ($isPackageVisible("Reward"))
 package Reward {
-    entity RewardCalculator {
+    entity RewardCalculator [[{The RewardCalculator is responsible for calculating reward allocations based on evaluation results and reward policies.}]] {
       !if ($SHOW_FIELDS)
       rewardPolicy
       !endif
     }
-    dataclass RewardAllocation {
+    dataclass RewardAllocation [[{The RewardAllocation is a piece of structured data specifying the amount and recipient of rewards for impact contributions.}]] {
         !if ($SHOW_FIELDS)
         amount
         recipient
         impactClaimId
         !endif
     }
-    entity RewardDistributor
+    entity RewardDistributor [[{The RewardDistributor is responsible for executing the distribution of rewards to impact contributors.}]]
 
     RewardCalculator "1" -d-> "*" RewardAllocation : calculates
     RewardAllocation "*" -r-> "1" RewardDistributor : authorizes
@@ -244,7 +249,7 @@ EvaluationResult -r[hidden]-> RewardDistributor
 !endif
 
 !if ($isPackageVisible("Governance"))
-entity FundingSource
+entity FundingSource [[{The FundingSource is an external entity that provides funds to the treasury for rewarding impact.}]]
 FundingSource "*" -d-> "1" Treasury : funds
 
 !if ($isPackageVisible("Impact"))
@@ -283,7 +288,7 @@ ImpactContributor::workDecisionPolicy "*" <-l[norank]-- "1" RewardCalculator : <
 !endif
 
 !if ($isPackageVisible("Reward"))
-entity ExternalWorld
+entity ExternalWorld [[{The ExternalWorld represents external stakeholders and systems that value and benefit from the impact work.}]]
 ExternalWorld "1" -u-> "*" RewardAllocation : values
 !endif
 

@@ -95,11 +95,19 @@ preserving essential structural relationships, and enable coordination between
 different actors without requiring centralized control or homogenization of
 objectives.
 
+=== Structural Requirements
+
+An effective abstract model must balance abstraction (accommodating diverse approaches) with specificity (enabling meaningful coordination). Key requirements:
+
+- **Modularity**: Independent component development while maintaining coherence
+- **Extensibility**: Incorporating new concepts as the field evolves
+- **Clear Interfaces**: Effective boundary work without requiring deep model knowledge
+
 === Entity Relationship Diagrams
 
-Entity relationship diagramming (ERD) is a well-established technique for examining
-the interactions between entities within a system, so we use that in this
-paper as a way to map out an abstract model of MERIters.
+Entity relationship diagramming (ERD) is a well-established technique for
+tackling the above requirements, so we use that in this paper as a way to map
+out an abstract model of MERIters.
 
 Detailed discussion of this ERD will be presented in chapter 2; however to
 give more immediately clarity on our approach to mapping, it is presented here
@@ -138,53 +146,15 @@ research streams that might not be apparent without shared conceptual
 vocabulary. This connection discovery capability supports more effective
 collaboration and knowledge synthesis.
 
-=== Structural Requirements
-
-The development of an effective abstract model for MERIters requires
-careful attention to structural characteristics that support the facilitative
-capabilities described above. The model must achieve sufficient abstraction to
-accommodate the diversity of approaches within the field while maintaining
-enough specificity to provide meaningful guidance for coordination and
-communication.
-
-Key structural requirements include modularity, which enables different
-components of the model to be developed and refined independently while
-maintaining overall coherence. The model must also exhibit extensibility,
-allowing new concepts and relationships to be incorporated as the field
-evolves. Clarity of interfaces between different model components ensures that
-teams can work effectively at component boundaries without requiring deep
-knowledge of all model details.
-
 == Implications for Field Development
 
 === Theoretical Advancement
 
-The establishment of a shared abstract model creates new possibilities for
-theoretical advancement within the Impact Evaluation field. By providing
-common conceptual foundations, the model enables more systematic comparison of
-different approaches and more rigorous testing of theoretical
-propositions. Research groups can build more effectively on the work of others
-when they share common frameworks for describing their contributions.
+Shared abstract models enable systematic comparison of approaches and rigorous testing of propositions. Common frameworks help researchers build on each other's work and identify gaps for strategic research investment.
 
-The model also supports the development of more sophisticated theoretical
-frameworks by enabling researchers to identify gaps and opportunities for
-theoretical development. When the field's conceptual structure is made
-explicit through abstract modeling, areas requiring further theoretical
-development become more apparent, leading to more strategic research
-investment.
 
 === Practical Implementation
-
-Beyond theoretical benefits, the abstract model provides practical advantages
-for implementation teams and practitioners. Shared vocabulary and conceptual
-frameworks reduce the communication overhead associated with collaboration,
-enabling teams to focus more energy on substantive work rather than
-terminological negotiation.
-
-The model also supports better tool and system interoperability by providing
-common conceptual foundations for technical design decisions. When development
-teams share understanding of core abstractions, the systems they build are
-more likely to be compatible and composable.
+Shared vocabulary reduces collaboration overhead, enabling focus on substantive work. Common abstractions improve tool interoperability and system composability.
 
 == Chapter Roadmap
 
@@ -202,13 +172,15 @@ from third-party evaluation processes.
 Chapter 4 investigates the composability and reusability properties that
 emerge from properly structured abstract models, with particular attention to
 how these properties enable collaboration across different projects and
-organizations. Chapter 5 addresses governance considerations, including the
-concept of meta-MERIters that enable governance of MERIter systems
-through MERIter mechanisms themselves.
+organizations.
 
-Finally, Chapter 6 presents a practical implementation roadmap that connects
-the theoretical foundations developed in earlier chapters to concrete
-development priorities and coordination mechanisms.
+// Chapter 5 addresses governance considerations, including the
+// concept of meta-MERIters that enable governance of MERIter systems
+// through MERIter mechanisms themselves.
+
+// Finally, Chapter 6 presents a practical implementation roadmap that connects
+// the theoretical foundations developed in earlier chapters to concrete
+// development priorities and coordination mechanisms.
 
 ---
 

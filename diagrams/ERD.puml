@@ -189,9 +189,10 @@ package Measure {
     dataclass Measurement [[{The Measurement is a piece of structured data capturing specific indicators and metrics related to impact claims.}]] {
         !if (SHOW_FIELDS == "true")
         impactClaimId
+        description
         indicator
         timeInterval
-        entity
+        URI
         !if (SHOW_EAS_FIELDS == "true")
         --
         uid

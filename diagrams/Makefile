@@ -91,6 +91,10 @@ ERD-EAS.png: ERD.puml Makefile
 	@echo "Generating $@ with all fields including EAS fields..."
 	@plantuml -tpng -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=MERIter EAS Schemas' -pipe < $< > $@
 
+ERD-EAS-measure.png: ERD.puml Makefile
+	@echo "Generating $@ with all fields including EAS fields..."
+	@plantuml -tpng -DSHOW_FIELDS="true" -DSHOW_EAS_FIELDS="true" -D'FULL_TITLE=""' -DVISIBLE_PACKAGES="Measure" -pipe < $< > $@
+
 # Generate ERD with hidden elements (classes, entities, notes)
 ERD-no-elements.svg: ERD.puml Makefile
 	@echo "Generating $@ with hidden elements..."

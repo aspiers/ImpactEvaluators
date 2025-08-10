@@ -52,7 +52,11 @@ npm run build        # Build both CSS and JS
 # Site building
 ./copy-sass.sh       # Copy _sass to _site for sourcemap support
 bundle exec jekyll build  # Build the complete Jekyll site
-bundle exec jekyll serve  # Serve site locally for development
+
+# Local development
+bundle exec jekyll serve
+# or with npm
+npm run serve
 ```
 
 

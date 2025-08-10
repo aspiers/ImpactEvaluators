@@ -40,6 +40,7 @@
     "watch:js": "onchange \"assets/js/**/*.js\" -e \"assets/js/main.min.js\" -- npm run build:js",
     "build:js": "npm run uglify",
     "build": "npm run build:css && npm run build:js",
-    "watch": "npm run watch:css & npm run watch:js"
+    "watch": "npm run watch:css & npm run watch:js",
+    "serve": "bundle exec jekyll serve"
   }
 }

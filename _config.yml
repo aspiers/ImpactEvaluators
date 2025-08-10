@@ -15,7 +15,7 @@ name                     : &name "Your Name"
 #description              : &description "personal description"
 description              : "Aligning work on MERIters via semi-formal models and maps"
 url                      : https://aspiers.github.io
-baseurl                  : "/ImpactEvaluators"
+baseurl                  : ""
 repository               : "aspiers/ImpactEvaluators"
 
 # Site Author - The following control what appear as part of the author content on the side bar.

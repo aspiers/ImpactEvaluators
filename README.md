@@ -57,7 +57,16 @@ bundle exec jekyll build  # Build the complete Jekyll site
 bundle exec jekyll serve
 # or with npm
 npm run serve
+
+# Alternative: Local development with Docker
+docker-compose up
 ```
+
+#### Configuration Notes
+
+- **Local Development**: Uses `_config.yml` with `baseurl: ""` for localhost
+- **Production**: GitHub Actions automatically sets the correct baseurl using `--baseurl "${{ steps.pages.outputs.base_path }}"`
+- No separate configuration files needed - the workflow handles deployment baseurl dynamically
 
 
 ## Requirements
